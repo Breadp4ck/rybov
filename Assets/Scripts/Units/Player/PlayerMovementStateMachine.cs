@@ -7,7 +7,6 @@ using Zenject;
 
 public class PlayerMovementStateMachine : MonoBehaviour, IStateMachine
 {
-    [Inject]
     public IInputSystem InputSystem { get; private set; }
     
     public MovementState CurrentState { get; private set; }
@@ -19,6 +18,12 @@ public class PlayerMovementStateMachine : MonoBehaviour, IStateMachine
 
     [SerializeField] private float _walkSpeed;
 
+    [Inject]
+    private void Construct(IInputSystem inputSystem)
+    {
+        InputSystem = inputSystem;
+    }
+    
     private void Start()
     {
         // Init states.

@@ -17,9 +17,9 @@ public class KeyboardInput : IInputSystem
         { InputAction.Jump, KeyCode.Space }
     };
     
-    public Vector2 GetMovementDirection()
+    public Vector2 GetMovementDirectionNormalized()
     {
-        return new Vector2(GetHorizontalAxisRaw(), GetVerticalAxisRaw());
+        return new Vector2(GetHorizontalAxisRaw(), GetVerticalAxisRaw()).normalized;
     }
 
     public bool IsActionPressed(InputAction action)

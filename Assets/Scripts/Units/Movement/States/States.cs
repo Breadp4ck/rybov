@@ -36,7 +36,7 @@ public class IdleState : MovementState
 
     public override void Update()
     {
-        Vector2 movementDirection = StateMachine.InputSystem.GetMovementDirection();
+        Vector2 movementDirection = StateMachine.InputSystem.GetMovementDirectionNormalized();
         if (movementDirection.SqrMagnitude() > 0.0f)
         {
             SetState(MovementStateType.Walk);
@@ -57,7 +57,7 @@ public class WalkState : MovementState
 
     public override void Update()
     {
-        Vector2 movementDirection = StateMachine.InputSystem.GetMovementDirection();
+        Vector2 movementDirection = StateMachine.InputSystem.GetMovementDirectionNormalized();
         if (movementDirection.SqrMagnitude() == 0.0f)
         {
             SetState(MovementStateType.Idle);
@@ -66,7 +66,8 @@ public class WalkState : MovementState
 
     public override void FixedUpdate()
     {
-        Vector2 movementDirection = StateMachine.InputSystem.GetMovementDirection();
+        Vector2 movementDirection = StateMachine.InputSystem.GetMovementDirectionNormalized();
+        Debug.Log(movementDirection);
         Transform.Translate(movementDirection * _speed * Time.fixedDeltaTime);
     }
 }

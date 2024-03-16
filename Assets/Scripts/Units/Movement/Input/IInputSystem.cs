@@ -6,7 +6,7 @@ public interface IInputSystem
     /// Get normalized direction of the movement
     /// </summary>
     /// <returns>Normalized Vector3 of the movement</returns>
-    Vector2 GetMovementDirection();
+    Vector2 GetMovementDirectionNormalized();
 
     /// <summary>
     /// Check if the button associated action is pressed

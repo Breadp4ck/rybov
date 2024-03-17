@@ -5,6 +5,8 @@ using UnityEngine;
 [UsedImplicitly]
 public class KeyboardInput : IInputSystem
 {
+    public Vector2 LookDirection { get; private set; } = new(1, 0);
+    
     /// <summary>
     /// Contains keycodes for the InputActions
     /// </summary>
@@ -14,12 +16,21 @@ public class KeyboardInput : IInputSystem
         { InputAction.MoveDown, KeyCode.S },
         { InputAction.MoveLeft, KeyCode.A },
         { InputAction.MoveRight, KeyCode.D },
-        { InputAction.Jump, KeyCode.Space }
+        
+        { InputAction.Dash, KeyCode.LeftControl },
+        { InputAction.Run, KeyCode.LeftShift}
     };
     
-    public Vector2 GetMovementDirectionNormalized()
+    public Vector2 GetMovementDirection()
     {
-        return new Vector2(GetHorizontalAxisRaw(), GetVerticalAxisRaw()).normalized;
+        Vector2 direction = new(GetHorizontalAxisRaw(), GetVerticalAxisRaw());
+
+        if (direction.SqrMagnitude() > 0)
+        {
+            LookDirection = direction.normalized;
+        }
+
+        return direction.normalized;
     }
 
     public bool IsActionPressed(InputAction action)
@@ -37,7 +48,7 @@ public class KeyboardInput : IInputSystem
     {
         int left = IsActionPressed(InputAction.MoveLeft) ? -1 : 0;
         int right = IsActionPressed(InputAction.MoveRight) ? 1 : 0;
-
+        
         return left + right;
     }
 

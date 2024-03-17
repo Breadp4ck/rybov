@@ -153,7 +153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _managedTransform: {fileID: 272508369}
-  _walkSpeed: 5
+  _walkSpeed: 4
+  _runSpeed: 5.5
+  _dashSpeed: 7
+  _dashDurationSeconds: 1
 --- !u!4 &272508369
 Transform:
   m_ObjectHideFlags: 0

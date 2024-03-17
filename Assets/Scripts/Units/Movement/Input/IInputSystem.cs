@@ -3,10 +3,15 @@
 public interface IInputSystem
 {
     /// <summary>
+    /// Get the direction the player is looking at (last input direction)
+    /// </summary>
+    Vector2 LookDirection { get; }
+    
+    /// <summary>
     /// Get normalized direction of the movement
     /// </summary>
     /// <returns>Normalized Vector3 of the movement</returns>
-    Vector2 GetMovementDirectionNormalized();
+    Vector2 GetMovementDirection();
 
     /// <summary>
     /// Check if the button associated action is pressed

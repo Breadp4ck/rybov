@@ -12,11 +12,21 @@ public class PlayerMovementStateMachine : MonoBehaviour, IStateMachine
     public MovementState CurrentState { get; private set; }
 
     public IEnumerable<MovementState> States { get; private set; }
+    
+    public event Action OnStateChangedEvent;
 
     public Transform ManagedTransform => _managedTransform;
     [SerializeField] private Transform _managedTransform;
 
+    [Header("Walk")]
     [SerializeField] private float _walkSpeed;
+    
+    [Header("Walk")]
+    [SerializeField] private float _runSpeed;
+    
+    [Header("Dash")]
+    [SerializeField] private float _dashSpeed;
+    [SerializeField] private float _dashDurationSeconds;
 
     [Inject]
     private void Construct(IInputSystem inputSystem)
@@ -30,10 +40,12 @@ public class PlayerMovementStateMachine : MonoBehaviour, IStateMachine
         States = new MovementState[]
         {
             new IdleState(this),
-            new WalkState(this, _walkSpeed)
+            new WalkState(this, _walkSpeed),
+            new RunState(this, _runSpeed),
+            new DashState(this, new DashState.DashInfo(_dashSpeed, _dashDurationSeconds)),
         };
-        
-        CurrentState = States.FirstOrDefault(x => x.State == MovementStateType.Idle);
+
+        TrySetState(MovementStateType.Idle);
     }
 
     private void Update()
@@ -56,6 +68,10 @@ public class PlayerMovementStateMachine : MonoBehaviour, IStateMachine
         }
         
         CurrentState = state;
+        CurrentState.Start();
+        
+        OnStateChangedEvent?.Invoke();
+        
         return true;
     }
 }

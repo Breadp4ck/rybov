@@ -1,3 +1,3 @@
-# rybov
+# Rybov
 
-Game about fish for [FishFest](https://itch.io/jam/fishfest) game jam.
+Игра про рыбу для игрового джема [FishFest](https://itch.io/jam/fishfest).

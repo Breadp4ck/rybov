@@ -21,7 +21,7 @@ namespace Zenject
 
         protected override void OnDestroyed(TValue item)
         {
-            GameObject.Destroy(item.gameObject);
+            Object.Destroy(item.gameObject);
         }
 
         protected override void OnDespawned(TValue item)
@@ -62,7 +62,7 @@ namespace Zenject
 
         protected override void OnDestroyed(TValue item)
         {
-            GameObject.Destroy(item.gameObject);
+            Object.Destroy(item.gameObject);
         }
 
         protected override void OnDespawned(TValue item)
@@ -103,7 +103,7 @@ namespace Zenject
 
         protected override void OnDestroyed(TValue item)
         {
-            GameObject.Destroy(item.gameObject);
+            Object.Destroy(item.gameObject);
         }
 
         protected override void OnDespawned(TValue item)
@@ -144,7 +144,7 @@ namespace Zenject
 
         protected override void OnDestroyed(TValue item)
         {
-            GameObject.Destroy(item.gameObject);
+            Object.Destroy(item.gameObject);
         }
 
         protected override void OnDespawned(TValue item)
@@ -185,7 +185,7 @@ namespace Zenject
 
         protected override void OnDestroyed(TValue item)
         {
-            GameObject.Destroy(item.gameObject);
+            Object.Destroy(item.gameObject);
         }
 
         protected override void OnDespawned(TValue item)
@@ -226,7 +226,7 @@ namespace Zenject
 
         protected override void OnDestroyed(TValue item)
         {
-            GameObject.Destroy(item.gameObject);
+            Object.Destroy(item.gameObject);
         }
 
         protected override void OnDespawned(TValue item)
@@ -267,7 +267,7 @@ namespace Zenject
 
         protected override void OnDestroyed(TValue item)
         {
-            GameObject.Destroy(item.gameObject);
+            Object.Destroy(item.gameObject);
         }
 
         protected override void OnDespawned(TValue item)
@@ -308,7 +308,7 @@ namespace Zenject
 
         protected override void OnDestroyed(TValue item)
         {
-            GameObject.Destroy(item.gameObject);
+            Object.Destroy(item.gameObject);
         }
 
         protected override void OnDespawned(TValue item)
@@ -349,7 +349,7 @@ namespace Zenject
 
         protected override void OnDestroyed(TValue item)
         {
-            GameObject.Destroy(item.gameObject);
+            Object.Destroy(item.gameObject);
         }
 
         protected override void OnDespawned(TValue item)

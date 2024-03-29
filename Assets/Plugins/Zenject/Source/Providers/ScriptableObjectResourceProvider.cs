@@ -6,6 +6,7 @@ using System.Linq;
 using ModestTree;
 using UnityEngine;
 using Zenject.Internal;
+using Object = UnityEngine.Object;
 
 namespace Zenject
 {
@@ -63,7 +64,7 @@ namespace Zenject
 
                 for (int i = 0; i < objects.Length; i++)
                 {
-                    buffer.Add(ScriptableObject.Instantiate(objects[i]));
+                    buffer.Add(Object.Instantiate(objects[i]));
                 }
             }
             else

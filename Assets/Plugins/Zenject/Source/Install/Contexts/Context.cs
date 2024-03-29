@@ -181,7 +181,7 @@ namespace Zenject
                 using (ProfileTimers.CreateTimedBlock("GameObject.Instantiate"))
 #endif
                 {
-                    installerGameObject = GameObject.Instantiate(installerPrefab.gameObject);
+                    installerGameObject = Instantiate(installerPrefab.gameObject);
                 }
 
                 installerGameObject.transform.SetParent(transform, false);

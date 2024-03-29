@@ -5,6 +5,7 @@ using System.Linq;
 using ModestTree;
 using ModestTree.Util;
 using Zenject.Internal;
+using Object = UnityEngine.Object;
 #if !NOT_UNITY3D
 using UnityEngine;
 #endif
@@ -1730,25 +1731,25 @@ namespace Zenject
             {
                 if (gameObjectBindInfo.Position.HasValue && gameObjectBindInfo.Rotation.HasValue)
                 {
-                    gameObj = GameObject.Instantiate(
+                    gameObj = Object.Instantiate(
                         prefabAsGameObject, gameObjectBindInfo.Position.Value, gameObjectBindInfo.Rotation.Value, initialParent);
                     positionAndRotationWereSet = true;
                 }
                 else if (gameObjectBindInfo.Position.HasValue)
                 {
-                    gameObj = GameObject.Instantiate(
+                    gameObj = Object.Instantiate(
                         prefabAsGameObject, gameObjectBindInfo.Position.Value, prefabAsGameObject.transform.rotation, initialParent);
                     positionAndRotationWereSet = true;
                 }
                 else if (gameObjectBindInfo.Rotation.HasValue)
                 {
-                    gameObj = GameObject.Instantiate(
+                    gameObj = Object.Instantiate(
                         prefabAsGameObject, prefabAsGameObject.transform.position, gameObjectBindInfo.Rotation.Value, initialParent);
                     positionAndRotationWereSet = true;
                 }
                 else
                 {
-                    gameObj = GameObject.Instantiate(prefabAsGameObject, initialParent);
+                    gameObj = Object.Instantiate(prefabAsGameObject, initialParent);
                     positionAndRotationWereSet = false;
                 }
             }
@@ -3328,7 +3329,7 @@ namespace Zenject
             Assert.That(objects.Length == 1,
                 "Found multiple scriptable objects at path '{0}' when only 1 was expected with type '{1}'", resourcePath, scriptableObjectType);
 
-            var newObj = ScriptableObject.Instantiate(objects.Single());
+            var newObj = Object.Instantiate(objects.Single());
 
             InjectExplicit(newObj, extraArgs);
 

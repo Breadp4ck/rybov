@@ -2,6 +2,7 @@
 
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Zenject
 {
@@ -44,7 +45,7 @@ namespace Zenject
 
             public void Dispose()
             {
-                GameObject.Destroy(_gameObject);
+                Object.Destroy(_gameObject);
             }
         }
     }

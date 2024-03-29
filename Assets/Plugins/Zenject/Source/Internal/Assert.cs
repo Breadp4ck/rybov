@@ -132,7 +132,7 @@ namespace ModestTree
 #endif
         public static void IsEqual(object left, object right, Func<string> messageGenerator)
         {
-            if (!object.Equals(left, right))
+            if (!Equals(left, right))
             {
                 left = left ?? "<NULL>";
                 right = right ?? "<NULL>";
@@ -159,7 +159,7 @@ namespace ModestTree
 #endif
         public static void IsEqual(object left, object right, string message)
         {
-            if (!object.Equals(left, right))
+            if (!Equals(left, right))
             {
                 left = left ?? "<NULL>";
                 right = right ?? "<NULL>";
@@ -182,7 +182,7 @@ namespace ModestTree
 #endif
         public static void IsNotEqual(object left, object right, Func<string> messageGenerator)
         {
-            if(object.Equals(left, right))
+            if(Equals(left, right))
             {
                 left = left ?? "<NULL>";
                 right = right ?? "<NULL>";
@@ -290,7 +290,7 @@ namespace ModestTree
 #endif
         public static void IsNotEqual(object left, object right, string message)
         {
-            if (object.Equals(left, right))
+            if (Equals(left, right))
             {
                 left = left ?? "<NULL>";
                 right = right ?? "<NULL>";
@@ -305,7 +305,7 @@ namespace ModestTree
         {
             if (!condition)
             {
-                ModestTree.Log.Warn("Warning!  See call stack");
+                Log.Warn("Warning!  See call stack");
             }
         }
 
@@ -316,7 +316,7 @@ namespace ModestTree
         {
             if (!condition)
             {
-                ModestTree.Log.Warn("Warning Assert hit! " + messageGenerator());
+                Log.Warn("Warning Assert hit! " + messageGenerator());
             }
         }
 
@@ -378,7 +378,7 @@ namespace ModestTree
         {
             if (!condition)
             {
-                ModestTree.Log.Warn("Warning Assert hit! " + message);
+                Log.Warn("Warning Assert hit! " + message);
             }
         }
 

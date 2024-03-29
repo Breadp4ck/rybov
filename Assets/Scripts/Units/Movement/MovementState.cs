@@ -1,14 +1,12 @@
-﻿using Inputs;
-using Movement;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Movement
+namespace Units.Movement
 {
     public abstract class MovementState
     {
         protected readonly IStateMachine StateMachine;
 
-        protected Transform Transform => StateMachine.ManagedTransform;
+        protected Transform ManagedTransform => StateMachine.ManagedTransform;
 
         protected MovementState(IStateMachine stateMachine)
         {
@@ -17,8 +15,10 @@ namespace Movement
 
         public virtual void Start() { }
 
-        public virtual void Update() { }
+        public virtual void Update(float deltaSeconds) { }
 
-        public virtual void TryChangeState() { }
+        public virtual void TryChangeState(float deltaSeconds) { }
+        
+        public virtual void Stop() { }
     }
 }

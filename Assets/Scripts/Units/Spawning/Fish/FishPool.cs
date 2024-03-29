@@ -45,6 +45,16 @@ namespace Units.Spawning
             FishDroppedEvent?.Invoke();
         }
 
+        /// <summary>
+        /// Carry off the fish from the GameFieldBorder.
+        /// </summary>
+        public static void CarryAwayFish(StealableFish fish)
+        {
+            StolenFishes.Remove(fish);
+            
+            UnityEngine.Object.Destroy(fish.gameObject);
+        }
+
         public static StealableFish GetClosestTo(Vector2 position)
         {
             StealableFish closestStealableFish = null;

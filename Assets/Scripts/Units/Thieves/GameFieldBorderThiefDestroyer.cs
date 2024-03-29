@@ -1,5 +1,6 @@
 using System;
 using Units;
+using Units.Spawning;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -12,7 +13,8 @@ public class GameFieldBorderThiefDestroyer : MonoBehaviour
             return;
         }
         
-        Destroy(thief.CarriedStealableFish.gameObject);
+        FishPool.CarryAwayFish(thief.CarriedStealableFish);
+        
         Destroy(thief.GameObject);
     }
 }

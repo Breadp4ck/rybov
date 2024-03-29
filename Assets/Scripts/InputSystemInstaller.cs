@@ -1,6 +1,7 @@
+using Inputs;
 using Zenject;
 
-public class InputInjector : MonoInstaller
+public class InputSystemInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {   

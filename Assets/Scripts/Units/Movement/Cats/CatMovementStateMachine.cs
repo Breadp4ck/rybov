@@ -60,7 +60,7 @@ namespace Units.Movement.Cat
         {
             SetTargetFish();
             
-            FishPool.FishDroppedEvent += OnFishStolen;
+            FishPool.FishStolenEvent += OnFishStolen;
         }
         
         public override void Update(float deltaTime)

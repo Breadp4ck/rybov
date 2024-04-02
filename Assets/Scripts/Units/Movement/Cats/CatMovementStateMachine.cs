@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Units.Spawning;
 using UnityEngine;
 
@@ -10,7 +7,7 @@ namespace Units.Movement.Cat
     
     public class WaitForFishSpawn : MovementState
     {
-        public WaitForFishSpawn(IStateMachine stateMachine) : base(stateMachine) { }
+        public WaitForFishSpawn(StateMachine stateMachine) : base(stateMachine) { }
         
         public override void Start()
         {
@@ -48,7 +45,9 @@ namespace Units.Movement.Cat
         
         private readonly IFishThief _thief;
         
-        public ChaseForFishState(IStateMachine stateMachine, IFishThief thief, float speed, float takeFishRange) : base(stateMachine)
+        private IMovementHandler MovementHandler => StateMachine.MovementHandler;
+        
+        public ChaseForFishState(StateMachine stateMachine, IFishThief thief, float speed, float takeFishRange) : base(stateMachine)
         {
             _thief = thief;
             
@@ -59,20 +58,11 @@ namespace Units.Movement.Cat
         public override void Start()
         {
             SetTargetFish();
+
+            MovementHandler.SetSpeed(_speed);
+            MovementHandler.Start();
             
             FishPool.FishStolenEvent += OnFishStolen;
-        }
-        
-        public override void Update(float deltaTime)
-        {
-            if (_targetFish == null)
-            {
-                SetTargetFish();
-                return;
-            }
-            
-            Vector2 direction = (_targetFish.transform.position - StateMachine.ManagedTransform.position).normalized;
-            StateMachine.ManagedTransform.Translate(direction * (_speed * deltaTime));
         }
 
         public override void TryChangeState(float deltaSeconds)
@@ -83,17 +73,19 @@ namespace Units.Movement.Cat
                 return;
             }
 
-            if (Vector2.Distance(_targetFish.transform.position, StateMachine.ManagedTransform.position) > _takeFishRange)
+            if (Vector2.Distance(_targetFish.transform.position, MovementHandler.Position) > _takeFishRange)
             {
                 return;
             }
 
-            FishPool.StealFish(_targetFish, _thief);
+            FishPool.TryStealFish(_targetFish, _thief);
             StateMachine.TryChangeState<RunawayWithFishState>();
         }
 
         public override void Stop()
         {
+            MovementHandler.Stop();
+            
             FishPool.FishStolenEvent -= OnFishStolen;
         }
 
@@ -108,12 +100,15 @@ namespace Units.Movement.Cat
         
         private void SetTargetFish()
         {
-            _targetFish = FishPool.GetClosestTo(StateMachine.ManagedTransform.position);
+            _targetFish = FishPool.GetClosestTo(MovementHandler.Position);
 
             if (_targetFish == null)
             {
                 StateMachine.TryChangeState<WaitForFishSpawn>();
+                return;
             }
+            
+            MovementHandler.SetTarget(_targetFish.transform);
         }
     }
 
@@ -124,34 +119,33 @@ namespace Units.Movement.Cat
     {
         private readonly float _speed;
         
-        private Vector2 _direction;
+        private IMovementHandler MovementHandler => StateMachine.MovementHandler;
         
-        public RunawayWithFishState(IStateMachine stateMachine, float speed) : base(stateMachine)
+        public RunawayWithFishState(StateMachine stateMachine, float speed) : base(stateMachine)
         {
             _speed = speed;
         }
 
         public override void Start()
         {
-            _direction = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
+            Vector2 direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+
+            MovementHandler.Start();
+            MovementHandler.SetSpeed(_speed);
+            MovementHandler.SetTarget(null);
+            MovementHandler.SetDestination(direction * 10f); // TODO: Work together w/ Issue #26
         }
 
-        public override void Update(float deltaSeconds)
+        public override void Stop()
         {
-            StateMachine.ManagedTransform.Translate(_direction * (_speed * deltaSeconds));
+            MovementHandler.Stop();
         }
     }
     
     #endregion
     
-    public class CatMovementStateMachine : MonoBehaviour, IStateMachine
+    public class CatMovementStateMachine : StateMachine
     {
-        public MovementState CurrentState { get; private set; }
-
-        public IEnumerable<MovementState> States { get; private set; } = Enumerable.Empty<MovementState>();
-
-        public event Action StateChangedEvent;
-    
         [SerializeField] private Units.Cat _cat;
         
         public Transform ManagedTransform => _managedTransform;
@@ -163,7 +157,12 @@ namespace Units.Movement.Cat
         
         [Header("Runaway With Fish")]
         [SerializeField] private float _runawaySpeed;
-        
+
+        private void Awake()
+        {
+            MovementHandler = GetComponent<IMovementHandler>();
+        }
+
         private void Start()
         {
             // Init states.
@@ -184,23 +183,10 @@ namespace Units.Movement.Cat
             CurrentState?.Update(Time.deltaTime);
             CurrentState?.TryChangeState(Time.deltaTime);
         }
-        
-        public bool TryChangeState<T>() where T : MovementState
-        {
-            T newState = States.OfType<T>().FirstOrDefault();
-            if (newState != null)
-            {
-                CurrentState?.Stop();
-                CurrentState = newState;
-                CurrentState.Start();
-    
-                StateChangedEvent?.Invoke();
-        
-                return true;
-            }
 
-            Debug.LogError($"State of type {typeof(T)} not found in state machine {typeof(CatMovementStateMachine)}.");
-            return false;
+        private void FixedUpdate()
+        {
+            CurrentState?.FixedUpdate(Time.fixedDeltaTime);
         }
     }
    

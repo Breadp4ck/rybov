@@ -1,14 +1,10 @@
-﻿using UnityEngine;
-
-namespace Units.Movement
+﻿namespace Units.Movement
 {
     public abstract class MovementState
     {
-        protected readonly IStateMachine StateMachine;
-
-        protected Transform ManagedTransform => StateMachine.ManagedTransform;
-
-        protected MovementState(IStateMachine stateMachine)
+        protected readonly StateMachine StateMachine;
+        
+        protected MovementState(StateMachine stateMachine)
         {
             StateMachine = stateMachine;
         }
@@ -16,6 +12,8 @@ namespace Units.Movement
         public virtual void Start() { }
 
         public virtual void Update(float deltaSeconds) { }
+        
+        public virtual void FixedUpdate(float deltaSeconds) { }
 
         public virtual void TryChangeState(float deltaSeconds) { }
         

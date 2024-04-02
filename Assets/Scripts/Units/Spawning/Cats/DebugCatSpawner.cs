@@ -6,7 +6,7 @@ namespace Units.Spawning
     {
         [SerializeField] private GameObject _catPrefab;
         [SerializeField] private Camera _camera;
-        
+
         private void Update()
         {
             if (Input.GetMouseButtonDown(0) == false)

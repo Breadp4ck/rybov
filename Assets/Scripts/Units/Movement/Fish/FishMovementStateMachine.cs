@@ -84,7 +84,7 @@ namespace Units.Movement.Fish
 
         public override void Update(float deltaSeconds)
         {
-            ManagedTransform.Translate(_direction * _distance * deltaSeconds);
+            ManagedTransform.Translate(_direction * (_distance * deltaSeconds));
         }
 
         public override void TryChangeState(float deltaSeconds)

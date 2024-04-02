@@ -60,6 +60,11 @@ namespace Units.Movement
 
         public void SetDestination(Vector3 destination)
         {
+            if (_agent.enabled == false)
+            {
+                return;
+            }
+            
             _agent.SetDestination(destination);
         }
     }

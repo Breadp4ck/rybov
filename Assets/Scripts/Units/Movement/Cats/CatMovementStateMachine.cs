@@ -1,5 +1,7 @@
+using System;
 using Units.Spawning;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Units.Movement.Cat
 {
@@ -92,7 +94,7 @@ namespace Units.Movement.Cat
         private void OnFishStolen()
         {
             // If fish that we`re chasing is taken by someone else.
-            if (_targetFish.Thief != _thief)
+            if (_targetFish == null || _targetFish.Thief != _thief)
             {
                 SetTargetFish();
             }
@@ -100,15 +102,22 @@ namespace Units.Movement.Cat
         
         private void SetTargetFish()
         {
-            _targetFish = FishPool.GetClosestTo(MovementHandler.Position);
-
-            if (_targetFish == null)
+            try
             {
-                StateMachine.TryChangeState<WaitForFishSpawn>();
-                return;
-            }
+                _targetFish = FishPool.GetClosestTo(MovementHandler.Position);
+
+                if (_targetFish == null)
+                {
+                    StateMachine.TryChangeState<WaitForFishSpawn>();
+                    return;
+                }
             
-            MovementHandler.SetTarget(_targetFish.transform);
+                MovementHandler.SetTarget(_targetFish.transform);
+            }
+            catch (Exception)
+            {
+                // ignored.
+            }
         }
     }
 

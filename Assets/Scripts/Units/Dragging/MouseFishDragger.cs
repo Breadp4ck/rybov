@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Inputs;
 using UnityEngine;
 using Zenject;
@@ -46,9 +47,13 @@ namespace Units.Dragging
 
             if (_inputSystem.IsActionUp(InputAction.RightClick) == true)
             {
-                if (_draggable != null)
+                try
                 {
                     _draggable.StopDrag();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning("Failed to stop dragging: " + e.Message);
                 }
                 
                 _draggable = null;

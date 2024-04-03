@@ -7,6 +7,8 @@ namespace Units.Spawning
         [SerializeField] private GameObject _catPrefab;
         [SerializeField] private Camera _camera;
 
+        private Vector3 _mouseWorldPosition;
+        
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.C) == false)
@@ -14,15 +16,15 @@ namespace Units.Spawning
                 return;
             }
             
-            Vector3 worldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-            worldPosition.z = _camera.nearClipPlane;
+            _mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+            _mouseWorldPosition.z = _camera.nearClipPlane;
             
-            Spawn(worldPosition);
+            Spawn(_catPrefab);
         }
 
-        public void Spawn(Vector2 position)
+        public void Spawn(GameObject prefab)
         {
-            Instantiate(_catPrefab, position, Quaternion.identity);
+            Instantiate(prefab, _mouseWorldPosition, Quaternion.identity);
         }
     }
 }

@@ -64,10 +64,12 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: -1
     - _BUILTIN_QueueOffset: 0
+    - _CausticOpacity: 0.1
+    - _CausticScale: 0.15
     - _EnableExternalAlpha: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RefractionStrength: 0.095
+    - _RefractionStrength: 0.03
     - _WaterSpeed: 0.03
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

@@ -4,6 +4,6 @@ namespace Units.Spawning
 {
     public interface ISpawner
     {
-        void Spawn(Vector2 position);
+        void Spawn(GameObject prefab);
     }
 }

@@ -7,32 +7,24 @@ namespace Inputs
     [UsedImplicitly]
     public class KeyboardInput : IInputSystem
     {
-        public Vector2 LookDirection { get; private set; } = new(1, 0);
-
         /// <summary>
         /// Contains keycodes for the InputActions
         /// </summary>
         private readonly Dictionary<InputAction, KeyCode> _keyCodes = new()
         {
-            { InputAction.MoveUp, KeyCode.W },
-            { InputAction.MoveDown, KeyCode.S },
-            { InputAction.MoveLeft, KeyCode.A },
-            { InputAction.MoveRight, KeyCode.D },
-
-            { InputAction.Dash, KeyCode.LeftControl },
-            { InputAction.Run, KeyCode.LeftShift }
+            { InputAction.LeftClick, KeyCode.Mouse0 },
+            { InputAction.RightClick, KeyCode.Mouse1 }
         };
 
-        public Vector2 GetMovementDirection()
+        public bool IsActionDown(InputAction action)
         {
-            Vector2 direction = new(GetHorizontalAxisRaw(), GetVerticalAxisRaw());
-
-            if (direction.SqrMagnitude() > 0)
+            if (_keyCodes.TryGetValue(action, out KeyCode keyCode) == true)
             {
-                LookDirection = direction.normalized;
+                return Input.GetKeyDown(keyCode);
             }
 
-            return direction.normalized;
+            Debug.LogError($"Can`t find KeyCode for {action} action.");
+            return false;
         }
 
         public bool IsActionPressed(InputAction action)
@@ -46,20 +38,15 @@ namespace Inputs
             return false;
         }
 
-        private float GetHorizontalAxisRaw()
+        public bool IsActionUp(InputAction action)
         {
-            int left = IsActionPressed(InputAction.MoveLeft) ? -1 : 0;
-            int right = IsActionPressed(InputAction.MoveRight) ? 1 : 0;
+            if (_keyCodes.TryGetValue(action, out KeyCode keyCode) == true)
+            {
+                return Input.GetKeyUp(keyCode);
+            }
 
-            return left + right;
-        }
-
-        private float GetVerticalAxisRaw()
-        {
-            int down = IsActionPressed(InputAction.MoveDown) ? -1 : 0;
-            int up = IsActionPressed(InputAction.MoveUp) ? 1 : 0;
-
-            return down + up;
+            Debug.LogError($"Can`t find KeyCode for {action} action.");
+            return false;
         }
     }
 }

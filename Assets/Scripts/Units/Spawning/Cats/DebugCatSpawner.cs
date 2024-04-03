@@ -9,7 +9,7 @@ namespace Units.Spawning
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0) == false)
+            if (Input.GetKeyDown(KeyCode.C) == false)
             {
                 return;
             }

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace Units.Movement
@@ -21,7 +20,7 @@ namespace Units.Movement
             _agent.updateUpAxis = false;
         }
         
-        public void Start()
+        public void Init()
         {
             _agent.enabled = true;
             _agent.isStopped = false;

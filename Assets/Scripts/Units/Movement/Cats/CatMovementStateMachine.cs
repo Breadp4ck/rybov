@@ -1,4 +1,5 @@
 using System;
+using Units.Movement.Shared;
 using Units.Spawning;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -62,7 +63,7 @@ namespace Units.Movement.Cat
             SetTargetFish();
 
             MovementHandler.SetSpeed(_speed);
-            MovementHandler.Start();
+            MovementHandler.Init();
             
             FishPool.FishStolenEvent += OnFishStolen;
         }
@@ -139,7 +140,7 @@ namespace Units.Movement.Cat
         {
             Vector2 direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
 
-            MovementHandler.Start();
+            MovementHandler.Init();
             MovementHandler.SetSpeed(_speed);
             MovementHandler.SetTarget(null);
             MovementHandler.SetDestination(direction * 10f); // TODO: Work together w/ Issue #26
@@ -157,15 +158,15 @@ namespace Units.Movement.Cat
     {
         [SerializeField] private Units.Cat _cat;
         
-        public Transform ManagedTransform => _managedTransform;
-        [SerializeField] private Transform _managedTransform;
-        
         [Header("Pilfering")]
         [SerializeField] private float _pilferSpeed;
         [SerializeField] private float _takeFishRange;
         
         [Header("Runaway With Fish")]
         [SerializeField] private float _runawaySpeed;
+        
+        [Header("Kick Out")]
+        [SerializeField] private float _kickOutSpeed;
 
         private void Awake()
         {
@@ -179,7 +180,9 @@ namespace Units.Movement.Cat
             {
                 new WaitForFishSpawn(this),
                 new ChaseForFishState(this, _cat, _pilferSpeed, _takeFishRange),
-                new RunawayWithFishState(this, _runawaySpeed)
+                new RunawayWithFishState(this, _runawaySpeed),
+                new StunnedState(this),
+                new KickedOutState(this, _kickOutSpeed)
             };
 
             // Somehow 'Wait' state causes 'Chase' state to be set twice, so it's better to use by default 'Chase' state

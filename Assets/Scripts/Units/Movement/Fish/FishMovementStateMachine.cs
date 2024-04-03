@@ -83,7 +83,7 @@ namespace Units.Movement.Fish
             
             _fidgetTime = TimeSpan.FromSeconds(_distance / _speed);
 
-            MovementHandler.Start();
+            MovementHandler.Init();
             MovementHandler.SetSpeed(_speed);
             MovementHandler.SetDestination((Vector2) MovementHandler.Position + _direction * _distance);
         }

@@ -1,25 +1,26 @@
-﻿using UnityEngine;
-
-namespace Inputs
+﻿namespace Inputs
 {
     public interface IInputSystem
     {
         /// <summary>
-        /// Get the direction the player is looking at (last input direction)
+        /// Check if the button`s associated action is pressed
         /// </summary>
-        Vector2 LookDirection { get; }
+        /// <param name="action">Action to check</param>
+        /// <returns>True if the action is pressed, false otherwise</returns>
+        bool IsActionDown(InputAction action);
 
         /// <summary>
-        /// Get normalized direction of the movement
-        /// </summary>
-        /// <returns>Normalized Vector3 of the movement</returns>
-        Vector2 GetMovementDirection();
-
-        /// <summary>
-        /// Check if the button associated action is pressed
+        /// Check if the button`s associated action is pressed at this frame
         /// </summary>
         /// <param name="action">Action to check</param>
         /// <returns>True if the action is pressed, false otherwise</returns>
         bool IsActionPressed(InputAction action);
+
+        /// <summary>
+        /// Check if the button`s associated action is released at this frame
+        /// </summary>
+        /// <param name="action">Action to check</param>
+        /// <returns>True if the action is released this frame, false otherwise</returns>
+        bool IsActionUp(InputAction action);
     }
 }

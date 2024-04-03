@@ -6,7 +6,7 @@ namespace Units.Movement
     {
         public Vector3 Position { get; }
 
-        void Start();
+        void Init();
         void Stop();
         
         void SetSpeed(float speed);

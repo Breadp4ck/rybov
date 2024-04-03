@@ -56,7 +56,7 @@ namespace Units
         {
             if (Thief != null)
             {
-                Debug.LogError("Fish is already stolen. Can't drag it.");
+                Debug.Log("Fish is already stolen. Can't drag it.");
                 return;
             }
 
@@ -73,12 +73,17 @@ namespace Units
 
         public void StopDrag()
         {
-            _stateMachine.TryChangeState<FidgetingState>();
-            
             if (_followDragTransformRoutine != null)
             {
                 StopCoroutine(_followDragTransformRoutine);
             }
+            
+            if (Thief != null)
+            {
+                return;
+            }
+            
+            _stateMachine.TryChangeState<FidgetingState>();
         }
         
         private IEnumerator FollowDragTransform(Transform followTransform)

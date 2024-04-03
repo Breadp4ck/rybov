@@ -19,10 +19,10 @@ namespace Zenject
         readonly bool _createNew;
         readonly object _concreteIdentifier;
         readonly Action<InjectContext, object> _instantiateCallback;
-        readonly UnityEngine.Object _resource;
+        readonly Object _resource;
 
         public ScriptableObjectInstanceProvider(
-            UnityEngine.Object resource, Type resourceType,
+            Object resource, Type resourceType,
             DiContainer container, IEnumerable<TypeValuePair> extraArguments,
             bool createNew, object concreteIdentifier,
             Action<InjectContext, object> instantiateCallback)

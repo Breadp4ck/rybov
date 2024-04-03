@@ -14,7 +14,7 @@ namespace Units.Spawning
         public static event Action FishDroppedEvent;
 
         public static List<StealableFish> FreeFishes { get; } = new();
-        public static List<StealableFish> StolenFishes { get; } = new();
+        public static Dictionary<StealableFish, IFishThief> StolenFishes { get; } = new();
 
         public static void CatchFish(StealableFish fish)
         {
@@ -23,21 +23,28 @@ namespace Units.Spawning
             FishCaughtEvent?.Invoke();
         }
         
-        public static void StealFish(StealableFish fish, IFishThief thief)
+        public static bool TryStealFish(StealableFish fish, IFishThief thief)
         {
-            fish.Thief = thief;
-            thief.Steal(fish);
+            if (StolenFishes.ContainsKey(fish) == true)
+            {
+                return false;
+            }
+            
+            fish.OnSteal(thief);
+            thief.OnFishSteal(fish);
             
             FreeFishes.Remove(fish);
-            StolenFishes.Add(fish);
+            StolenFishes.Add(fish, thief);
             
             FishStolenEvent?.Invoke();
+
+            return true;
         }
         
-        public static void DropFish(StealableFish fish)
+        public static void DropFish(StealableFish fish, IFishThief thief)
         {
-            fish.Thief.Drop(fish);
-            fish.Thief = null;
+            fish.OnDrop();
+            thief.OnFishDrop();
 
             StolenFishes.Remove(fish);
             FreeFishes.Add(fish);
@@ -51,8 +58,14 @@ namespace Units.Spawning
         public static void CarryAwayFish(StealableFish fish)
         {
             StolenFishes.Remove(fish);
-            
-            UnityEngine.Object.Destroy(fish.gameObject);
+        }
+        
+        /// <summary>
+        /// Invoked when the fish is out of the GameFieldBorder by itself. 
+        /// </summary>
+        public static void OutOfBorder(StealableFish fish)
+        {
+            FreeFishes.Remove(fish);
         }
 
         public static StealableFish GetClosestTo(Vector2 position)

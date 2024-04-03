@@ -1,31 +1,20 @@
 ﻿using System.Collections;
+using Units.Spawning;
 using UnityEngine;
 
 namespace Units
 {
     public class Cat : MonoBehaviour, IFishThief
     {
-        public GameObject GameObject => gameObject;
-        
-        public StealableFish CarriedStealableFish { get; private set; }
+        public StealableFish CarriedFish { get; private set; }
 
-        [SerializeField] private Vector2 _carryPositionOffset;
+        [SerializeField] private Transform _carryTransform;
 
         private IEnumerator _keepCarriedFishCloseRoutine;
         
-        private void Update()
+        public void OnFishSteal(StealableFish fish)
         {
-            if (CarriedStealableFish == null)
-            {
-                return;
-            }
-            
-            CarriedStealableFish.transform.position = (Vector2) transform.position + _carryPositionOffset;
-        }
-        
-        public void Steal(StealableFish fish)
-        {
-            CarriedStealableFish = fish;
+            CarriedFish = fish;
 
             if (_keepCarriedFishCloseRoutine != null)
             {
@@ -36,9 +25,9 @@ namespace Units
             StartCoroutine(_keepCarriedFishCloseRoutine);
         }
 
-        public void Drop(StealableFish fish)
+        public void OnFishDrop()
         {
-            CarriedStealableFish = null;
+            CarriedFish = null;
 
             if (_keepCarriedFishCloseRoutine != null)
             {
@@ -50,10 +39,23 @@ namespace Units
         {
             while (true)
             {
-                CarriedStealableFish.transform.position = (Vector2) transform.position + _carryPositionOffset;
+                CarriedFish.transform.position = _carryTransform.position;
                 yield return null;
             }
             // ReSharper disable once IteratorNeverReturns
+        }
+
+        public void OnOutOfBorder()
+        {
+            if (CarriedFish == null)
+            {
+                return;
+            }
+            
+            FishPool.CarryAwayFish(CarriedFish);
+            
+            Destroy(CarriedFish.gameObject);
+            Destroy(gameObject);
         }
     }
 }

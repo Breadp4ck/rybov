@@ -1,14 +1,12 @@
-﻿using UnityEngine;
+﻿using Units.Destroying;
 
 namespace Units
 {
-    public interface IFishThief
+    public interface IFishThief : IOutOfBorderInteractable
     {
-        GameObject GameObject { get; }
+        public StealableFish CarriedFish { get; }
         
-        StealableFish CarriedStealableFish { get; }
-        
-        void Steal(StealableFish fish);
-        void Drop(StealableFish fish);
+        void OnFishSteal(StealableFish fish);
+        void OnFishDrop();
     }
 }

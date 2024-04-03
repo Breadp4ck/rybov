@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Units.Movement.Fish
@@ -12,7 +10,7 @@ namespace Units.Movement.Fish
         private readonly TimeSpan _cooldownTime;
         private TimeSpan _currentTime;
         
-        public FidgetingCooldownState(IStateMachine stateMachine, TimeSpan cooldownTime) : base(stateMachine)
+        public FidgetingCooldownState(StateMachine stateMachine, TimeSpan cooldownTime) : base(stateMachine)
         {
             _cooldownTime = cooldownTime;
         }
@@ -20,6 +18,8 @@ namespace Units.Movement.Fish
         public override void Start()
         {
             _currentTime = TimeSpan.Zero;
+            
+            StateMachine.MovementHandler.Stop();
         }
 
         public override void Update(float deltaSeconds)
@@ -66,7 +66,9 @@ namespace Units.Movement.Fish
         private float _distance;
         private float _speed;
         
-        public FidgetingState(IStateMachine stateMachine, Info info) : base(stateMachine)
+        private IMovementHandler MovementHandler => StateMachine.MovementHandler;
+        
+        public FidgetingState(StateMachine stateMachine, Info info) : base(stateMachine)
         {
             _info = info;
         }
@@ -80,11 +82,10 @@ namespace Units.Movement.Fish
             _speed = UnityEngine.Random.Range(_info.MinSpeed, _info.MaxSpeed);
             
             _fidgetTime = TimeSpan.FromSeconds(_distance / _speed);
-        }
 
-        public override void Update(float deltaSeconds)
-        {
-            ManagedTransform.Translate(_direction * (_distance * deltaSeconds));
+            MovementHandler.Start();
+            MovementHandler.SetSpeed(_speed);
+            MovementHandler.SetDestination((Vector2) MovementHandler.Position + _direction * _distance);
         }
 
         public override void TryChangeState(float deltaSeconds)
@@ -97,6 +98,11 @@ namespace Units.Movement.Fish
             
             StateMachine.TryChangeState<FidgetingCooldownState>();
         }
+
+        public override void Stop()
+        {
+            MovementHandler.Stop();
+        }
     }
 
     /// <summary>
@@ -104,21 +110,18 @@ namespace Units.Movement.Fish
     /// </summary>
     public class CarriedState : MovementState
     {
-        public CarriedState(IStateMachine stateMachine) : base(stateMachine) { }
+        public CarriedState(StateMachine stateMachine) : base(stateMachine) { }
+
+        public override void Start()
+        {
+            StateMachine.MovementHandler.Stop();
+        }
     }
 
     #endregion
 
-    public class FishMovementStateMachine : MonoBehaviour, IStateMachine
+    public class FishMovementStateMachine : StateMachine
     {
-        public MovementState CurrentState { get; private set; }
-        public IEnumerable<MovementState> States { get; private set; }
-
-        public event Action StateChangedEvent;
-        
-        public Transform ManagedTransform => _managedTransform;
-        [SerializeField] private Transform _managedTransform;
-        
         [Header("Fidgeting")]
         [SerializeField] private float _cooldownSeconds;
         
@@ -127,7 +130,12 @@ namespace Units.Movement.Fish
         
         [SerializeField] private float _minFidgetSpeed;
         [SerializeField] private float _maxFidgetSpeed;
-        
+
+        private void Awake()
+        {
+            MovementHandler = GetComponent<IMovementHandler>();
+        }
+
         private void Start()
         {
             // Init states.
@@ -145,23 +153,6 @@ namespace Units.Movement.Fish
         {
             CurrentState?.Update(Time.deltaTime);
             CurrentState?.TryChangeState(Time.deltaTime);
-        }
-        
-        public bool TryChangeState<T>() where T : MovementState
-        {
-            T newState = States.OfType<T>().FirstOrDefault();
-            if (newState != null)
-            {
-                CurrentState = newState;
-                CurrentState.Start();
-    
-                StateChangedEvent?.Invoke();
-        
-                return true;
-            }
-
-            Debug.LogError($"State of type {typeof(T)} not found in state machine.");
-            return false;
         }
     }
 }

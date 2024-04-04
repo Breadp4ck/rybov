@@ -151,6 +151,7 @@ namespace Units.Movement.Fish
         
         private void Update()
         {
+            print(CurrentState.GetType());
             CurrentState?.Update(Time.deltaTime);
             CurrentState?.TryChangeState(Time.deltaTime);
         }

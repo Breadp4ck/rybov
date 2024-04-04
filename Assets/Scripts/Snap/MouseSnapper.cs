@@ -37,7 +37,7 @@ namespace Snapping
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.blue;
+            Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, _radius);
         }
 
@@ -96,13 +96,10 @@ namespace Snapping
                 return;
             }
             
+            overlappedColliders = overlappedColliders.Where(x => x != null).ToArray();
+            
             foreach (Collider2D overlapped in overlappedColliders)
             {
-                if (overlapped == null)
-                {
-                    continue;
-                }
-                
                 if (overlapped.TryGetComponent(out ISnappable snappable) == false)
                 {
                     continue;

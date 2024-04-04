@@ -169,7 +169,7 @@ namespace Zenject.Internal
         {
             var decoratorIndex = GetSceneIndex(decoratorInfo.Scene);
             var decoratedIndex = GetSceneIndex(decoratedInfo.Scene);
-            var activeIndex = GetSceneIndex(EditorSceneManager.GetActiveScene());
+            var activeIndex = GetSceneIndex(SceneManager.GetActiveScene());
 
             Assert.That(decoratorIndex < decoratedIndex,
                 "Decorator scene '{0}' must be loaded before decorated scene '{1}'.  Please drag the decorator scene to be placed above the other scene in the scene hierarchy.",
@@ -177,7 +177,7 @@ namespace Zenject.Internal
 
             if (activeIndex > decoratorIndex)
             {
-                EditorSceneManager.SetActiveScene(decoratorInfo.Scene);
+                SceneManager.SetActiveScene(decoratorInfo.Scene);
             }
         }
 
@@ -186,22 +186,22 @@ namespace Zenject.Internal
         {
             var parentIndex = GetSceneIndex(parentSceneInfo.Scene);
             var childIndex = GetSceneIndex(sceneInfo.Scene);
-            var activeIndex = GetSceneIndex(EditorSceneManager.GetActiveScene());
+            var activeIndex = GetSceneIndex(SceneManager.GetActiveScene());
 
             Assert.That(parentIndex < childIndex,
                 "Parent scene '{0}' must be loaded before child scene '{1}'.  Please drag it to be placed above its child in the scene hierarchy.", parentSceneInfo.Scene.name, sceneInfo.Scene.name);
 
             if (activeIndex > parentIndex)
             {
-                EditorSceneManager.SetActiveScene(parentSceneInfo.Scene);
+                SceneManager.SetActiveScene(parentSceneInfo.Scene);
             }
         }
 
         static int GetSceneIndex(Scene scene)
         {
-            for (int i = 0; i < EditorSceneManager.sceneCount; i++)
+            for (int i = 0; i < SceneManager.sceneCount; i++)
             {
-                if (EditorSceneManager.GetSceneAt(i) == scene)
+                if (SceneManager.GetSceneAt(i) == scene)
                 {
                     return i;
                 }
@@ -279,9 +279,9 @@ namespace Zenject.Internal
         {
             var result = new List<LoadedSceneInfo>();
 
-            for (int i = 0; i < EditorSceneManager.sceneCount; i++)
+            for (int i = 0; i < SceneManager.sceneCount; i++)
             {
-                var scene = EditorSceneManager.GetSceneAt(i);
+                var scene = SceneManager.GetSceneAt(i);
                 var info = TryCreateLoadedSceneInfo(scene);
 
                 if (info != null)

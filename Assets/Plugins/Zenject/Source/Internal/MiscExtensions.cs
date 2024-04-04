@@ -36,7 +36,7 @@ namespace ModestTree
         {
             for (int i = 0; i < list.Count; i++)
             {
-                if (object.Equals(list[i], item))
+                if (Equals(list[i], item))
                 {
                     return i;
                 }

@@ -185,9 +185,9 @@ namespace Zenject.Internal
         {
             var decoratedSceneNames = new List<string>();
 
-            for (int i = 0; i < EditorSceneManager.sceneCount; i++)
+            for (int i = 0; i < SceneManager.sceneCount; i++)
             {
-                var scene = EditorSceneManager.GetSceneAt(i);
+                var scene = SceneManager.GetSceneAt(i);
 
                 var sceneContext = TryGetSceneContextForScene(scene);
                 var decoratorContext = TryGetDecoratorContextForScene(scene);

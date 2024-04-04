@@ -5,6 +5,7 @@ using System.Linq;
 using ModestTree;
 using ModestTree.Util;
 using Zenject.Internal;
+using Object = UnityEngine.Object;
 #if !NOT_UNITY3D
 using UnityEngine;
 #endif
@@ -1663,7 +1664,7 @@ namespace Zenject
             return CreateAndParentPrefab(prefab, gameObjectBindInfo, context, out shouldMakeActive);
         }
 
-        GameObject GetPrefabAsGameObject(UnityEngine.Object prefab)
+        GameObject GetPrefabAsGameObject(Object prefab)
         {
             if (prefab is GameObject)
             {
@@ -1678,7 +1679,7 @@ namespace Zenject
         // You probably want to use InstantiatePrefab instead
         // This one will only create the prefab and will not inject into it
         internal GameObject CreateAndParentPrefab(
-            UnityEngine.Object prefab, GameObjectCreationParameters gameObjectBindInfo,
+            Object prefab, GameObjectCreationParameters gameObjectBindInfo,
             InjectContext context, out bool shouldMakeActive)
         {
             Assert.That(prefab != null, "Null prefab found when instantiating game object");
@@ -1730,25 +1731,25 @@ namespace Zenject
             {
                 if (gameObjectBindInfo.Position.HasValue && gameObjectBindInfo.Rotation.HasValue)
                 {
-                    gameObj = GameObject.Instantiate(
+                    gameObj = Object.Instantiate(
                         prefabAsGameObject, gameObjectBindInfo.Position.Value, gameObjectBindInfo.Rotation.Value, initialParent);
                     positionAndRotationWereSet = true;
                 }
                 else if (gameObjectBindInfo.Position.HasValue)
                 {
-                    gameObj = GameObject.Instantiate(
+                    gameObj = Object.Instantiate(
                         prefabAsGameObject, gameObjectBindInfo.Position.Value, prefabAsGameObject.transform.rotation, initialParent);
                     positionAndRotationWereSet = true;
                 }
                 else if (gameObjectBindInfo.Rotation.HasValue)
                 {
-                    gameObj = GameObject.Instantiate(
+                    gameObj = Object.Instantiate(
                         prefabAsGameObject, prefabAsGameObject.transform.position, gameObjectBindInfo.Rotation.Value, initialParent);
                     positionAndRotationWereSet = true;
                 }
                 else
                 {
-                    gameObj = GameObject.Instantiate(prefabAsGameObject, initialParent);
+                    gameObj = Object.Instantiate(prefabAsGameObject, initialParent);
                     positionAndRotationWereSet = false;
                 }
             }
@@ -2005,14 +2006,14 @@ namespace Zenject
         }
 
         // Create a new game object from a prefab and fill in dependencies for all children
-        public GameObject InstantiatePrefab(UnityEngine.Object prefab)
+        public GameObject InstantiatePrefab(Object prefab)
         {
             return InstantiatePrefab(
                 prefab, GameObjectCreationParameters.Default);
         }
 
         // Create a new game object from a prefab and fill in dependencies for all children
-        public GameObject InstantiatePrefab(UnityEngine.Object prefab, Transform parentTransform)
+        public GameObject InstantiatePrefab(Object prefab, Transform parentTransform)
         {
             return InstantiatePrefab(
                 prefab, new GameObjectCreationParameters { ParentTransform = parentTransform });
@@ -2020,7 +2021,7 @@ namespace Zenject
 
         // Create a new game object from a prefab and fill in dependencies for all children
         public GameObject InstantiatePrefab(
-            UnityEngine.Object prefab, Vector3 position, Quaternion rotation, Transform parentTransform)
+            Object prefab, Vector3 position, Quaternion rotation, Transform parentTransform)
         {
             return InstantiatePrefab(
                 prefab, new GameObjectCreationParameters
@@ -2033,7 +2034,7 @@ namespace Zenject
 
         // Create a new game object from a prefab and fill in dependencies for all children
         public GameObject InstantiatePrefab(
-            UnityEngine.Object prefab, GameObjectCreationParameters gameObjectBindInfo)
+            Object prefab, GameObjectCreationParameters gameObjectBindInfo)
         {
             FlushBindings();
 
@@ -2094,7 +2095,7 @@ namespace Zenject
 
         // Same as InstantiatePrefab but returns a component after it's initialized
         // and optionally allows extra arguments for the given component type
-        public T InstantiatePrefabForComponent<T>(UnityEngine.Object prefab)
+        public T InstantiatePrefabForComponent<T>(Object prefab)
         {
             return (T)InstantiatePrefabForComponent(
                 typeof(T), prefab, null, new object[0]);
@@ -2105,14 +2106,14 @@ namespace Zenject
         // Note: For IL2CPP platforms make sure to use new object[] instead of new [] when creating
         // the argument list to avoid errors converting to IEnumerable<object>
         public T InstantiatePrefabForComponent<T>(
-            UnityEngine.Object prefab, IEnumerable<object> extraArgs)
+            Object prefab, IEnumerable<object> extraArgs)
         {
             return (T)InstantiatePrefabForComponent(
                 typeof(T), prefab, null, extraArgs);
         }
 
         public T InstantiatePrefabForComponent<T>(
-            UnityEngine.Object prefab, Transform parentTransform)
+            Object prefab, Transform parentTransform)
         {
             return (T)InstantiatePrefabForComponent(
                 typeof(T), prefab, parentTransform, new object[0]);
@@ -2121,14 +2122,14 @@ namespace Zenject
         // Note: For IL2CPP platforms make sure to use new object[] instead of new [] when creating
         // the argument list to avoid errors converting to IEnumerable<object>
         public T InstantiatePrefabForComponent<T>(
-            UnityEngine.Object prefab, Transform parentTransform, IEnumerable<object> extraArgs)
+            Object prefab, Transform parentTransform, IEnumerable<object> extraArgs)
         {
             return (T)InstantiatePrefabForComponent(
                 typeof(T), prefab, parentTransform, extraArgs);
         }
 
         public T InstantiatePrefabForComponent<T>(
-            UnityEngine.Object prefab, Vector3 position, Quaternion rotation, Transform parentTransform)
+            Object prefab, Vector3 position, Quaternion rotation, Transform parentTransform)
         {
             return (T)InstantiatePrefabForComponent(
                 typeof(T), prefab, new object[0], new GameObjectCreationParameters
@@ -2140,7 +2141,7 @@ namespace Zenject
         }
 
         public T InstantiatePrefabForComponent<T>(
-            UnityEngine.Object prefab, Vector3 position, Quaternion rotation, Transform parentTransform, IEnumerable<object> extraArgs)
+            Object prefab, Vector3 position, Quaternion rotation, Transform parentTransform, IEnumerable<object> extraArgs)
         {
             return (T)InstantiatePrefabForComponent(
                 typeof(T), prefab, extraArgs, new GameObjectCreationParameters
@@ -2156,7 +2157,7 @@ namespace Zenject
         // Note: For IL2CPP platforms make sure to use new object[] instead of new [] when creating
         // the argument list to avoid errors converting to IEnumerable<object>
         public object InstantiatePrefabForComponent(
-            Type concreteType, UnityEngine.Object prefab,
+            Type concreteType, Object prefab,
             Transform parentTransform, IEnumerable<object> extraArgs)
         {
             return InstantiatePrefabForComponent(
@@ -2167,7 +2168,7 @@ namespace Zenject
         // Note: For IL2CPP platforms make sure to use new object[] instead of new [] when creating
         // the argument list to avoid errors converting to IEnumerable<object>
         public object InstantiatePrefabForComponent(
-            Type concreteType, UnityEngine.Object prefab,
+            Type concreteType, Object prefab,
             IEnumerable<object> extraArgs, GameObjectCreationParameters creationInfo)
         {
             return InstantiatePrefabForComponentExplicit(
@@ -3328,7 +3329,7 @@ namespace Zenject
             Assert.That(objects.Length == 1,
                 "Found multiple scriptable objects at path '{0}' when only 1 was expected with type '{1}'", resourcePath, scriptableObjectType);
 
-            var newObj = ScriptableObject.Instantiate(objects.Single());
+            var newObj = Object.Instantiate(objects.Single());
 
             InjectExplicit(newObj, extraArgs);
 
@@ -3357,7 +3358,7 @@ namespace Zenject
         }
 
         public object InstantiatePrefabForComponentExplicit(
-            Type componentType, UnityEngine.Object prefab,
+            Type componentType, Object prefab,
             List<TypeValuePair> extraArgs)
         {
             return InstantiatePrefabForComponentExplicit(
@@ -3365,7 +3366,7 @@ namespace Zenject
         }
 
         public object InstantiatePrefabForComponentExplicit(
-            Type componentType, UnityEngine.Object prefab,
+            Type componentType, Object prefab,
             List<TypeValuePair> extraArgs, GameObjectCreationParameters gameObjectBindInfo)
         {
             return InstantiatePrefabForComponentExplicit(
@@ -3375,7 +3376,7 @@ namespace Zenject
         // Same as InstantiatePrefabForComponent except allows null values
         // to be included in the argument list.  Also see InjectUtil.CreateArgList
         public object InstantiatePrefabForComponentExplicit(
-            Type componentType, UnityEngine.Object prefab,
+            Type componentType, Object prefab,
             List<TypeValuePair> extraArgs, InjectContext context, object concreteIdentifier, GameObjectCreationParameters gameObjectBindInfo)
         {
             Assert.That(!AssertOnNewGameObjects,

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace ModestTree
 {
@@ -340,7 +339,7 @@ namespace ModestTree
 #if NETFX_CORE
             allAttributes = provider.GetCustomAttributes<Attribute>(true).ToArray();
 #else
-            allAttributes = System.Attribute.GetCustomAttributes(provider, typeof(Attribute), true);
+            allAttributes = Attribute.GetCustomAttributes(provider, typeof(Attribute), true);
 #endif
             if (attributeTypes.Length == 0)
             {
@@ -378,7 +377,7 @@ namespace ModestTree
 #if NETFX_CORE
             allAttributes = provider.GetCustomAttributes<Attribute>(true).ToArray();
 #else
-            allAttributes = System.Attribute.GetCustomAttributes(provider, typeof(Attribute), true);
+            allAttributes = Attribute.GetCustomAttributes(provider, typeof(Attribute), true);
 #endif
             if (attributeTypes.Length == 0)
             {

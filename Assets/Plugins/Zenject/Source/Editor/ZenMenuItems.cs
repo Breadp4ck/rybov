@@ -5,6 +5,7 @@ using ModestTree;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Zenject.Internal
 {
@@ -37,7 +38,7 @@ namespace Zenject.Internal
             var root = new GameObject("SceneContext").AddComponent<SceneContext>();
             Selection.activeGameObject = root.gameObject;
 
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
         }
 
         [MenuItem("GameObject/Zenject/Decorator Context", false, 9)]
@@ -46,7 +47,7 @@ namespace Zenject.Internal
             var root = new GameObject("DecoratorContext").AddComponent<SceneDecoratorContext>();
             Selection.activeGameObject = root.gameObject;
 
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
         }
 
         [MenuItem("GameObject/Zenject/Game Object Context", false, 9)]
@@ -55,7 +56,7 @@ namespace Zenject.Internal
             var root = new GameObject("GameObjectContext").AddComponent<GameObjectContext>();
             Selection.activeGameObject = root.gameObject;
 
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
         }
 
         [MenuItem("Edit/Zenject/Create Project Context")]
@@ -207,7 +208,7 @@ namespace Zenject.Internal
             }
             finally
             {
-                GameObject.DestroyImmediate(gameObject);
+                Object.DestroyImmediate(gameObject);
             }
 
             Debug.Log("Created new ProjectContext at '{0}'".Fmt(prefabPath));
@@ -249,7 +250,7 @@ namespace Zenject.Internal
             var assetPath = ZenUnityEditorUtil.ConvertFullAbsolutePathToAssetPath(absolutePath);
 
             EditorUtility.FocusProjectWindow();
-            Selection.activeObject = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(assetPath);
+            Selection.activeObject = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
 
             return assetPath;
         }

@@ -6,6 +6,7 @@ using System.Linq;
 using ModestTree;
 using UnityEngine;
 using Zenject.Internal;
+using Object = UnityEngine.Object;
 
 namespace Zenject
 {
@@ -18,10 +19,10 @@ namespace Zenject
         readonly bool _createNew;
         readonly object _concreteIdentifier;
         readonly Action<InjectContext, object> _instantiateCallback;
-        readonly UnityEngine.Object _resource;
+        readonly Object _resource;
 
         public ScriptableObjectInstanceProvider(
-            UnityEngine.Object resource, Type resourceType,
+            Object resource, Type resourceType,
             DiContainer container, IEnumerable<TypeValuePair> extraArguments,
             bool createNew, object concreteIdentifier,
             Action<InjectContext, object> instantiateCallback)
@@ -59,7 +60,7 @@ namespace Zenject
 
             if (_createNew)
             {
-                buffer.Add(UnityEngine.ScriptableObject.Instantiate(_resource));
+                buffer.Add(Object.Instantiate(_resource));
             }
             else
             {

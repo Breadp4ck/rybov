@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace ModestTree.Util
 {
@@ -39,7 +38,7 @@ namespace ModestTree.Util
                 return false;
             }
 
-            return object.Equals(First, that.First) && object.Equals(Second, that.Second);
+            return Equals(First, that.First) && Equals(Second, that.Second);
         }
 
         public override int GetHashCode()
@@ -93,7 +92,7 @@ namespace ModestTree.Util
                 return false;
             }
 
-            return object.Equals(First, that.First) && object.Equals(Second, that.Second) && object.Equals(Third, that.Third);
+            return Equals(First, that.First) && Equals(Second, that.Second) && Equals(Third, that.Third);
         }
 
         public override int GetHashCode()
@@ -151,8 +150,8 @@ namespace ModestTree.Util
                 return false;
             }
 
-            return object.Equals(First, that.First) && object.Equals(Second, that.Second)
-                && object.Equals(Third, that.Third) && object.Equals(Fourth, that.Fourth);
+            return Equals(First, that.First) && Equals(Second, that.Second)
+                && Equals(Third, that.Third) && Equals(Fourth, that.Fourth);
         }
 
         public override int GetHashCode()

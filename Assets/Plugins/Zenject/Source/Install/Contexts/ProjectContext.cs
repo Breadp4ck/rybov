@@ -126,13 +126,13 @@ namespace Zenject
                     if(prefabWasActive)
                     {
                         // This ensures the prefab's Awake() methods don't fire (and, if in the editor, that the prefab file doesn't get modified)
-                        gameObjectInstance = GameObject.Instantiate(prefab, ZenUtilInternal.GetOrCreateInactivePrefabParent());
+                        gameObjectInstance = Instantiate(prefab, ZenUtilInternal.GetOrCreateInactivePrefabParent());
                         gameObjectInstance.SetActive(false);
                         gameObjectInstance.transform.SetParent(null, false);
                     }
                     else
                     {
-                        gameObjectInstance = GameObject.Instantiate(prefab);
+                        gameObjectInstance = Instantiate(prefab);
                     }
 #else
                     if(prefabWasActive)

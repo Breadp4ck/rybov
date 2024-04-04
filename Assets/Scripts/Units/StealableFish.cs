@@ -18,6 +18,7 @@ namespace Units
         /// </summary>
         public IFishThief Thief;
 
+        public FishMovementStateMachine StateMachine => _stateMachine;
         [SerializeField] private FishMovementStateMachine _stateMachine;
 
         private IEnumerator _followDragTransformRoutine;

@@ -9,13 +9,12 @@ namespace Units.Movement
         public Vector3 Position => _managedTransform.position;
         [SerializeField] private Transform _managedTransform;
 
-        private NavMeshAgent _agent;
+        [SerializeField] private NavMeshAgent _agent;
 
         private Transform _target;
         
         private void Awake()
         {
-            _agent = GetComponent<NavMeshAgent>();
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
         }

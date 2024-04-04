@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 5
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 0.58906555, b: 0.21226418, a: 1}
   m_FlipX: 0
@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _managedTransform: {fileID: 8083936104518327600}
+  _agent: {fileID: 4322910828524345640}
 --- !u!195 &4322910828524345640
 NavMeshAgent:
   m_ObjectHideFlags: 0

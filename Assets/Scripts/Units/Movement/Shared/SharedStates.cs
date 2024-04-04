@@ -1,4 +1,3 @@
-using Units.Movement;
 using UnityEngine;
 
 namespace Units.Movement.Shared

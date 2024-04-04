@@ -4,8 +4,9 @@ using Snapping;
 using UnityEngine;
 using Zenject;
 
-namespace Snapping
+namespace MouseControls
 {
+    [RequireComponent(typeof(MouseFollower))]
     public class MouseSnapper : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
@@ -58,11 +59,6 @@ namespace Snapping
             {
                 Snap(_currentPower);
             }
-        }
-
-        private void FixedUpdate()
-        {
-            transform.position = _camera.ScreenToWorldPoint(Input.mousePosition);
         }
 
         private void StartCharge()

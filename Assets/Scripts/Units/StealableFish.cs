@@ -82,7 +82,7 @@ namespace Units
                 return;
             }
             
-            _stateMachine.TryChangeState<FidgetingState>();
+            _stateMachine.TryChangeState<FidgetingCooldownState>();
         }
         
         private IEnumerator FollowDragTransform(Transform followTransform)

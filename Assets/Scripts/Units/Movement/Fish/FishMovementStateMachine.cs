@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Units.Movement.Fish
@@ -122,6 +123,9 @@ namespace Units.Movement.Fish
 
     public class FishMovementStateMachine : StateMachine
     {
+        public override IMovementHandler MovementHandler { get; protected set; }
+        protected override IEnumerable<MovementState> States { get; set; }
+        
         [Header("Fidgeting")]
         [SerializeField] private float _cooldownSeconds;
         
@@ -151,7 +155,6 @@ namespace Units.Movement.Fish
         
         private void Update()
         {
-            print(CurrentState.GetType());
             CurrentState?.Update(Time.deltaTime);
             CurrentState?.TryChangeState(Time.deltaTime);
         }

@@ -29,7 +29,7 @@ namespace Units.Spawning
             Debug.Log($"Spawned: {fish.name}");
             StealableFish spawnedFish = Instantiate(fish, transform.position, Quaternion.identity);
 
-            StartCoroutine(LerpFishToSpawnPoint(spawnedFish, GetRandomSpawnPoint()));
+            StartCoroutine(SlerpFishToSpawnPoint(spawnedFish, GetRandomSpawnPoint()));
         }
         
         private Vector2 GetRandomSpawnPoint()
@@ -39,7 +39,7 @@ namespace Units.Spawning
             return randomPoint;
         }
 
-        private IEnumerator LerpFishToSpawnPoint(StealableFish fish, Vector2 spawnPoint)
+        private IEnumerator SlerpFishToSpawnPoint(StealableFish fish, Vector2 spawnPoint)
         {
             float distance = Vector2.Distance(fish.transform.position, spawnPoint);
             float lerpTime = distance / _moveToSpawnPointSpeed;
@@ -50,10 +50,12 @@ namespace Units.Spawning
             while (Vector2.Distance(fish.transform.position, spawnPoint) > 0.1f)
             {
                 elapsedTime += Time.deltaTime;
-                fish.transform.position = Vector2.Lerp(transform.position, _spawnPoint.position, elapsedTime / lerpTime);
+                fish.transform.position =
+                    Vector3.Slerp(transform.position, spawnPoint, elapsedTime / lerpTime);
                 yield return null;
             }
             
+            FishPool.FreeFishes.Add(fish);
             fish.StateMachine.TryChangeState<FidgetingCooldownState>();
         }
     }

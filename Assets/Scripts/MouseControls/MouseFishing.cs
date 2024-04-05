@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using Fishing;
 using Inputs;
@@ -18,6 +19,10 @@ namespace MouseControls
         
         private IInputSystem _inputSystem;
         
+        private IEnumerator _followDragTransformRoutine;
+
+        private FishingRod _fishingRod;
+
         [Inject]
         private void Construct(IInputSystem inputSystem)
         {
@@ -34,16 +39,17 @@ namespace MouseControls
         {
             if (_inputSystem.IsActionDown(InputAction.RightClick) == true)
             {
-                FishingRod fishingRod = GetOverlappingRod();
+                _fishingRod = GetOverlappingRod();
 
-                if (fishingRod == null)
+                if (_fishingRod == null)
                 {
                     return;
                 }
             
-                fishingRod.StartCatching();
+                _fishingRod.StartCatching();
+                StartDrag(transform);
             }
-            
+
             if (_inputSystem.IsActionUp(InputAction.RightClick) == true)
             {
                 if (FishingRod.CurrentCatcher == null)
@@ -51,7 +57,9 @@ namespace MouseControls
                     return;
                 }
                 
+                FishingRod.CurrentCatcher.ReturnToInitialPosition();
                 FishingRod.CurrentCatcher.InterruptCatching();
+                StopDrag();
             }
         }
         
@@ -75,5 +83,25 @@ namespace MouseControls
 
             return overlappedColliders.Select(x => x.GetComponent<FishingRod>()).FirstOrDefault(x => x != null);
         }
+        
+        public void StartDrag(Transform followTransform)
+        {
+            if (_followDragTransformRoutine != null)
+            {
+                StopCoroutine(_followDragTransformRoutine);
+            }
+
+            _followDragTransformRoutine = _fishingRod.FollowDragTransform(followTransform);
+            StartCoroutine(_followDragTransformRoutine);
+        }
+
+        public void StopDrag()
+        {
+            if (_followDragTransformRoutine != null)
+            {
+                StopCoroutine(_followDragTransformRoutine);
+            }
+        }
+        
     }   
 }

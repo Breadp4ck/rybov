@@ -110,7 +110,8 @@ namespace Fishing.Pool
                 float currentCatchExtent = AvailableFishInfo.InitialCatchExtent;
                 while (IsCatching == false)
                 {
-                    currentCatchExtent -= AvailableFishInfo.MaxLoseSpeed * Time.deltaTime;
+                    currentCatchExtent -= AvailableFishInfo.MaxLoseSpeed / 10 * Time.deltaTime;
+                    print(currentCatchExtent);
                     if (currentCatchExtent <= 0f)
                     {
                         StopCatching(CatchHandler.CatchResult.Fail);

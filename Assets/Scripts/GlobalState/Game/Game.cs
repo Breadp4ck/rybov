@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Units.Spawning;
 using UnityEngine;
 
 namespace GlobalStates.Game
@@ -28,6 +27,7 @@ namespace GlobalStates.Game
                 return;
             }
             
+            DontDestroyOnLoad(gameObject);
             Instance = this;
         }
 
@@ -37,7 +37,7 @@ namespace GlobalStates.Game
             {
                 new StartState(),
                 new AssaultState(_assaultDurationSeconds),
-                new FleeingState(SpawnersHandler.Instance),
+                new FleeingState(),
                 new FinishState()
             };
             
@@ -59,12 +59,6 @@ namespace GlobalStates.Game
             {
                 PauseGame();
             }
-        }
-
-        private void OnDestroy()
-        {
-            CurrentState?.Stop();
-            Instance = null;
         }
 
         public void ChangeState(StateType stateType)

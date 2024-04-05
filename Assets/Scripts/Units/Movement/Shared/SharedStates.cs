@@ -1,4 +1,6 @@
+using Units.Movement.Handlers;
 using Units.Spawning;
+using UnityEngine;
 
 namespace Units.Movement.Shared
 {
@@ -16,18 +18,35 @@ namespace Units.Movement.Shared
     {
         private readonly float _speed;
         
+        private readonly IMovementHandler _previousMovementHandler;
+        private SimpleTranslate _simpleTranslateMovementHandler;
+        
         public KickedOutState(StateMachine stateMachine, float speed) : base(stateMachine)
         {
             _speed = speed;
+            _previousMovementHandler = stateMachine.MovementHandler;
         }
 
         public override void Start()
         {
-            IMovementHandler movementHandler = StateMachine.MovementHandler;
+            SimpleTranslate movementHandler = StateMachine.gameObject.AddComponent<SimpleTranslate>();
+            _simpleTranslateMovementHandler = movementHandler;
+            
+            movementHandler.ManagedTransform = StateMachine.transform;
+            
             movementHandler.Init();
             movementHandler.SetSpeed(_speed);
             movementHandler.SetTarget(null);
-            movementHandler.SetDestination(SpawnersHandler.Instance.GetRandomSpawner().transform.position);
+            
+            // Kick out off the screen.
+            movementHandler.SetDestination(Vector2.down * 100f);
+        }
+
+        public override void Stop()
+        {
+            Object.Destroy(_simpleTranslateMovementHandler);
+            
+            StateMachine.MovementHandler = _previousMovementHandler;
         }
     }
 }

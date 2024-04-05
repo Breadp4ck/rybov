@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using GlobalStates.Game;
+using Units.Movement.Handlers;
 using Units.Movement.Shared;
 using Units.Spawning;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Units.Movement.Cat
@@ -26,7 +28,7 @@ namespace Units.Movement.Cat
 
         public override void TryChangeState(float deltaSeconds)
         {
-            if (Game.Instance.CurrentState.Type == StateType.Fleeing)
+            if (Game.Instance.CurrentState.Type != StateType.Assault)
             {
                 StateMachine.TryChangeState<Runaway>();
             }
@@ -79,7 +81,7 @@ namespace Units.Movement.Cat
 
         public override void TryChangeState(float deltaSeconds)
         {
-            if (Game.Instance.CurrentState.Type == StateType.Fleeing)
+            if (Game.Instance.CurrentState.Type != StateType.Assault)
             {
                 StateMachine.TryChangeState<Runaway>();
             }
@@ -168,7 +170,7 @@ namespace Units.Movement.Cat
     
     public class CatMovementStateMachine : StateMachine
     {
-        public override IMovementHandler MovementHandler { get; protected set; }
+        public override IMovementHandler MovementHandler { get; set; }
         protected override IEnumerable<MovementState> States { get; set; }
         
         [SerializeField] private Units.Cat _cat;

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using GlobalStates.Game;
 using Units.Movement.Shared;
 using Units.Spawning;
 using UnityEngine;
@@ -70,6 +72,11 @@ namespace Units.Movement.Cat
 
         public override void TryChangeState(float deltaSeconds)
         {
+            if (Game.Instance.CurrentState.Type == StateType.Fleeing)
+            {
+                StateMachine.TryChangeState<Runaway>();
+            }
+            
             if (_targetFish == null)
             {
                 SetTargetFish();
@@ -82,7 +89,7 @@ namespace Units.Movement.Cat
             }
 
             FishPool.TryStealFish(_targetFish, _thief);
-            StateMachine.TryChangeState<RunawayWithFishState>();
+            StateMachine.TryChangeState<Runaway>();
         }
 
         public override void Stop()
@@ -125,13 +132,13 @@ namespace Units.Movement.Cat
     /// <summary>
     /// Running away the camera border with the fish in hands.
     /// </summary>
-    public class RunawayWithFishState : MovementState
+    public class Runaway : MovementState
     {
         private readonly float _speed;
         
         private IMovementHandler MovementHandler => StateMachine.MovementHandler;
         
-        public RunawayWithFishState(StateMachine stateMachine, float speed) : base(stateMachine)
+        public Runaway(StateMachine stateMachine, float speed) : base(stateMachine)
         {
             _speed = speed;
         }
@@ -156,6 +163,9 @@ namespace Units.Movement.Cat
     
     public class CatMovementStateMachine : StateMachine
     {
+        public override IMovementHandler MovementHandler { get; protected set; }
+        protected override IEnumerable<MovementState> States { get; set; }
+        
         [SerializeField] private Units.Cat _cat;
         
         [Header("Pilfering")]
@@ -180,7 +190,7 @@ namespace Units.Movement.Cat
             {
                 new WaitForFishSpawn(this),
                 new ChaseForFishState(this, _cat, _pilferSpeed, _takeFishRange),
-                new RunawayWithFishState(this, _runawaySpeed),
+                new Runaway(this, _runawaySpeed),
                 new StunnedState(this),
                 new KickedOutState(this, _kickOutSpeed)
             };

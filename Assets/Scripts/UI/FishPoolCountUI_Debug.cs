@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Debug ONLY. 
 /// </summary>
-public class FishPoolCountUI : MonoBehaviour
+public class FishPoolCountUI_Debug : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
 

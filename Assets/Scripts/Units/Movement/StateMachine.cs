@@ -10,11 +10,11 @@ namespace Units.Movement
     {
         public event Action<MovementState> StateChangedEvent;
         
-        public IMovementHandler MovementHandler { get; protected set; }
+        public abstract IMovementHandler MovementHandler { get; protected set; }
 
         protected MovementState CurrentState { get; private set; }
 
-        protected IEnumerable<MovementState> States { get; set; }
+        protected abstract IEnumerable<MovementState> States { get; set; }
 
         public bool TryChangeState<T>() where T : MovementState
         {

@@ -9,6 +9,7 @@ namespace Units.Spawning
     {
         [SerializeField] private List<SpawnInfo> _spawnInfo;
 
+        public List<FishThiefSpawner> Spawners => _spawners;
         [SerializeField] private List<FishThiefSpawner> _spawners;
 
         [SerializeField] private uint _wavesCount;
@@ -33,22 +34,16 @@ namespace Units.Spawning
         {
             // TODO: UnSubscribe to #13.
             // -= OnFishCaught();
-            
-            if (_spawnThievesWavesRoutine != null)
-            {
-                StopCoroutine(_spawnThievesWavesRoutine);
-            }
+
+            StopSpawning();
         }
 
-        private void OnFishCaught()
+        public void StopSpawning()
         {
             if (_spawnThievesWavesRoutine != null)
             {
                 StopCoroutine(_spawnThievesWavesRoutine);
             }
-
-            _spawnThievesWavesRoutine = SpawnThievesWaves();
-            StartCoroutine(_spawnThievesWavesRoutine);
         }
 
         private IEnumerator SpawnThievesWaves()
@@ -67,6 +62,17 @@ namespace Units.Spawning
 
                 yield return new WaitForSeconds(_wavesIntervalSeconds);
             }
+        }
+        
+        private void OnFishCaught()
+        {
+            if (_spawnThievesWavesRoutine != null)
+            {
+                StopCoroutine(_spawnThievesWavesRoutine);
+            }
+
+            _spawnThievesWavesRoutine = SpawnThievesWaves();
+            StartCoroutine(_spawnThievesWavesRoutine);
         }
 
         /// <summary>

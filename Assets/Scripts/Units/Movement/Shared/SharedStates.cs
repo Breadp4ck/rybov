@@ -9,7 +9,6 @@ namespace Units.Movement.Shared
 
         public override void Start()
         {
-            Debug.Log("StunnedState.Start()");
             StateMachine.MovementHandler.Stop();
         }
     }

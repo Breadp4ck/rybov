@@ -4,7 +4,6 @@ using GlobalStates.Game;
 using Units.Movement.Shared;
 using Units.Spawning;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Units.Movement.Cat
 {

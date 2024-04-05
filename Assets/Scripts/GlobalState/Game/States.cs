@@ -1,7 +1,7 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Units.Spawning;
-using UnityEngine;
 
 namespace GlobalStates.Game
 {
@@ -39,11 +39,11 @@ namespace GlobalStates.Game
         public override async void Start()
         {
             float timePassedSeconds = 0;
-            const int millisecondsDelay = 200;
+            const int delayMs = 200;
             while (timePassedSeconds < _assaultDurationSeconds)
             {
-                timePassedSeconds += millisecondsDelay / 1000f;
-                await Task.Delay(millisecondsDelay, _cancellationToken);
+                timePassedSeconds += delayMs / 1000f;
+                await Task.Delay(delayMs, _cancellationToken);
             }
 
             if (_cancellationToken.IsCancellationRequested == true)
@@ -64,16 +64,17 @@ namespace GlobalStates.Game
     {
         public override StateType Type => StateType.Fleeing;
 
-        private readonly SpawnersHandler _spawnersHandler;
-
-        public FleeingState(SpawnersHandler spawnersHandler)
+        public override async void Start()
         {
-            _spawnersHandler = spawnersHandler;
-        }
+            SpawnersHandler.Instance.StopSpawning();
 
-        public override void Start()
-        {
-            _spawnersHandler.StopSpawning();
+            const int pollingDelayMs = 200;
+            while (SpawnersHandler.Instance.SpawnedThieves.Any(x => x != null))
+            {
+                await Task.Delay(pollingDelayMs);
+            }
+            
+            Game.Instance.ChangeState(StateType.Finish);
         }
     }
     

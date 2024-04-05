@@ -22,9 +22,9 @@ namespace Units.Spawning
             Spawn(_catPrefab);
         }
 
-        public void Spawn(GameObject prefab)
+        public GameObject Spawn(GameObject prefab)
         {
-            Instantiate(prefab, _mouseWorldPosition, Quaternion.identity);
+            return Instantiate(prefab, _mouseWorldPosition, Quaternion.identity);
         }
     }
 }

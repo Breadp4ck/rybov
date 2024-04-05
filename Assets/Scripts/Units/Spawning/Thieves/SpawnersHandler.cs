@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,6 +9,8 @@ namespace Units.Spawning
     public class SpawnersHandler : MonoBehaviour
     {
         public static SpawnersHandler Instance { get; private set; }
+
+        public List<GameObject> SpawnedThieves { get; private set; } = new();
         
         [SerializeField] private List<SpawnInfo> _spawnInfo;
 
@@ -78,7 +79,8 @@ namespace Units.Spawning
                 while (balance > _spawnInfo.Select(x => x.SpawnCost).Min())
                 {
                     SpawnInfo spawnInfo = GetRelativelyRandomSpawnInfoByBalance(balance);
-                    GetRandomSpawner().Spawn(spawnInfo.FishThiefPrefab);
+                    GameObject spawnedGo = GetRandomSpawner().Spawn(spawnInfo.FishThiefPrefab);
+                    SpawnedThieves.Add(spawnedGo);
 
                     balance -= spawnInfo.SpawnCost;
                     yield return new WaitForSeconds(_spawnsIntervalSeconds);

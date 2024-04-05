@@ -24,6 +24,7 @@ namespace Units.Spawning
 
         public GameObject Spawn(GameObject prefab)
         {
+            SpawnersHandler.Instance.SpawnedThieves.Add(prefab);
             return Instantiate(prefab, _mouseWorldPosition, Quaternion.identity);
         }
     }

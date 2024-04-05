@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace Snapping
+namespace Units.Hitting
 {
-    [CreateAssetMenu(fileName = "SnapConfig", menuName = "Snapping/Config")]
-    public class SnapConfig : ScriptableObject
+    [CreateAssetMenu(fileName = "HitConfig", menuName = "Hitting/Config")]
+    public class HitConfig : ScriptableObject
     {
         /// <summary>
         /// Lowest possible hit
@@ -20,24 +20,24 @@ namespace Snapping
         /// Kick out the game field
         /// </summary>
         [SerializeField] private float _gigaSnapThreshold;
-
-        public static void Handle(HitType hitType, ISnappable snappable)
+        
+        public void Handle(float power, IHittable hittable)
         {
-            switch (hitType)
+            switch (GetHitType(power))
             {
                 case HitType.Slap:
-                    snappable.Slap();
+                    hittable.Slap();
                     break;
                 case HitType.Snap:
-                    snappable.Snap();
+                    hittable.Snap();
                     break;
                 case HitType.GigaSnap:
-                    snappable.GigaSnap();
+                    hittable.GigaSnap();
                     break;
             }
         }
-
-        public HitType GetHitType(float power)
+        
+        private HitType GetHitType(float power)
         {
             if (power >= _gigaSnapThreshold)
             {

@@ -1,4 +1,4 @@
-﻿namespace Snapping
+﻿namespace Units.Hitting
 {
     public enum HitType
     {

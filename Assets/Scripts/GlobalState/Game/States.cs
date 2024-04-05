@@ -45,11 +45,6 @@ namespace GlobalStates.Game
                 timePassedSeconds += delayMs / 1000f;
                 await Task.Delay(delayMs, _cancellationToken);
             }
-
-            if (_cancellationToken.IsCancellationRequested == true)
-            {
-                return;
-            }
             
             Game.Instance.ChangeState(StateType.Fleeing);
         }
@@ -64,6 +59,8 @@ namespace GlobalStates.Game
     {
         public override StateType Type => StateType.Fleeing;
 
+        private CancellationToken _cancellationToken;
+        
         public override async void Start()
         {
             SpawnersHandler.Instance.StopSpawning();
@@ -71,10 +68,15 @@ namespace GlobalStates.Game
             const int pollingDelayMs = 200;
             while (SpawnersHandler.Instance.SpawnedThieves.Any(x => x != null))
             {
-                await Task.Delay(pollingDelayMs);
+                await Task.Delay(pollingDelayMs, _cancellationToken);
             }
             
             Game.Instance.ChangeState(StateType.Finish);
+        }
+        
+        public override void Stop()
+        {
+            _cancellationToken = new CancellationToken(true);
         }
     }
     

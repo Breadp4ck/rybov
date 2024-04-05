@@ -185,7 +185,7 @@ MonoBehaviour:
   _carryTransform: {fileID: 3819391476099652762}
   _staggerDurationSeconds: 0.3
   _stunDurationSeconds: 2
-  _snapConfig: {fileID: 11400000, guid: c47b7711ba93f514087b3e3e5925e059, type: 2}
+  _hitConfig: {fileID: 11400000, guid: c47b7711ba93f514087b3e3e5925e059, type: 2}
   _stateMachine: {fileID: 8083936104518327603}
 --- !u!114 &8083936104518327603
 MonoBehaviour:

@@ -9,9 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7650c7086cb09b409bab02185daf448, type: 3}
-  m_Name: CatSnapConfig
+  m_Script: {fileID: 11500000, guid: 8eb1a274ffc847c28774139810988653, type: 3}
+  m_Name: SavedFishScoresDistribution
   m_EditorClassIdentifier: 
-  _slapThreshold: 0.2
-  _snapThreshold: 0.6
-  _gigaSnapThreshold: 0.9
+  _scores:
+  - _type: 0
+    _score: 1
+  - _type: 1
+    _score: 2
+  - _type: 2
+    _score: 3
+  - _type: 3
+    _score: 4

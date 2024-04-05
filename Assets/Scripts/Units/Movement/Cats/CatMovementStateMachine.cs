@@ -25,6 +25,14 @@ namespace Units.Movement.Cat
             FishPool.FishDroppedEvent += OnFishAdded;
         }
 
+        public override void TryChangeState(float deltaSeconds)
+        {
+            if (Game.Instance.CurrentState.Type == StateType.Fleeing)
+            {
+                StateMachine.TryChangeState<Runaway>();
+            }
+        }
+
         private void OnFishAdded()
         {
             FishPool.FishCaughtEvent -= OnFishAdded;
@@ -145,12 +153,10 @@ namespace Units.Movement.Cat
 
         public override void Start()
         {
-            Vector2 direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-
             MovementHandler.Init();
             MovementHandler.SetSpeed(_speed);
             MovementHandler.SetTarget(null);
-            MovementHandler.SetDestination(direction * 10f); // TODO: Work together w/ Issue #26
+            MovementHandler.SetDestination(SpawnersHandler.Instance.GetRandomSpawner().transform.position);
         }
 
         public override void Stop()

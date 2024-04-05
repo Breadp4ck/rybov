@@ -324,8 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 501035b63ad28e34789fd791bc2d2c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _assaultDurationSeconds: 10
-  _spawnersHandler: {fileID: 662660820}
+  _assaultDurationSeconds: 5
 --- !u!4 &100670864
 Transform:
   m_ObjectHideFlags: 0

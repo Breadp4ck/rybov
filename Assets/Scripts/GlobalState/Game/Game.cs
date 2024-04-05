@@ -17,8 +17,6 @@ namespace GlobalStates.Game
         public bool IsGamePaused { get; private set; }
         
         [SerializeField] private float _assaultDurationSeconds;
-
-        [SerializeField] private SpawnersHandler _spawnersHandler;
         
         private IEnumerable<State> _states = Enumerable.Empty<State>();
         
@@ -39,7 +37,7 @@ namespace GlobalStates.Game
             {
                 new StartState(),
                 new AssaultState(_assaultDurationSeconds),
-                new FleeingState(_spawnersHandler),
+                new FleeingState(SpawnersHandler.Instance),
                 new FinishState()
             };
             
@@ -65,6 +63,7 @@ namespace GlobalStates.Game
 
         private void OnDestroy()
         {
+            CurrentState?.Stop();
             Instance = null;
         }
 

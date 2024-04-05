@@ -1,15 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Units.Spawning
 {
     public class SpawnersHandler : MonoBehaviour
     {
+        public static SpawnersHandler Instance { get; private set; }
+        
         [SerializeField] private List<SpawnInfo> _spawnInfo;
 
-        public List<FishThiefSpawner> Spawners => _spawners;
         [SerializeField] private List<FishThiefSpawner> _spawners;
 
         [SerializeField] private uint _wavesCount;
@@ -38,12 +41,33 @@ namespace Units.Spawning
             StopSpawning();
         }
 
+        private void Awake()
+        {
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            
+            Instance = this;
+        }
+
+        private void OnDestroy()
+        {
+            Instance = null;
+        }
+
         public void StopSpawning()
         {
             if (_spawnThievesWavesRoutine != null)
             {
                 StopCoroutine(_spawnThievesWavesRoutine);
             }
+        }
+        
+        public FishThiefSpawner GetRandomSpawner()
+        {
+            return _spawners[Random.Range(0, _spawners.Count)];
         }
 
         private IEnumerator SpawnThievesWaves()
@@ -106,11 +130,6 @@ namespace Units.Spawning
             }
             
             return availableSpawnInfo[0];
-        }
-        
-        private FishThiefSpawner GetRandomSpawner()
-        {
-            return _spawners[Random.Range(0, _spawners.Count)];
         }
     }
 }

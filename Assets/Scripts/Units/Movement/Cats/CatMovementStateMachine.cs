@@ -33,6 +33,12 @@ namespace Units.Movement.Cat
             }
         }
 
+        public override void Stop()
+        {
+            FishPool.FishCaughtEvent -= OnFishAdded;
+            FishPool.FishDroppedEvent -= OnFishAdded;
+        }
+
         private void OnFishAdded(StealableFish fish)
         {
             FishPool.FishCaughtEvent -= OnFishAdded;
@@ -198,8 +204,12 @@ namespace Units.Movement.Cat
                 new KickedOutState(this, _kickOutSpeed)
             };
 
-            // Somehow 'Wait' state causes 'Chase' state to be set twice, so it's better to use by default 'Chase' state
-            //TryChangeState<WaitForFishSpawn>();
+            if (Game.Instance.CurrentState.Type != StateType.Assault)
+            {
+                TryChangeState<Runaway>();
+                return;
+            }
+            
             TryChangeState<ChaseForFishState>();
         }
 

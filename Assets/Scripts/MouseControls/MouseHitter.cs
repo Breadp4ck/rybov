@@ -7,6 +7,7 @@ using Zenject;
 
 namespace MouseControls
 {
+    [RequireComponent(typeof(MouseFollower))]
     public class MouseHitter : MonoBehaviour
     {
         public event Action StartChargeEvent;

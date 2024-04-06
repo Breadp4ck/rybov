@@ -18,7 +18,7 @@ namespace Fishing.Handlers
 
         [SerializeField] private FishingRod _fishingRod;
 
-        [SerializeField] private Transform _fishTransform;
+        [SerializeField] private FishMinigame _fishMinigame;
 
         [SerializeField] private float _radius;
 
@@ -27,23 +27,16 @@ namespace Fishing.Handlers
 
         private IEnumerator _handleCatchRoutine;
 
-        private Vector3 _fishDirectionPull;
-        private Vector3 _fishInitialPosition;
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(_fishTransform.position, _radius);
-        }
-
-        public void Awake()
-        {
-            _fishInitialPosition = _fishTransform.transform.position;
+            Gizmos.DrawWireSphere(_fishMinigame.transform.position, _radius);
         }
 
         public override void StartCatching(FishInfo fishInfo)
         {
-            _fishTransform.transform.position = _fishInitialPosition;
+            _fishMinigame.transform.position = _fishMinigame.FishTransform.position;
             if (_handleCatchRoutine != null)
             {
                 StopCoroutine(_handleCatchRoutine);
@@ -57,40 +50,55 @@ namespace Fishing.Handlers
         {
             if (_handleCatchRoutine != null)
             {
+                _fishMinigame.FishDirectionPull = Vector3.zero;
+                _fishMinigame.transform.position = _fishMinigame.FishTransform.position;
                 StopCoroutine(_handleCatchRoutine);
             }
         }
 
         private IEnumerator HandleCatch(FishInfo fishInfo)
         {
-            _fishTransform.transform.position = new Vector3(-5f, 2.25f, 0f);
+            _fishMinigame.ChangeFishDirectionPull();
+            var fishTime = 0f;
 
             CurrentCatchExtent = fishInfo.InitialCatchExtent;
             while (CurrentCatchExtent > 0f)
             {
+                _fishMinigame.Update();
+                _fishMinigame.transform.position = (Vector2)_fishMinigame.FishTransform.position +
+                                                   Vector2.ClampMagnitude(
+                                                       _fishMinigame.transform.position -
+                                                       _fishMinigame.FishTransform.position, _radius);
+                
                 var rodNormalized = (_fishingRod.transform.position - _fishingRod.InitialPosition) / _fishingRod.Radius;
                 rodNormalized.z = 0f;
-                var fishNormalized = (_fishTransform.transform.position - _fishInitialPosition) / _radius;
+                var fishNormalized =
+                    (_fishMinigame.transform.position - _fishMinigame.FishTransform.position) / _radius +
+                    (_fishMinigame.FishTransform.position - _fishingRod.transform.position);
                 fishNormalized.z = 0f;
 
                 // TODO: TESTING
 
                 // From -1 to 1
                 // Определить по направлению тяги удочки и направлению движения рыбы
-                //var coef = Vector2.Dot(rodNormalized, fishNormalized);
                 var angle = Vector2.Angle(rodNormalized, fishNormalized);
-                if (angle >= 150)
+                if (angle >= 150f)
                 {
-                    CurrentCatchExtent += (180 - angle) / 30 * fishInfo.MaxCatchSpeed * Time.fixedDeltaTime;
+                    CurrentCatchExtent += (180f - angle) / 30f * fishInfo.MaxCatchSpeed * Time.fixedDeltaTime;
                 }
 
                 else
                 {
-                    CurrentCatchExtent -= (150 - angle) / 150f * fishInfo.MaxLoseSpeed * Time.fixedDeltaTime;
+                    CurrentCatchExtent -= (150f - angle) / 150f * fishInfo.MaxLoseSpeed * Time.fixedDeltaTime;
                 }
 
-                // MaxCatchSpeed or MaxLoseSpeed
-                //CurrentCatchExtent += coef * fishInfo.MaxCatchSpeed * Time.fixedDeltaTime;
+                fishTime += Time.fixedDeltaTime;
+                if (fishTime > fishInfo.FishAggressivityInSeconds)
+                {
+                    fishTime = 0f;
+                    _fishMinigame.ChangeFishDirectionPull();
+                }
+
                 print(CurrentCatchExtent);
                 
                 if (CurrentCatchExtent >= 1f)

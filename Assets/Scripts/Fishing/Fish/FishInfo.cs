@@ -24,5 +24,8 @@ namespace Fishing.Fish
         
         public float MaxLoseSpeed => _maxLoseSpeed;
         [SerializeField] private float _maxLoseSpeed;
+
+        public float FishAggressivityInSeconds => _fishAggressivityInSeconds;
+        [SerializeField] private float _fishAggressivityInSeconds;
     }
 }

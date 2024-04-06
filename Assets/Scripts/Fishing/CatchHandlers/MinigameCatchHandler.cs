@@ -14,8 +14,6 @@ namespace Fishing.Handlers
     {
         public override event Action<CatchResult> CatchFinishedEvent;
         
-        [SerializeField] private MinigameCatchHandlerUI _catchHandlerUI;
-
         [SerializeField] private FishingRod _fishingRod;
 
         [SerializeField] private FishMinigame _fishMinigame;

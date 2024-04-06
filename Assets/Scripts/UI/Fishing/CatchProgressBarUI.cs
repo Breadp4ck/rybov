@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using Fishing.Handlers;
 using Fishing.Pool;
 using UnityEngine;
 
 namespace UI.Fishing
 {
-    public class CatchProgressBar : MonoBehaviour
+    [RequireComponent(typeof(CanvasGroup))]
+    public class CatchProgressBarUI : MonoBehaviour
     {
         [SerializeField] private FishLake _fishLake;
         
@@ -17,11 +16,15 @@ namespace UI.Fishing
 
         [SerializeField] private Transform _handleTransform;
 
-        [SerializeField] private SpriteRenderer _background;
-        [SerializeField] private SpriteRenderer _floaterSprite;
+        private CanvasGroup _canvasGroup;
 
         private IEnumerator _displayProgressRoutine;
-            
+
+        private void Awake()
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
+
         private void OnEnable()
         {
             _fishLake.StartCatchingEvent += OnStartCatching;
@@ -36,8 +39,7 @@ namespace UI.Fishing
         
         private void OnStartCatching()
         {
-            _background.enabled = true;
-            _floaterSprite.enabled = true;
+            _canvasGroup.alpha = 1f;
             
             if (_displayProgressRoutine != null)
             {
@@ -50,8 +52,7 @@ namespace UI.Fishing
 
         private void OnEndCatching(CatchHandler.CatchResult obj)
         {
-            _background.enabled = false;
-            _floaterSprite.enabled = false;
+            _canvasGroup.alpha = 0f;
             
             if (_displayProgressRoutine != null)
             {

@@ -11,8 +11,6 @@ namespace MouseControls
     [RequireComponent(typeof(MouseFollower))]
     public class MouseFishing : MonoBehaviour
     {
-        [SerializeField] private Camera _camera;
-
         [Header("Range")] [Range(0.1f, 2f)] [SerializeField]
         private float _radius;
         

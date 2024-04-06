@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Inputs;
 using Units.Hitting;
@@ -8,8 +9,9 @@ namespace MouseControls
 {
     public class MouseHitter : MonoBehaviour
     {
-        [SerializeField] private Camera _camera;
-
+        public event Action StartChargeEvent;
+        public event Action StopChargeEvent;
+        
         [Header("Range")] [Range(0.1f, 2f)] [SerializeField]
         private float _radius;
 
@@ -19,8 +21,11 @@ namespace MouseControls
         [Header("Power")] [Range(0.25f, 5f)] [SerializeField]
         private float _maxPowerTimeSeconds;
 
-        [Range(1f, 5f)] [SerializeField] private float _maxPower;
-        private float _currentPower;
+        public float MaxPower => _maxPower;
+        [Range(1f, 5f)] 
+        [SerializeField] private float _maxPower;
+        
+        public float CurrentPower { get; private set; }
 
         private IInputSystem _inputSystem;
 
@@ -56,32 +61,36 @@ namespace MouseControls
 
             if (_inputSystem.IsActionUp(InputAction.LeftClick) == true && _isAccumulatingPower == true)
             {
-                Hit(_currentPower);
+                StopCharge(CurrentPower);
             }
-        }
-
-        private void FixedUpdate()
-        {
-            transform.position = _camera.ScreenToWorldPoint(Input.mousePosition);
         }
 
         private void StartCharge()
         {
             _isAccumulatingPower = true;
-            _currentPower = 0f;
+            CurrentPower = 0f;
+            
+            StartChargeEvent?.Invoke();
         }
 
         private void Charge(float deltaPower)
         {
-            if (_currentPower >= _maxPower)
+            if (CurrentPower >= _maxPower)
             {
                 return;
             }
 
-            _currentPower += deltaPower;
-            _currentPower = Mathf.Clamp(_currentPower, 0f, _maxPower);
+            CurrentPower += deltaPower;
+            CurrentPower = Mathf.Clamp(CurrentPower, 0f, _maxPower);
         }
 
+        private void StopCharge(float power)
+        {
+            Hit(power);
+            
+            StopChargeEvent?.Invoke();
+        }
+        
         private void Hit(float power)
         {
             _isAccumulatingPower = false;

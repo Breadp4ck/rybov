@@ -187,10 +187,7 @@ namespace Units.Movement.Cat
         private void Awake()
         {
             MovementHandler = GetComponent<IMovementHandler>();
-        }
-
-        private void Start()
-        {
+            
             // Init states.
             States = new MovementState[]
             {

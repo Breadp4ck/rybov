@@ -1,9 +1,10 @@
 using System.Linq;
 using Inputs;
+using Units.Hitting;
 using UnityEngine;
 using Zenject;
 
-namespace Units.Hitting
+namespace MouseControls
 {
     public class MouseHitter : MonoBehaviour
     {
@@ -99,12 +100,12 @@ namespace Units.Hitting
             
             foreach (Collider2D overlapped in overlappedColliders)
             {
-                if (overlapped.TryGetComponent(out IHittable snappable) == false)
+                if (overlapped.TryGetComponent(out IHittable hittable) == false)
                 {
                     continue;
                 }
 
-                snappable.OnHit(power);
+                hittable.OnHit(power);
             }
         }
     }

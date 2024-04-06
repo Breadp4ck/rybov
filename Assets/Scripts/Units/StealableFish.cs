@@ -29,6 +29,7 @@ namespace Units
         public Type FishType => _type;
         [SerializeField] private Type _type;
         
+        public FishMovementStateMachine StateMachine => _stateMachine;
         [SerializeField] private FishMovementStateMachine _stateMachine;
 
         private IEnumerator _followDragTransformRoutine;

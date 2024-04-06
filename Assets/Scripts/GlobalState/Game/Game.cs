@@ -20,6 +20,7 @@ namespace GlobalStates.Game
         public bool IsGamePaused { get; private set; }
         
         [SerializeField] private float _assaultDurationSeconds;
+        public float AssaultDurationSeconds => _assaultDurationSeconds;
         
         private IEnumerable<State> _states = Enumerable.Empty<State>();
         

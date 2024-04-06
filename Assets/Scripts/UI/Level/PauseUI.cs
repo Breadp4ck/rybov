@@ -5,20 +5,34 @@ using UnityEngine;
 public class PauseUI : MonoBehaviour
 {
     private Game Game => Game.Instance;
+    private CanvasGroup _canvasGroup;
 
     private void Start()
     {
-        gameObject.SetActive(false);
+        _canvasGroup = GetComponent<CanvasGroup>();
+        BecomeDisabled();
     }
 
     private void OnEnable()
     {
-        Game.PausedEvent += () => gameObject.SetActive(true);
-        Game.ResumedEvent += () => gameObject.SetActive(false);
+        Game.PausedEvent += BecomeEnabled;
+        Game.ResumedEvent += BecomeDisabled;
     }
 
     public void OnResumeButtonClicked()
     {
         Game.ResumeGame();
+    }
+
+    private void BecomeEnabled()
+    {
+        _canvasGroup.alpha = 1f;
+        _canvasGroup.interactable = true;
+    }
+    
+    private void BecomeDisabled()
+    {
+        _canvasGroup.alpha = 0f;
+        _canvasGroup.interactable = false;
     }
 }

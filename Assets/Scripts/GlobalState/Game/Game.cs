@@ -9,6 +9,9 @@ namespace GlobalStates.Game
     public class Game : MonoBehaviour
     {
         public static Game Instance { get; private set; }
+
+        public event Action PausedEvent;
+        public event Action ResumedEvent;
         
         public event Action<StateType> StateChangedEvent; 
         
@@ -85,16 +88,20 @@ namespace GlobalStates.Game
             StateChangedEvent?.Invoke(CurrentState.Type);
         }
         
-        private void PauseGame()
+        public void PauseGame()
         {
             IsGamePaused = true;
             Time.timeScale = 0;
+            
+            PausedEvent?.Invoke();
         }
 
-        private void ResumeGame()
+        public void ResumeGame()
         {
             IsGamePaused = false;
             Time.timeScale = 1;
+            
+            ResumedEvent?.Invoke();
         }
     }
 

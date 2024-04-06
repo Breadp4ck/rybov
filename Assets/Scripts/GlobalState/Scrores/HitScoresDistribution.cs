@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GlobalState.Scores
 {
-    [CreateAssetMenu(fileName = "FishScoresDistribution", menuName = "ScoresDistribution/Hit")]
+    [CreateAssetMenu(fileName = "HitScoresDistribution", menuName = "ScoresDistribution/Hit")]
     public class HitScoresDistribution : ScriptableObject
     {
         [System.Serializable]

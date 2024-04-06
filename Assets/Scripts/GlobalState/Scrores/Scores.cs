@@ -11,14 +11,12 @@ namespace GlobalState.Scores
     {
         public Scores Instance { get; private set; }
 
-        public List<FishScoreInfo> QuickNibbleScores { get; private set; } = new();
         public List<FishScoreInfo> CatchedFishScore { get; private set; } = new();
         public List<FishScoreInfo> SavedFishScore => GetSavedFishScoreInfo();
 
         public List<HitScoresInfo> HitsScore { get; private set; } = new();
 
         [Header("Fish Scores Distribution")]
-        [SerializeField] private FishScoresDistribution _quickNibbleScoresDistribution;
         [SerializeField] private FishScoresDistribution _catchedFishScoresDistribution;
         [SerializeField] private FishScoresDistribution _savedFishScoresDistribution;
         
@@ -34,19 +32,10 @@ namespace GlobalState.Scores
             }
             
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-
-        private void OnDestroy()
-        {
-            Instance = null;
         }
 
         private void OnEnable()
         {
-            // TODO: Subscribe to #13
-            // Быстрое реагирование на клёв рыбы
-            
             // Вылов рыбы
             FishPool.FishCaughtEvent += OnFishCaught;
             
@@ -56,9 +45,6 @@ namespace GlobalState.Scores
 
         private void OnDisable()
         {
-            // TODO: Unsubscribe from #13
-            // Быстрое реагирование на клёв рыбы
-            
             // Вылов рыбы
             FishPool.FishCaughtEvent -= OnFishCaught;
             
@@ -74,19 +60,16 @@ namespace GlobalState.Scores
             {
                 long totalScore = 0;
                 
-                long quickNibbleScore = QuickNibbleScores.Sum(x => x.Value);
                 long catchedFishScore = CatchedFishScore.Sum(x => x.Value);
                 long savedFishScore = SavedFishScore.Sum(x => x.Value);
                 long hitsScore = HitsScore.Sum(x => x.Value);
                 
                 
-                totalScore += quickNibbleScore;
                 totalScore += catchedFishScore;
                 totalScore += savedFishScore;
                 totalScore += hitsScore;
                 
                 Debug.Log(
-                    $"QuickNibbleScore: {quickNibbleScore} " +
                     $"CatchedFishScore: {catchedFishScore} " +
                     $"SavedFishScore: {savedFishScore} " +
                     $"HitsScore: {hitsScore} " +

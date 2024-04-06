@@ -22,6 +22,8 @@ namespace Units
             Fish4,
         }
         
+        public event Action<StealableFish> DragStoppedEvent;
+        
         /// <summary>
         /// The one who stole and carries this fish at the moment.
         /// </summary>
@@ -109,6 +111,8 @@ namespace Units
             {
                 StopCoroutine(_followDragTransformRoutine);
             }
+            
+            DragStoppedEvent?.Invoke(this);
             
             if (Thief != null)
             {

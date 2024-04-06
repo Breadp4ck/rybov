@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UI.Hitting
 {
-    [RequireComponent(typeof(CanvasGroup))]
+    [RequireComponent(typeof(CanvasGroup), typeof(MouseFollower))]
     public class HitProgressBarUI : MonoBehaviour
     {
         [SerializeField] private MouseHitter _mouseHitter;
@@ -36,7 +36,7 @@ namespace UI.Hitting
             _mouseHitter.StartChargeEvent -= OnStartCharge;
             _mouseHitter.StopChargeEvent -= OnStopCharge;
         }
-        
+
         private void OnStartCharge()
         {
             _canvasGroup.alpha = 1f;

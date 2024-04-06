@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Units.Destroying;
 using Units.Dragging;
 using Units.Movement.Fish;
@@ -32,7 +33,24 @@ namespace Units
         public FishMovementStateMachine StateMachine => _stateMachine;
         [SerializeField] private FishMovementStateMachine _stateMachine;
 
+        [Header("Dragging")] 
+        [SerializeField] private float _lerpSpeed;
+        [SerializeField] private float _minDistanceForRotation;
+        [SerializeField] private float _rotationSpeed;
+
+        [Header("Sprite Scaling")] 
+        [SerializeField] private SpriteRenderer _sprite;
+
+        [SerializeField] private Vector2 _minScaleOnDrag;
+        [SerializeField] private Vector2 _maxScaleOnDrag;
+        private Vector2 _defaultScale;
+
         private IEnumerator _followDragTransformRoutine;
+
+        private void Awake()
+        {
+            _defaultScale = _sprite.transform.localScale;
+        }
 
         #region IOutOfBorderInteractable
 
@@ -85,6 +103,8 @@ namespace Units
 
         public void StopDrag()
         {
+            _sprite.transform.localScale = _defaultScale;
+            
             if (_followDragTransformRoutine != null)
             {
                 StopCoroutine(_followDragTransformRoutine);
@@ -95,25 +115,21 @@ namespace Units
                 return;
             }
             
-            _stateMachine.TryChangeState<FidgetingCooldownState>();
+            _stateMachine.TryChangeState<FidgetingState>();
         }
         
         private IEnumerator FollowDragTransform(Transform followTransform)
         {
-            const float lerpSpeed = 0.1f; // Скорость интерполяции. Можно настроить по своему усмотрению.
-            const float minDistanceForRotation = 0.01f; // Минимальное расстояние для поворота. Можно настроить по своему усмотрению.
-            const float rotationSpeed = 5f; // Скорость вращения. Можно настроить по своему усмотрению.
-
             Vector2 previousPosition = transform.position;
 
             while (true)
             {
                 // Используем Lerp для плавного перемещения объекта к позиции followTransform.
-                Vector2 newPosition = Vector2.Lerp(transform.position, followTransform.position, lerpSpeed);
+                Vector2 newPosition = Vector2.Lerp(transform.position, followTransform.position, Time.deltaTime * _lerpSpeed);
                 transform.position = newPosition;
 
                 // Вычисляем угол между старым и новым направлением движения только если пройдено достаточное расстояние.
-                if (Vector2.Distance(newPosition, previousPosition) >= minDistanceForRotation)
+                if (Vector2.Distance(newPosition, previousPosition) >= _minDistanceForRotation)
                 {
                     Vector2 oldDirection = transform.up;
                     Vector2 newDirection = newPosition - previousPosition;
@@ -125,8 +141,17 @@ namespace Units
                     // Поворачиваем объект на вычисленный угол.
                     Quaternion currentRotation = transform.rotation;
                     Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
-                    transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, Time.deltaTime * rotationSpeed);
+                    transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, Time.deltaTime * _rotationSpeed);
                 }
+
+                // Вычисляем пройденное расстояние за кадр.
+                float distanceTravelled = Vector2.Distance(newPosition, previousPosition);
+
+                // Вычисляем процентное соотношение пройденного расстояния к максимально возможному расстоянию за кадр.
+                float lerpFactor = distanceTravelled / (_lerpSpeed * Time.deltaTime);
+
+                // Интерполируем между _minScaleOnDrag и _maxScaleOnDrag на основе lerpFactor.
+                _sprite.transform.localScale = Vector2.Lerp(_minScaleOnDrag, _maxScaleOnDrag, lerpFactor);
 
                 previousPosition = newPosition;
 

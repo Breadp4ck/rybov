@@ -37,7 +37,6 @@ namespace GlobalStates.Game
         private void OnDestroy()
         {
             CurrentState?.Stop();
-            Instance = null;
         }
 
         private void Start()

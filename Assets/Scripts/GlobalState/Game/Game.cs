@@ -1,13 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Inputs;
 using UnityEngine;
+using Zenject;
 
 namespace GlobalStates.Game
 {
     public class Game : MonoBehaviour
     {
         public static Game Instance { get; private set; }
+        
+        public event Action PausedEvent;
+        public event Action ResumedEvent;
         
         public event Action<StateType> StateChangedEvent; 
         
@@ -18,6 +23,14 @@ namespace GlobalStates.Game
         [SerializeField] private float _assaultDurationSeconds;
         
         private IEnumerable<State> _states = Enumerable.Empty<State>();
+
+        private IInputSystem _inputSystem;
+        
+        [Inject]
+        private void Construct(IInputSystem inputSystem)
+        {
+            _inputSystem = inputSystem;
+        }
         
         private void Awake()
         {
@@ -46,12 +59,14 @@ namespace GlobalStates.Game
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape) == false)
+            CurrentState?.Update(Time.deltaTime);
+            
+            if (_inputSystem.IsActionDown(InputAction.PauseToggle) == false)
             {
                 return;
             }
 
-            if (IsGamePaused)
+            if (IsGamePaused == true)
             {
                 ResumeGame();
             }
@@ -77,16 +92,24 @@ namespace GlobalStates.Game
             StateChangedEvent?.Invoke(CurrentState.Type);
         }
         
-        private void PauseGame()
+        public void PauseGame()
         {
             IsGamePaused = true;
             Time.timeScale = 0;
+            
+            PausedEvent?.Invoke();
+            
+            Debug.Log("Game paused.");
         }
 
-        private void ResumeGame()
+        public void ResumeGame()
         {
             IsGamePaused = false;
             Time.timeScale = 1;
+            
+            ResumedEvent?.Invoke();
+            
+            Debug.Log("Game resumed.");
         }
     }
 

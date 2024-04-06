@@ -4,7 +4,6 @@ using GlobalStates.Game;
 using Units.Movement.Handlers;
 using Units.Movement.Shared;
 using Units.Spawning;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Units.Movement.Cat

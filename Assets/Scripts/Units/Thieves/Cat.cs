@@ -84,7 +84,7 @@ namespace Units
 
         #endregion
         
-        #region ISnappable
+        #region IHittable
         
         public void OnHit(float power)
         {

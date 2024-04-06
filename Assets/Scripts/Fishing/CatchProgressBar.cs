@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Fishing.Handlers;
+using Fishing.Pool;
 using UnityEngine;
 
-namespace Fishing.Pool
+namespace UI.Fishing
 {
     public class CatchProgressBar : MonoBehaviour
     {
@@ -19,7 +20,7 @@ namespace Fishing.Pool
         [SerializeField] private SpriteRenderer _background;
         [SerializeField] private SpriteRenderer _floaterSprite;
 
-        private IEnumerator _displayProgressRoutine; 
+        private IEnumerator _displayProgressRoutine;
             
         private void OnEnable()
         {

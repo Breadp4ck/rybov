@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Fishing.Fish;
-using Fishing.Pool;
-using MouseControls;
-using UI.Fishing.Handlers;
-using Units.Spawning;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Fishing.Handlers
 {

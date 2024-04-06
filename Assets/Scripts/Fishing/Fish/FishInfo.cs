@@ -1,5 +1,4 @@
 ﻿using Units;
-using Units.Spawning;
 using UnityEngine;
 
 namespace Fishing.Fish

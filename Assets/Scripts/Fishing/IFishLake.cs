@@ -1,5 +1,4 @@
-﻿using Fishing.Fish;
-using Fishing.Handlers;
+﻿using Fishing.Handlers;
 
 namespace Fishing
 {

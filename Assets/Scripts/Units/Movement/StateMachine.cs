@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Units.Movement.Handlers;
 using UnityEngine;
 
 namespace Units.Movement
@@ -10,11 +11,11 @@ namespace Units.Movement
     {
         public event Action<MovementState> StateChangedEvent;
         
-        public IMovementHandler MovementHandler { get; protected set; }
+        public abstract IMovementHandler MovementHandler { get; set; }
 
         protected MovementState CurrentState { get; private set; }
 
-        protected IEnumerable<MovementState> States { get; set; }
+        protected abstract IEnumerable<MovementState> States { get; set; }
 
         public bool TryChangeState<T>() where T : MovementState
         {

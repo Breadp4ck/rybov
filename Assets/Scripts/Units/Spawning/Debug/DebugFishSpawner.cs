@@ -22,10 +22,12 @@ namespace Units.Spawning
             Spawn(null);
         }
 
-        public void Spawn(GameObject prefab)
+        public GameObject Spawn(GameObject prefab)
         {
             StealableFish stealableFish = Instantiate(_stealableFishPrefab, _mouseWorldPosition, Quaternion.identity);
             FishPool.CatchFish(stealableFish);
+
+            return stealableFish.gameObject;
         }
     }
 }

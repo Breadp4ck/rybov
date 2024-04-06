@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-namespace Units.Movement
+namespace Units.Movement.Handlers
 {
     [RequireComponent(typeof(NavMeshAgent))]
     public class UnityPathfinding : MonoBehaviour, IMovementHandler
@@ -56,7 +56,7 @@ namespace Units.Movement
             _target = target;
         }
 
-        public void SetDestination(Vector3 destination)
+        public void SetDestination(Vector2 destination)
         {
             if (_agent.enabled == false)
             {

@@ -4,10 +4,10 @@ namespace Units.Spawning
 {
     public class FishThiefSpawner : MonoBehaviour, ISpawner
     {
-        public void Spawn(GameObject prefab)
+        public GameObject Spawn(GameObject prefab)
         {
             Debug.Log($"Spawned: {prefab.name}");
-            Instantiate(prefab, transform.position, Quaternion.identity);
+            return Instantiate(prefab, transform.position, Quaternion.identity);
         }
     }
 }

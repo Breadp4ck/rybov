@@ -1,3 +1,5 @@
+using Units.Movement.Handlers;
+using Units.Spawning;
 using UnityEngine;
 
 namespace Units.Movement.Shared
@@ -8,7 +10,6 @@ namespace Units.Movement.Shared
 
         public override void Start()
         {
-            Debug.Log("StunnedState.Start()");
             StateMachine.MovementHandler.Stop();
         }
     }
@@ -17,21 +18,35 @@ namespace Units.Movement.Shared
     {
         private readonly float _speed;
         
+        private readonly IMovementHandler _previousMovementHandler;
+        private SimpleTranslate _simpleTranslateMovementHandler;
+        
         public KickedOutState(StateMachine stateMachine, float speed) : base(stateMachine)
         {
             _speed = speed;
+            _previousMovementHandler = stateMachine.MovementHandler;
         }
 
         public override void Start()
         {
-            Vector2 direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+            SimpleTranslate movementHandler = StateMachine.gameObject.AddComponent<SimpleTranslate>();
+            _simpleTranslateMovementHandler = movementHandler;
             
-            Debug.Log("KickedOutState.Start()");
-            IMovementHandler movementHandler = StateMachine.MovementHandler;
+            movementHandler.ManagedTransform = StateMachine.transform;
+            
             movementHandler.Init();
             movementHandler.SetSpeed(_speed);
             movementHandler.SetTarget(null);
-            movementHandler.SetDestination(direction * 10f); // TODO: Work together w/ Issue #26
+            
+            // Kick out off the screen.
+            movementHandler.SetDestination(Vector2.down * 100f);
+        }
+
+        public override void Stop()
+        {
+            Object.Destroy(_simpleTranslateMovementHandler);
+            
+            StateMachine.MovementHandler = _previousMovementHandler;
         }
     }
 }

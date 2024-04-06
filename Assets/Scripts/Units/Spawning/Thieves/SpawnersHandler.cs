@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Units.Spawning
 {
     public class SpawnersHandler : MonoBehaviour
     {
+        public static SpawnersHandler Instance { get; private set; }
+
+        public List<GameObject> SpawnedThieves { get; private set; } = new();
+        
         [SerializeField] private List<SpawnInfo> _spawnInfo;
 
         [SerializeField] private List<FishThiefSpawner> _spawners;
@@ -33,22 +38,37 @@ namespace Units.Spawning
         {
             // TODO: UnSubscribe to #13.
             // -= OnFishCaught();
-            
-            if (_spawnThievesWavesRoutine != null)
-            {
-                StopCoroutine(_spawnThievesWavesRoutine);
-            }
+
+            StopSpawning();
         }
 
-        private void OnFishCaught()
+        private void Awake()
+        {
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            
+            Instance = this;
+        }
+
+        private void OnDestroy()
+        {
+            Instance = null;
+        }
+
+        public void StopSpawning()
         {
             if (_spawnThievesWavesRoutine != null)
             {
                 StopCoroutine(_spawnThievesWavesRoutine);
             }
-
-            _spawnThievesWavesRoutine = SpawnThievesWaves();
-            StartCoroutine(_spawnThievesWavesRoutine);
+        }
+        
+        public FishThiefSpawner GetRandomSpawner()
+        {
+            return _spawners[Random.Range(0, _spawners.Count)];
         }
 
         private IEnumerator SpawnThievesWaves()
@@ -59,7 +79,8 @@ namespace Units.Spawning
                 while (balance > _spawnInfo.Select(x => x.SpawnCost).Min())
                 {
                     SpawnInfo spawnInfo = GetRelativelyRandomSpawnInfoByBalance(balance);
-                    GetRandomSpawner().Spawn(spawnInfo.FishThiefPrefab);
+                    GameObject spawnedGo = GetRandomSpawner().Spawn(spawnInfo.FishThiefPrefab);
+                    SpawnedThieves.Add(spawnedGo);
 
                     balance -= spawnInfo.SpawnCost;
                     yield return new WaitForSeconds(_spawnsIntervalSeconds);
@@ -67,6 +88,17 @@ namespace Units.Spawning
 
                 yield return new WaitForSeconds(_wavesIntervalSeconds);
             }
+        }
+        
+        private void OnFishCaught()
+        {
+            if (_spawnThievesWavesRoutine != null)
+            {
+                StopCoroutine(_spawnThievesWavesRoutine);
+            }
+
+            _spawnThievesWavesRoutine = SpawnThievesWaves();
+            StartCoroutine(_spawnThievesWavesRoutine);
         }
 
         /// <summary>
@@ -100,11 +132,6 @@ namespace Units.Spawning
             }
             
             return availableSpawnInfo[0];
-        }
-        
-        private FishThiefSpawner GetRandomSpawner()
-        {
-            return _spawners[Random.Range(0, _spawners.Count)];
         }
     }
 }

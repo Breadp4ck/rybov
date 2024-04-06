@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Units.Movement
+namespace Units.Movement.Handlers
 {
     public interface IMovementHandler
     {
@@ -11,6 +11,6 @@ namespace Units.Movement
         
         void SetSpeed(float speed);
         void SetTarget(Transform target);
-        void SetDestination(Vector3 destination);
+        void SetDestination(Vector2 destination);
     }
 }

@@ -73,14 +73,12 @@ namespace Units
         
         public void OnOutOfBorder()
         {
-            if (CarriedFish == null)
+            if (CarriedFish != null)
             {
-                return;
+                FishPool.CarryAwayFish(CarriedFish);
+                Destroy(CarriedFish.gameObject);
             }
             
-            FishPool.CarryAwayFish(CarriedFish);
-            
-            Destroy(CarriedFish.gameObject);
             Destroy(gameObject);
         }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Units.Destroying;
 using Units.Dragging;
 using Units.Movement.Fish;
@@ -84,7 +83,7 @@ namespace Units
                 return;
             }
             
-            _stateMachine.TryChangeState<FidgetingState>();
+            _stateMachine.TryChangeState<FidgetingCooldownState>();
         }
         
         private IEnumerator FollowDragTransform(Transform followTransform)

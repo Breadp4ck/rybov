@@ -1,13 +1,12 @@
 using System.Linq;
 using Inputs;
-using Snapping;
+using Units.Hitting;
 using UnityEngine;
 using Zenject;
 
 namespace MouseControls
 {
-    [RequireComponent(typeof(MouseFollower))]
-    public class MouseSnapper : MonoBehaviour
+    public class MouseHitter : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
 
@@ -57,8 +56,13 @@ namespace MouseControls
 
             if (_inputSystem.IsActionUp(InputAction.LeftClick) == true && _isAccumulatingPower == true)
             {
-                Snap(_currentPower);
+                Hit(_currentPower);
             }
+        }
+
+        private void FixedUpdate()
+        {
+            transform.position = _camera.ScreenToWorldPoint(Input.mousePosition);
         }
 
         private void StartCharge()
@@ -78,7 +82,7 @@ namespace MouseControls
             _currentPower = Mathf.Clamp(_currentPower, 0f, _maxPower);
         }
 
-        private void Snap(float power)
+        private void Hit(float power)
         {
             _isAccumulatingPower = false;
 
@@ -96,12 +100,12 @@ namespace MouseControls
             
             foreach (Collider2D overlapped in overlappedColliders)
             {
-                if (overlapped.TryGetComponent(out ISnappable snappable) == false)
+                if (overlapped.TryGetComponent(out IHittable hittable) == false)
                 {
                     continue;
                 }
 
-                snappable.OnHit(power);
+                hittable.OnHit(power);
             }
         }
     }

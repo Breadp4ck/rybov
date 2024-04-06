@@ -9,9 +9,9 @@ namespace Units.Spawning
     /// </summary>
     public static class FishPool
     {
-        public static event Action FishCaughtEvent;
-        public static event Action FishStolenEvent;
-        public static event Action FishDroppedEvent;
+        public static event Action<StealableFish> FishCaughtEvent;
+        public static event Action<StealableFish> FishStolenEvent;
+        public static event Action<StealableFish> FishDroppedEvent;
 
         public static List<StealableFish> FreeFishes { get; } = new();
         public static Dictionary<StealableFish, IFishThief> StolenFishes { get; } = new();
@@ -20,7 +20,7 @@ namespace Units.Spawning
         {
             FreeFishes.Add(fish);
             
-            FishCaughtEvent?.Invoke();
+            FishCaughtEvent?.Invoke(fish);
         }
         
         public static bool TryStealFish(StealableFish fish, IFishThief thief)
@@ -36,7 +36,7 @@ namespace Units.Spawning
             FreeFishes.Remove(fish);
             StolenFishes.Add(fish, thief);
             
-            FishStolenEvent?.Invoke();
+            FishStolenEvent?.Invoke(fish);
 
             return true;
         }
@@ -49,7 +49,7 @@ namespace Units.Spawning
             StolenFishes.Remove(fish);
             FreeFishes.Add(fish);
             
-            FishDroppedEvent?.Invoke();
+            FishDroppedEvent?.Invoke(fish);
         }
 
         /// <summary>

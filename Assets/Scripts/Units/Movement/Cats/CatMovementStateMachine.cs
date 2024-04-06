@@ -33,7 +33,7 @@ namespace Units.Movement.Cat
             }
         }
 
-        private void OnFishAdded()
+        private void OnFishAdded(StealableFish fish)
         {
             FishPool.FishCaughtEvent -= OnFishAdded;
             FishPool.FishDroppedEvent -= OnFishAdded;
@@ -107,7 +107,7 @@ namespace Units.Movement.Cat
             FishPool.FishStolenEvent -= OnFishStolen;
         }
 
-        private void OnFishStolen()
+        private void OnFishStolen(StealableFish fish)
         {
             // If fish that we`re chasing is taken by someone else.
             if (_targetFish == null || _targetFish.Thief != _thief)

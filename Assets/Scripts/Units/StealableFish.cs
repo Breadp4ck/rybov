@@ -12,11 +12,23 @@ namespace Units
     /// </summary>
     public class StealableFish : MonoBehaviour, IOutOfBorderInteractable, IDraggable
     {
+        public enum Type : byte
+        {
+            // TODO: Rename
+            Fish1,
+            Fish2,
+            Fish3,
+            Fish4,
+        }
+        
         /// <summary>
         /// The one who stole and carries this fish at the moment.
         /// </summary>
         public IFishThief Thief;
 
+        public Type FishType => _type;
+        [SerializeField] private Type _type;
+        
         public FishMovementStateMachine StateMachine => _stateMachine;
         [SerializeField] private FishMovementStateMachine _stateMachine;
 

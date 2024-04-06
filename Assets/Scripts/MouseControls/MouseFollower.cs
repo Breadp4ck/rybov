@@ -4,7 +4,6 @@ namespace MouseControls
 {
     public class MouseFollower : MonoBehaviour
     {
-        public Camera Camera => _camera;
         [SerializeField] private Camera _camera;
     
         private void FixedUpdate()

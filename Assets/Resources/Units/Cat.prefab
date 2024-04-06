@@ -207,7 +207,7 @@ MonoBehaviour:
   _carryTransform: {fileID: 3819391476099652762}
   _staggerDurationSeconds: 0.3
   _stunDurationSeconds: 2
-  _snapConfig: {fileID: 11400000, guid: c47b7711ba93f514087b3e3e5925e059, type: 2}
+  _hitConfig: {fileID: 11400000, guid: c47b7711ba93f514087b3e3e5925e059, type: 2}
   _stateMachine: {fileID: 8083936104518327603}
 --- !u!114 &8083936104518327603
 MonoBehaviour:
@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _managedTransform: {fileID: 8083936104518327600}
+  _agent: {fileID: 4322910828524345640}
 --- !u!195 &4322910828524345640
 NavMeshAgent:
   m_ObjectHideFlags: 0

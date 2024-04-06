@@ -1,7 +1,11 @@
-namespace Snapping
+using System;
+
+namespace Units.Hitting
 {
-    public interface ISnappable
+    public interface IHittable
     {
+        static Action<HitType> HitEvent;
+        
         void OnHit(float power);
         
         void GigaSnap();

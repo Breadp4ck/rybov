@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Units.Destroying;
 using Units.Dragging;
 using Units.Movement.Fish;
@@ -36,8 +37,20 @@ namespace Units
         [SerializeField] private float _lerpSpeed;
         [SerializeField] private float _minDistanceForRotation;
         [SerializeField] private float _rotationSpeed;
-        
+
+        [Header("Sprite Scaling")] 
+        [SerializeField] private SpriteRenderer _sprite;
+
+        [SerializeField] private Vector2 _minScaleOnDrag;
+        [SerializeField] private Vector2 _maxScaleOnDrag;
+        private Vector2 _defaultScale;
+
         private IEnumerator _followDragTransformRoutine;
+
+        private void Awake()
+        {
+            _defaultScale = _sprite.transform.localScale;
+        }
 
         #region IOutOfBorderInteractable
 
@@ -90,6 +103,8 @@ namespace Units
 
         public void StopDrag()
         {
+            _sprite.transform.localScale = _defaultScale;
+            
             if (_followDragTransformRoutine != null)
             {
                 StopCoroutine(_followDragTransformRoutine);
@@ -128,6 +143,15 @@ namespace Units
                     Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
                     transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, Time.deltaTime * _rotationSpeed);
                 }
+
+                // Вычисляем пройденное расстояние за кадр.
+                float distanceTravelled = Vector2.Distance(newPosition, previousPosition);
+
+                // Вычисляем процентное соотношение пройденного расстояния к максимально возможному расстоянию за кадр.
+                float lerpFactor = distanceTravelled / (_lerpSpeed * Time.deltaTime);
+
+                // Интерполируем между _minScaleOnDrag и _maxScaleOnDrag на основе lerpFactor.
+                _sprite.transform.localScale = Vector2.Lerp(_minScaleOnDrag, _maxScaleOnDrag, lerpFactor);
 
                 previousPosition = newPosition;
 

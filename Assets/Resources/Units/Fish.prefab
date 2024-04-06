@@ -135,9 +135,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 0
   _stateMachine: {fileID: 5988630562370087054}
-  _lerpSpeed: 0.1
+  _lerpSpeed: 20
   _minDistanceForRotation: 0.01
   _rotationSpeed: 5
+  _sprite: {fileID: 291279332569202644}
+  _minScaleOnDrag: {x: 1.2, y: 1.2}
+  _maxScaleOnDrag: {x: 2, y: 2}
 --- !u!114 &5988630562370087054
 MonoBehaviour:
   m_ObjectHideFlags: 0

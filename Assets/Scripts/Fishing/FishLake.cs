@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 
 namespace Fishing.Pool
 {
-    public class FishLake : MonoBehaviour, IFishLake
+    public class FishLake : MonoBehaviour
     {
         public event Action FishGeneratedEvent;
         public event Action StartCatchingEvent;
@@ -22,7 +22,8 @@ namespace Fishing.Pool
         public bool IsCatching { get; private set; }
 
         public FishInfo AvailableFishInfo { get; private set; }
-        
+
+        public CatchHandler CatchHandler => _catchHandler;
         [SerializeField] private CatchHandler _catchHandler;
         
         [SerializeField] private List<FishInfo> _fishInfo;

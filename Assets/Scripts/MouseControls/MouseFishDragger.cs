@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using Inputs;
+using Units.Dragging;
 using UnityEngine;
 using Zenject;
 
-namespace Units.Dragging
+namespace MouseControls
 {
-    [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
+    [RequireComponent(typeof(MouseFollower))]
     public class MouseFishDragger : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
@@ -26,7 +27,7 @@ namespace Units.Dragging
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.blue;
+            Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, _radius);
         }
 
@@ -51,18 +52,13 @@ namespace Units.Dragging
                 {
                     _draggable.StopDrag();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Debug.LogWarning("Failed to stop dragging: " + e.Message);
+                    // ignored.
                 }
                 
                 _draggable = null;
             }
-        }
-
-        private void FixedUpdate()
-        {
-            transform.position = _camera.ScreenToWorldPoint(Input.mousePosition);
         }
         
         private IDraggable GetOverlappingDraggable()

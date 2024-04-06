@@ -53,11 +53,6 @@ namespace Units.Spawning
             Instance = this;
         }
 
-        private void OnDestroy()
-        {
-            Instance = null;
-        }
-
         public void StopSpawning()
         {
             if (_spawnThievesWavesRoutine != null)

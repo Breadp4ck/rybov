@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Snapping;
+using Units.Hitting;
 using Units.Movement;
 using Units.Movement.Cat;
 using Units.Movement.Shared;
@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Units
 {
-    public class Cat : MonoBehaviour, IFishThief, ISnappable, IStunnable
+    public class Cat : MonoBehaviour, IFishThief, IHittable, IStunnable
     {
         public StealableFish CarriedFish { get; private set; }
         
@@ -25,7 +25,7 @@ namespace Units
 
 
         [Header("ISnappable")]
-        [SerializeField] private SnapConfig _snapConfig;
+        [SerializeField] private HitConfig _hitConfig;
 
         [Header("Misc")]
         [SerializeField] private StateMachine _stateMachine;
@@ -84,16 +84,16 @@ namespace Units
 
         #endregion
         
-        #region ISnappable
+        #region IHittable
         
         public void OnHit(float power)
         {
-            HitType hitType = _snapConfig.GetHitType(power);
-            SnapConfig.Handle(hitType, this);
+            _hitConfig.Handle(power, this);
         }
 
         public void GigaSnap()
         {
+            IHittable.HitEvent?.Invoke(HitType.GigaSnap);
             _stateMachine.TryChangeState<KickedOutState>();
             
             if (CarriedFish == null)
@@ -106,6 +106,7 @@ namespace Units
 
         public void Snap()
         {
+            IHittable.HitEvent?.Invoke(HitType.Snap);
             Stun(StunDuration);
 
             if (CarriedFish == null)
@@ -118,6 +119,7 @@ namespace Units
 
         public void Slap()
         {
+            IHittable.HitEvent?.Invoke(HitType.Slap);
             Stun(StaggerDuration);
             
             if (CarriedFish == null)

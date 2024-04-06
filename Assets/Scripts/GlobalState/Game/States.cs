@@ -11,8 +11,6 @@ namespace GlobalStates.Game
         
         public abstract void Start();
         public virtual void Stop() { }
-
-        public virtual void Update(float deltaSeconds) { }
     }
     
     public class StartState : State
@@ -30,27 +28,30 @@ namespace GlobalStates.Game
         public override StateType Type => StateType.Assault;
         
         private readonly float _assaultDurationSeconds;
-        private float _timePassedSeconds;
+        
+        private CancellationToken _cancellationToken;
         
         public AssaultState(float assaultDurationSeconds)
         {
             _assaultDurationSeconds = assaultDurationSeconds;
         }
         
-        public override void Start()
+        public override async void Start()
         {
-            _timePassedSeconds = 0;
-        }
-
-        public override void Update(float deltaSeconds)
-        {
-            if (_timePassedSeconds < _assaultDurationSeconds)
+            float timePassedSeconds = 0;
+            const int delayMs = 200;
+            while (timePassedSeconds < _assaultDurationSeconds)
             {
-                _timePassedSeconds += deltaSeconds;
-                return;
+                timePassedSeconds += delayMs / 1000f;
+                await Task.Delay(delayMs, _cancellationToken);
             }
             
             Game.Instance.ChangeState(StateType.Fleeing);
+        }
+
+        public override void Stop()
+        {
+            _cancellationToken = new CancellationToken(true);
         }
     }
     
@@ -58,24 +59,24 @@ namespace GlobalStates.Game
     {
         public override StateType Type => StateType.Fleeing;
 
-        public override void Start()
+        private CancellationToken _cancellationToken;
+        
+        public override async void Start()
         {
             SpawnersHandler.Instance.StopSpawning();
-        }
 
-        public override void Update(float deltaSeconds)
-        {
-            if (SpawnersHandler.Instance == null)
+            const int pollingDelayMs = 200;
+            while (SpawnersHandler.Instance.SpawnedThieves.Any(x => x != null))
             {
-                return;
-            }
-            
-            if (SpawnersHandler.Instance.SpawnedThieves.Any(x => x != null))
-            {
-                return;
+                await Task.Delay(pollingDelayMs, _cancellationToken);
             }
             
             Game.Instance.ChangeState(StateType.Finish);
+        }
+        
+        public override void Stop()
+        {
+            _cancellationToken = new CancellationToken(true);
         }
     }
     

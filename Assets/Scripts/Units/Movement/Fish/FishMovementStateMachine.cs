@@ -139,10 +139,7 @@ namespace Units.Movement.Fish
         private void Awake()
         {
             MovementHandler = GetComponent<IMovementHandler>();
-        }
-
-        private void Start()
-        {
+            
             // Init states.
             States = new MovementState[]
             {
@@ -150,7 +147,7 @@ namespace Units.Movement.Fish
                 new FidgetingState(this, new FidgetingState.Info(_minFidgetRange, _maxFidgetRange, _minFidgetSpeed, _maxFidgetSpeed)),
                 new CarriedState(this)
             };
-
+            
             TryChangeState<FidgetingCooldownState>();
         }
         

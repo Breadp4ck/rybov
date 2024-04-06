@@ -1,18 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Inputs;
+using Units.Spawning;
 using UnityEngine;
-using Zenject;
 
 namespace GlobalStates.Game
 {
     public class Game : MonoBehaviour
     {
         public static Game Instance { get; private set; }
-        
-        public event Action PausedEvent;
-        public event Action ResumedEvent;
         
         public event Action<StateType> StateChangedEvent; 
         
@@ -23,14 +19,6 @@ namespace GlobalStates.Game
         [SerializeField] private float _assaultDurationSeconds;
         
         private IEnumerable<State> _states = Enumerable.Empty<State>();
-
-        private IInputSystem _inputSystem;
-        
-        [Inject]
-        private void Construct(IInputSystem inputSystem)
-        {
-            _inputSystem = inputSystem;
-        }
         
         private void Awake()
         {
@@ -40,8 +28,15 @@ namespace GlobalStates.Game
                 return;
             }
             
-            DontDestroyOnLoad(gameObject);
             Instance = this;
+
+            FishPool.FreeFishes?.Clear();
+            FishPool.StolenFishes?.Clear();
+        }
+
+        private void OnDestroy()
+        {
+            CurrentState?.Stop();
         }
 
         private void Start()
@@ -59,14 +54,12 @@ namespace GlobalStates.Game
 
         private void Update()
         {
-            CurrentState?.Update(Time.deltaTime);
-            
-            if (_inputSystem.IsActionDown(InputAction.PauseToggle) == false)
+            if (Input.GetKeyDown(KeyCode.Escape) == false)
             {
                 return;
             }
 
-            if (IsGamePaused == true)
+            if (IsGamePaused)
             {
                 ResumeGame();
             }
@@ -92,24 +85,16 @@ namespace GlobalStates.Game
             StateChangedEvent?.Invoke(CurrentState.Type);
         }
         
-        public void PauseGame()
+        private void PauseGame()
         {
             IsGamePaused = true;
             Time.timeScale = 0;
-            
-            PausedEvent?.Invoke();
-            
-            Debug.Log("Game paused.");
         }
 
-        public void ResumeGame()
+        private void ResumeGame()
         {
             IsGamePaused = false;
             Time.timeScale = 1;
-            
-            ResumedEvent?.Invoke();
-            
-            Debug.Log("Game resumed.");
         }
     }
 

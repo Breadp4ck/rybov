@@ -11,31 +11,48 @@ namespace UI.Level
         [SerializeField] private TextMeshProUGUI _text;
         
         private Game Game => Game.Instance;
-        private float _remainingAssaultTime;
-        private StateType _stateType;
-
-        private void Update()
-        {
-            while (_remainingAssaultTime > 0f && _stateType == StateType.Assault)
-            {
-                _remainingAssaultTime -= Time.deltaTime;
-            }
-            _text.text = $"{_remainingAssaultTime}";
-        }
+        
+        private IEnumerator _updateAssaultTimeRoutine; 
 
         private void OnEnable()
         {
-            Game.StateChangedEvent += GameStateChanged;
+            Game.StateChangedEvent += OnStateChanged;
         }
 
-        private void GameStateChanged(StateType type)
-        { 
-            _stateType = type;
-            print(_stateType);
-            if (_stateType == StateType.Start)
+        private void OnDisable()
+        {
+            Game.StateChangedEvent -= OnStateChanged;
+        }
+        
+        private void OnStateChanged(StateType stateType)
+        {
+            print(stateType);
+            if (stateType == StateType.Assault)
             {
-                _remainingAssaultTime = Game.AssaultDurationSeconds;
-                print(_remainingAssaultTime);
+                if (_updateAssaultTimeRoutine != null)
+                {
+                    StopCoroutine(_updateAssaultTimeRoutine);
+                }
+
+                _updateAssaultTimeRoutine = UpdateAssaultTime(Game.AssaultDurationSeconds);
+                StartCoroutine(_updateAssaultTimeRoutine);
+            }
+            else if (_updateAssaultTimeRoutine != null)
+            {
+                StopCoroutine(_updateAssaultTimeRoutine);
+            }
+        }
+
+        private IEnumerator UpdateAssaultTime(float assaultTimeSeconds)
+        {
+            TimeSpan currentAssaultTime = TimeSpan.FromSeconds(assaultTimeSeconds + 1);
+            
+            while (currentAssaultTime > TimeSpan.Zero)
+            {
+                currentAssaultTime -= TimeSpan.FromSeconds(Time.fixedDeltaTime);
+                _text.text = currentAssaultTime.ToString("m\\:ss");
+                
+                yield return new WaitForFixedUpdate();
             }
         }
     }

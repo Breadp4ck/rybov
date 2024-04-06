@@ -3,9 +3,9 @@ using Inputs;
 using UnityEngine;
 using Zenject;
 
-namespace Snapping
+namespace Units.Hitting
 {
-    public class MouseSnapper : MonoBehaviour
+    public class MouseHitter : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
 
@@ -55,7 +55,7 @@ namespace Snapping
 
             if (_inputSystem.IsActionUp(InputAction.LeftClick) == true && _isAccumulatingPower == true)
             {
-                Snap(_currentPower);
+                Hit(_currentPower);
             }
         }
 
@@ -81,7 +81,7 @@ namespace Snapping
             _currentPower = Mathf.Clamp(_currentPower, 0f, _maxPower);
         }
 
-        private void Snap(float power)
+        private void Hit(float power)
         {
             _isAccumulatingPower = false;
 
@@ -99,7 +99,7 @@ namespace Snapping
             
             foreach (Collider2D overlapped in overlappedColliders)
             {
-                if (overlapped.TryGetComponent(out ISnappable snappable) == false)
+                if (overlapped.TryGetComponent(out IHittable snappable) == false)
                 {
                     continue;
                 }

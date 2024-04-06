@@ -4,7 +4,6 @@ using GlobalStates.Game;
 using Units.Movement.Handlers;
 using Units.Movement.Shared;
 using Units.Spawning;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Units.Movement.Cat
@@ -34,7 +33,7 @@ namespace Units.Movement.Cat
             }
         }
 
-        private void OnFishAdded()
+        private void OnFishAdded(StealableFish fish)
         {
             FishPool.FishCaughtEvent -= OnFishAdded;
             FishPool.FishDroppedEvent -= OnFishAdded;
@@ -108,7 +107,7 @@ namespace Units.Movement.Cat
             FishPool.FishStolenEvent -= OnFishStolen;
         }
 
-        private void OnFishStolen()
+        private void OnFishStolen(StealableFish fish)
         {
             // If fish that we`re chasing is taken by someone else.
             if (_targetFish == null || _targetFish.Thief != _thief)

@@ -32,6 +32,11 @@ namespace Units
         public FishMovementStateMachine StateMachine => _stateMachine;
         [SerializeField] private FishMovementStateMachine _stateMachine;
 
+        [Header("Dragging")] 
+        [SerializeField] private float _lerpSpeed;
+        [SerializeField] private float _minDistanceForRotation;
+        [SerializeField] private float _rotationSpeed;
+        
         private IEnumerator _followDragTransformRoutine;
 
         #region IOutOfBorderInteractable
@@ -100,20 +105,16 @@ namespace Units
         
         private IEnumerator FollowDragTransform(Transform followTransform)
         {
-            const float lerpSpeed = 0.1f; // Скорость интерполяции. Можно настроить по своему усмотрению.
-            const float minDistanceForRotation = 0.01f; // Минимальное расстояние для поворота. Можно настроить по своему усмотрению.
-            const float rotationSpeed = 5f; // Скорость вращения. Можно настроить по своему усмотрению.
-
             Vector2 previousPosition = transform.position;
 
             while (true)
             {
                 // Используем Lerp для плавного перемещения объекта к позиции followTransform.
-                Vector2 newPosition = Vector2.Lerp(transform.position, followTransform.position, lerpSpeed);
+                Vector2 newPosition = Vector2.Lerp(transform.position, followTransform.position, Time.deltaTime * _lerpSpeed);
                 transform.position = newPosition;
 
                 // Вычисляем угол между старым и новым направлением движения только если пройдено достаточное расстояние.
-                if (Vector2.Distance(newPosition, previousPosition) >= minDistanceForRotation)
+                if (Vector2.Distance(newPosition, previousPosition) >= _minDistanceForRotation)
                 {
                     Vector2 oldDirection = transform.up;
                     Vector2 newDirection = newPosition - previousPosition;
@@ -125,7 +126,7 @@ namespace Units
                     // Поворачиваем объект на вычисленный угол.
                     Quaternion currentRotation = transform.rotation;
                     Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
-                    transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, Time.deltaTime * rotationSpeed);
+                    transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, Time.deltaTime * _rotationSpeed);
                 }
 
                 previousPosition = newPosition;

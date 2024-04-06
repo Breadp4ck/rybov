@@ -17,19 +17,21 @@ namespace Units.Spawning
             Gizmos.DrawWireSphere(_spawnPoint.position, _radius);
         }
 
-        public void Spawn(GameObject prefab)
+        public GameObject Spawn(GameObject prefab)
         {
             // LSP Sorry!
             if (prefab.TryGetComponent(out StealableFish fish) == false)
             {
                 Debug.LogError("Prefab does not have StealableFish component.");
-                return;
+                return null;
             }
             
             Debug.Log($"Spawned: {fish.name}");
             StealableFish spawnedFish = Instantiate(fish, transform.position, Quaternion.identity);
 
             StartCoroutine(SlerpFishToSpawnPoint(spawnedFish, GetRandomSpawnPoint()));
+
+            return spawnedFish.gameObject;
         }
         
         private Vector2 GetRandomSpawnPoint()

@@ -35,12 +35,15 @@ namespace Units
         public FishMovementStateMachine StateMachine => _stateMachine;
         [SerializeField] private FishMovementStateMachine _stateMachine;
 
+        
         [Header("Dragging")] 
         [SerializeField] private float _lerpSpeed;
         [SerializeField] private float _minDistanceForRotation;
+
+        [Header("Sprite Scaling")]
         [SerializeField] private float _rotationSpeed;
 
-        [Header("Sprite Scaling")] 
+        public SpriteRenderer Sprite => _sprite;
         [SerializeField] private SpriteRenderer _sprite;
 
         [SerializeField] private Vector2 _minScaleOnDrag;

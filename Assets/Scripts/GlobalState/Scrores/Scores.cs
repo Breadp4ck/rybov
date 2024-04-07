@@ -40,7 +40,7 @@ namespace GlobalState.Scores
             FishPool.FishCaughtEvent += OnFishCaught;
             
             // Шлепки/щелбаны/убер-щелбаны по котам
-            IHittable.HitEvent += OnHit;
+            IHittable.StaticHitEvent += OnHit;
         }
 
         private void OnDisable()
@@ -49,7 +49,7 @@ namespace GlobalState.Scores
             FishPool.FishCaughtEvent -= OnFishCaught;
             
             // Шлепки/щелбаны/убер-щелбаны по котам
-            IHittable.HitEvent -= OnHit;
+            IHittable.StaticHitEvent -= OnHit;
             
         }
 

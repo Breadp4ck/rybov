@@ -11,6 +11,11 @@ namespace Units
 {
     public class Cat : MonoBehaviour, IFishThief, IHittable, IStunnable
     {
+        public event Action<HitType> HitEvent;
+        
+        public event Action FishStoleEvent;
+        public event Action FishDroppedEvent;
+        
         public StealableFish CarriedFish { get; private set; }
         
         [Header("IFishThief")]
@@ -22,8 +27,7 @@ namespace Units
 
         public TimeSpan StunDuration => TimeSpan.FromSeconds(_stunDurationSeconds);
         [SerializeField] private float _stunDurationSeconds;
-
-
+        
         public HitConfig HitConfig => _hitConfig;
         [Header("ISnappable")]
         [SerializeField] private HitConfig _hitConfig;
@@ -46,6 +50,8 @@ namespace Units
 
             _keepCarriedFishCloseRoutine = KeepCarriedFishClose();
             StartCoroutine(_keepCarriedFishCloseRoutine);
+            
+            FishStoleEvent?.Invoke();
         }
 
         public void OnFishDrop()
@@ -56,6 +62,8 @@ namespace Units
             {
                 StopCoroutine(_keepCarriedFishCloseRoutine);
             }
+            
+            FishDroppedEvent?.Invoke();
         }
         
         private IEnumerator KeepCarriedFishClose()
@@ -94,7 +102,8 @@ namespace Units
 
         public virtual void GigaSnap()
         {
-            IHittable.HitEvent?.Invoke(HitType.GigaSnap);
+            HitEvent?.Invoke(HitType.GigaSnap);
+            IHittable.StaticHitEvent?.Invoke(HitType.GigaSnap);
             _stateMachine.TryChangeState<KickedOutState>();
             
             if (CarriedFish == null)
@@ -107,7 +116,8 @@ namespace Units
 
         public virtual void Snap()
         {
-            IHittable.HitEvent?.Invoke(HitType.Snap);
+            HitEvent?.Invoke(HitType.Snap);
+            IHittable.StaticHitEvent?.Invoke(HitType.Snap);
             Stun(StunDuration);
 
             if (CarriedFish == null)
@@ -120,7 +130,8 @@ namespace Units
 
         public virtual void Slap()
         {
-            IHittable.HitEvent?.Invoke(HitType.Slap);
+            HitEvent?.Invoke(HitType.Slap);
+            IHittable.StaticHitEvent?.Invoke(HitType.Slap);
             Stun(StaggerDuration);
             
             if (CarriedFish == null)

@@ -19,7 +19,7 @@ namespace Fishing.Handlers
         /// </summary>
         public abstract float CurrentCatchExtent { get; protected set; }
         
-        public abstract float MaxCatchExtent { get; protected set; }
+        public abstract float MaxCatchExtent { get; }
 
         public abstract void StartCatching(FishInfo fishInfo);
         public abstract void StopCatching();

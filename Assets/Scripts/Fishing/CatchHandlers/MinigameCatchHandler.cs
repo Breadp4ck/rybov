@@ -16,7 +16,8 @@ namespace Fishing.Handlers
         [SerializeField] private float _radius;
 
         public override float CurrentCatchExtent { get; protected set; }
-        public override float MaxCatchExtent { get; protected set; }
+        public override float MaxCatchExtent => _maxCatchExtent;
+        [SerializeField] private float _maxCatchExtent;
 
         private IEnumerator _handleCatchRoutine;
 
@@ -94,7 +95,7 @@ namespace Fishing.Handlers
 
                 print(CurrentCatchExtent);
                 
-                if (CurrentCatchExtent >= 1f)
+                if (CurrentCatchExtent >= MaxCatchExtent)
                 {
                     CatchFinishedEvent?.Invoke(CatchResult.Success);
                     yield break;

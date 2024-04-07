@@ -28,6 +28,7 @@ namespace Units.Spawning
             
             Debug.Log($"Spawned: {fish.name}");
             StealableFish spawnedFish = Instantiate(fish, transform.position, Quaternion.identity);
+            FishPool.CatchFish(spawnedFish);
 
             StartCoroutine(SlerpFishToSpawnPoint(spawnedFish, GetRandomSpawnPoint()));
 
@@ -57,7 +58,6 @@ namespace Units.Spawning
                 yield return null;
             }
             
-            FishPool.FreeFishes.Add(fish);
             fish.StateMachine.TryChangeState<FidgetingCooldownState>();
         }
     }

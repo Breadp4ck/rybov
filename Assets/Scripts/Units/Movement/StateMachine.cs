@@ -13,7 +13,7 @@ namespace Units.Movement
         
         public abstract IMovementHandler MovementHandler { get; set; }
 
-        protected MovementState CurrentState { get; private set; }
+        public MovementState CurrentState { get; private set; }
 
         protected abstract IEnumerable<MovementState> States { get; set; }
 

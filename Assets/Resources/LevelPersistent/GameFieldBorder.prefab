@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8eebf9e03d72264c90647d4f95504e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: {fileID: 0}
+  _offset: {x: 0.5, y: 0.5}
 --- !u!61 &1438152982763009492
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -70,7 +72,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 21, y: 11}
+  m_Size: {x: 18.77778, y: 11}
   m_EdgeRadius: 0
 --- !u!50 &1438152982763009490
 Rigidbody2D:

@@ -24,6 +24,7 @@ namespace Units
         [SerializeField] private float _stunDurationSeconds;
 
 
+        public HitConfig HitConfig => _hitConfig;
         [Header("ISnappable")]
         [SerializeField] private HitConfig _hitConfig;
 
@@ -91,7 +92,7 @@ namespace Units
             _hitConfig.Handle(power, this);
         }
 
-        public void GigaSnap()
+        public virtual void GigaSnap()
         {
             IHittable.HitEvent?.Invoke(HitType.GigaSnap);
             _stateMachine.TryChangeState<KickedOutState>();
@@ -104,7 +105,7 @@ namespace Units
             FishPool.DropFish(CarriedFish, this);
         }
 
-        public void Snap()
+        public virtual void Snap()
         {
             IHittable.HitEvent?.Invoke(HitType.Snap);
             Stun(StunDuration);
@@ -117,7 +118,7 @@ namespace Units
             FishPool.DropFish(CarriedFish, this);
         }
 
-        public void Slap()
+        public virtual void Slap()
         {
             IHittable.HitEvent?.Invoke(HitType.Slap);
             Stun(StaggerDuration);

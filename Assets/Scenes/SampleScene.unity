@@ -5535,6 +5535,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1438152982763009493, guid: 9a177ac8f5f25ae4fb898171378bf0a9, type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 1438152982763009493, guid: 9a177ac8f5f25ae4fb898171378bf0a9, type: 3}
+      propertyPath: _offset.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1438152982763009493, guid: 9a177ac8f5f25ae4fb898171378bf0a9, type: 3}
+      propertyPath: _offset.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1438152982763009494, guid: 9a177ac8f5f25ae4fb898171378bf0a9, type: 3}
       propertyPath: m_Name
       value: GameFieldBorder

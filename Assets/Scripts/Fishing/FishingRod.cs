@@ -17,6 +17,12 @@ namespace Fishing
         private Vector3 _initialPosition;
         public Vector3 InitialPosition => _initialPosition;
         
+        private float _maxDeviation = 0.1f;
+        private float _deviationFrequency = 10f;
+
+        private float _nextDeviationTime = 0f;
+        private Vector3 _deviationVector = Vector3.zero;
+        
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.magenta;
@@ -55,11 +61,19 @@ namespace Fishing
         public IEnumerator FollowDragTransform(Transform followTransform)
         {
             const float lerpSpeed = 0.1f; // Скорость интерполяции. Можно настроить по своему усмотрению.
+            Vector2 offset = Vector2.one;
 
             while (true)
             {
-                Vector2 newPosition = Vector2.Lerp(transform.position, followTransform.position, lerpSpeed);
-                Vector2 offset = newPosition - (Vector2)_initialPosition;
+                if (Time.time >= _nextDeviationTime)
+                {
+                    _deviationVector = Random.insideUnitSphere * _maxDeviation * offset / 100f ;
+        
+                    _nextDeviationTime = Time.time + 1f / _deviationFrequency;
+                }
+                
+                Vector2 newPosition = Vector2.Lerp(transform.position, followTransform.position, 1f / offset.magnitude / 500f);
+                offset = (newPosition - (Vector2)_initialPosition) + (Vector2)_deviationVector;
                 transform.position = (Vector2)_initialPosition + Vector2.ClampMagnitude(offset, _radius);
                 
                 yield return null;

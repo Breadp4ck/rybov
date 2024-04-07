@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Fishing.Handlers;
+using Fishing.Pool;
+using UnityEngine;
 
 namespace Units.Spawning
 {
@@ -26,6 +28,7 @@ namespace Units.Spawning
         {
             StealableFish stealableFish = Instantiate(_stealableFishPrefab, _mouseWorldPosition, Quaternion.identity);
             FishPool.CatchFish(stealableFish);
+            FindObjectOfType<FishLake>()?.StopCatching(CatchHandler.CatchResult.Success);
 
             return stealableFish.gameObject;
         }

@@ -1,6 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Fishing.Handlers;
+using Fishing.Pool;
+using GlobalStates.Game;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,7 +18,9 @@ namespace Units.Spawning
         
         [SerializeField] private List<SpawnInfo> _spawnInfo;
 
-        [SerializeField] private List<FishThiefSpawner> _spawners;
+        private List<FishThiefSpawner> _spawners;
+
+        private List<FishLake> _fishLakes;
 
         [SerializeField] private uint _wavesCount;
 
@@ -26,18 +32,28 @@ namespace Units.Spawning
         private void OnValidate()
         {
             _spawners = FindObjectsOfType<FishThiefSpawner>().ToList();
+            _fishLakes = FindObjectsOfType<FishLake>().ToList();
+            
+            if (Math.Abs(_spawnInfo.Select(x => x .SpawnChance).Sum() - 1) > 0.01f)
+            {
+                Debug.LogWarning($"Spawn chances in {gameObject} sum are not equal to 1");
+            }
         }
 
         private void OnEnable()
         {
-            // TODO: Subscribe to #13.
-            // += OnFishCaught();
+            foreach (FishLake lake in _fishLakes)
+            {
+                lake.EndCatchingEvent += OnEndCatching;
+            }
         }
 
         private void OnDisable()
         {
-            // TODO: UnSubscribe to #13.
-            // -= OnFishCaught();
+            foreach (FishLake lake in _fishLakes)
+            {
+                lake.EndCatchingEvent -= OnEndCatching;
+            }
 
             StopSpawning();
         }
@@ -71,6 +87,7 @@ namespace Units.Spawning
             for (var i = 0; i < _wavesCount; i++)
             {
                 uint balance = GetBalance();
+                print($"Balance: {balance}");
                 while (balance > _spawnInfo.Select(x => x.SpawnCost).Min())
                 {
                     SpawnInfo spawnInfo = GetRelativelyRandomSpawnInfoByBalance(balance);
@@ -85,8 +102,18 @@ namespace Units.Spawning
             }
         }
         
-        private void OnFishCaught()
+        private void OnEndCatching(CatchHandler.CatchResult catchResult)
         {
+            if (catchResult != CatchHandler.CatchResult.Success)
+            {
+                return;
+            }
+
+            foreach (FishLake lake in _fishLakes)
+            {
+                lake.EndCatchingEvent -= OnEndCatching;
+            }
+            
             if (_spawnThievesWavesRoutine != null)
             {
                 StopCoroutine(_spawnThievesWavesRoutine);
@@ -103,8 +130,11 @@ namespace Units.Spawning
         /// <returns>Balance value</returns>
         private uint GetBalance()
         {
-            // TODO: Implement balance calculation via some math function
-            return 0;
+            Game game = Game.Instance;
+            
+            float timePassed = game.AssaultDurationSeconds - game.RemainingAssaultTimeSeconds;
+
+            return (uint)Mathf.CeilToInt(game.AssaultDurationSeconds * (Mathf.Sqrt(timePassed) / (_wavesCount * _wavesIntervalSeconds)));
         }
 
         /// <summary>

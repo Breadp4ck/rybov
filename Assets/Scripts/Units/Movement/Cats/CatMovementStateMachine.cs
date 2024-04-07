@@ -161,8 +161,7 @@ namespace Units.Movement.Cat
         {
             MovementHandler.Init();
             MovementHandler.SetSpeed(_speed);
-            MovementHandler.SetTarget(null);
-            MovementHandler.SetDestination(SpawnersHandler.Instance.GetRandomSpawner().transform.position);
+            MovementHandler.SetTarget(SpawnersHandler.Instance.GetRandomSpawner().transform);
         }
 
         public override void Stop()

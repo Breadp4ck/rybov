@@ -4,7 +4,9 @@ namespace Units.Hitting
 {
     public interface IHittable
     {
-        static Action<HitType> HitEvent;
+        static Action<HitType> StaticHitEvent;
+        
+        event Action<HitType> HitEvent;
         
         void OnHit(float power);
         

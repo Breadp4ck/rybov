@@ -38,7 +38,7 @@ namespace Units.Movement.Shared
             movementHandler.SetTarget(null);
             
             // Kick out off the screen.
-            movementHandler.SetDestination(Vector2.down * 100f);
+            movementHandler.SetDestination(Random.insideUnitCircle.normalized * 100f);
         }
 
         public override void Stop()

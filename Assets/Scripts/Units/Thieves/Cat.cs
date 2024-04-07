@@ -36,6 +36,7 @@ namespace Units
         [SerializeField] private StateMachine _stateMachine;
         
         private IEnumerator _keepCarriedFishCloseRoutine;
+        private IEnumerator _stunRoutine;
 
         #region IFishThief
 
@@ -106,6 +107,11 @@ namespace Units
             IHittable.StaticHitEvent?.Invoke(HitType.GigaSnap);
             _stateMachine.TryChangeState<KickedOutState>();
             
+            if (_stunRoutine != null)
+            {
+                StopCoroutine(_stunRoutine);
+            }
+            
             if (CarriedFish == null)
             {
                 return;
@@ -148,7 +154,13 @@ namespace Units
         
         public void Stun(TimeSpan duration)
         {
-            StartCoroutine(StunRoutine(duration));
+            if (_stunRoutine != null)
+            {
+                StopCoroutine(_stunRoutine);
+            }
+            
+            _stunRoutine = StunRoutine(duration);
+            StartCoroutine(_stunRoutine);
         }
         
         private IEnumerator StunRoutine(TimeSpan duration)

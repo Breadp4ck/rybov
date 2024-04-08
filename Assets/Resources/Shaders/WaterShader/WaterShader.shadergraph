@@ -7,22 +7,7 @@
             "m_Id": "4fa9c7957a5d486c9b4d1e3949fdd735"
         },
         {
-            "m_Id": "3844eb4bb87d47899e85e7ff6db15c3e"
-        },
-        {
-            "m_Id": "c4ff5febefb84ef5b40421ce4ce99498"
-        },
-        {
             "m_Id": "9fd965c0371b4cec90729e9907bd387b"
-        },
-        {
-            "m_Id": "5686249c75754112af0aad7b38eeb8a6"
-        },
-        {
-            "m_Id": "d02e5491a8fd463b849733164d3b2191"
-        },
-        {
-            "m_Id": "aa3cb0c115194ba5950ac569ea16dc8c"
         },
         {
             "m_Id": "e6bdec50e8a2422b8747adac6d5de444"
@@ -867,33 +852,6 @@
 }
 
 {
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "3844eb4bb87d47899e85e7ff6db15c3e",
-    "m_Guid": {
-        "m_GuidSerialized": "25ebe342-5a4d-491f-a29b-113e2069122f"
-    },
-    "m_Name": "RefractionStrength",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "RefractionStrength",
-    "m_DefaultReferenceName": "_RefractionStrength",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 0.029999999329447748,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
-}
-
-{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "3c3a18b6d3424a4dac8e340be1f4d341",
@@ -1286,33 +1244,6 @@
 }
 
 {
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "5686249c75754112af0aad7b38eeb8a6",
-    "m_Guid": {
-        "m_GuidSerialized": "9b9956b6-4c38-4be0-a144-970da2bd4bbe"
-    },
-    "m_Name": "CausticScale",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "CausticScale",
-    "m_DefaultReferenceName": "_CausticScale",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 0.15000000596046449,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
-}
-
-{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "56d56126a5b14d7b8d3ea288535ac57d",
@@ -1337,22 +1268,7 @@
             "m_Id": "4fa9c7957a5d486c9b4d1e3949fdd735"
         },
         {
-            "m_Id": "3844eb4bb87d47899e85e7ff6db15c3e"
-        },
-        {
-            "m_Id": "c4ff5febefb84ef5b40421ce4ce99498"
-        },
-        {
             "m_Id": "9fd965c0371b4cec90729e9907bd387b"
-        },
-        {
-            "m_Id": "5686249c75754112af0aad7b38eeb8a6"
-        },
-        {
-            "m_Id": "d02e5491a8fd463b849733164d3b2191"
-        },
-        {
-            "m_Id": "aa3cb0c115194ba5950ac569ea16dc8c"
         },
         {
             "m_Id": "e6bdec50e8a2422b8747adac6d5de444"
@@ -2044,35 +1960,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty",
-    "m_ObjectId": "aa3cb0c115194ba5950ac569ea16dc8c",
-    "m_Guid": {
-        "m_GuidSerialized": "d9ff3470-6d07-49bd-8e8b-6a33bf9a8fa6"
-    },
-    "m_Name": "kek",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "kek",
-    "m_DefaultReferenceName": "_kek",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"8d4f52a8f5112fd4296825aee2d4b620\",\"type\":3}}",
-        "m_Guid": ""
-    },
-    "isMainTexture": false,
-    "useTilingAndOffset": false,
-    "m_Modifiable": true,
-    "m_DefaultType": 0
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "aae6d93841de4cf3b97853f230be55a3",
     "m_Group": {
@@ -2461,33 +2348,6 @@
 }
 
 {
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "c4ff5febefb84ef5b40421ce4ce99498",
-    "m_Guid": {
-        "m_GuidSerialized": "35ec75cf-a3b9-41ba-b29d-1e3dbab2ec05"
-    },
-    "m_Name": "WaterSpeed",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "WaterSpeed",
-    "m_DefaultReferenceName": "_WaterSpeed",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 0.029999999329447748,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
-}
-
-{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.MultiplyNode",
     "m_ObjectId": "c923899efdb742aab44bc7262a497291",
@@ -2619,33 +2479,6 @@
     },
     "m_Labels": [],
     "m_Channel": 0
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "d02e5491a8fd463b849733164d3b2191",
-    "m_Guid": {
-        "m_GuidSerialized": "f6f658d9-e0b2-49bc-b88c-6186410b4d37"
-    },
-    "m_Name": "CausticOpacity",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "CausticOpacity",
-    "m_DefaultReferenceName": "_CausticOpacity",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 0.10000000149011612,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
 }
 
 {

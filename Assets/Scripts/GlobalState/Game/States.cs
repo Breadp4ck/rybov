@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Fishing.Pool;
 using Units.Spawning;
 
 namespace GlobalStates.Game
@@ -17,9 +19,25 @@ namespace GlobalStates.Game
     {
         public override StateType Type => StateType.Start;
 
-        public override async void Start()
+        private readonly List<FishLake> _fishLakes;
+
+        public StartState(List<FishLake> fishLakes)
         {
-            await Task.Yield();
+            _fishLakes = fishLakes;
+        }
+
+        public override void Start()
+        {
+            _fishLakes.ForEach(x => x.StartCatchingEvent += OnStartCatching);
+        }
+
+        public override void Stop()
+        {
+            _fishLakes.ForEach(x => x.StartCatchingEvent -= OnStartCatching);
+        }
+
+        private void OnStartCatching()
+        {
             Game.Instance.ChangeState(StateType.Assault);
         }
     }

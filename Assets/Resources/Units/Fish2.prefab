@@ -139,8 +139,8 @@ MonoBehaviour:
   _minDistanceForRotation: 0.01
   _rotationSpeed: 5
   _sprite: {fileID: 291279332569202644}
-  _minScaleOnDrag: {x: 0.65, y: 0.65}
-  _maxScaleOnDrag: {x: 0.92, y: 0.92}
+  _minScaleOnDrag: {x: 0.4, y: 0.4}
+  _maxScaleOnDrag: {x: 0.6, y: 0.6}
 --- !u!114 &5988630562370087054
 MonoBehaviour:
   m_ObjectHideFlags: 0

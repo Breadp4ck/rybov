@@ -60,7 +60,6 @@ namespace Fishing
 
         public IEnumerator FollowDragTransform(Transform followTransform)
         {
-            const float lerpSpeed = 0.1f; // Скорость интерполяции. Можно настроить по своему усмотрению.
             Vector2 offset = Vector2.one;
 
             while (true)

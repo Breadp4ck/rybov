@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Fishing.Pool;
 using Units.Spawning;
 using UnityEngine;
 
@@ -24,6 +25,8 @@ namespace GlobalStates.Game
         [SerializeField] private float _assaultDurationSeconds;
         public float AssaultDurationSeconds => _assaultDurationSeconds;
         
+        [SerializeField] private List<FishLake> _fishLakes;
+        
         private IEnumerable<State> _states = Enumerable.Empty<State>();
         
         private void Awake()
@@ -45,11 +48,16 @@ namespace GlobalStates.Game
             CurrentState?.Stop();
         }
 
+        private void OnValidate()
+        {
+            _fishLakes = FindObjectsOfType<FishLake>().ToList();
+        }
+
         private void Start()
         {
             _states = new List<State>
             {
-                new StartState(),
+                new StartState(_fishLakes),
                 new AssaultState(_assaultDurationSeconds),
                 new FleeingState(),
                 new FinishState()

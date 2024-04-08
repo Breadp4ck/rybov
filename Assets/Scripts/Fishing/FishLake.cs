@@ -4,14 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using Fishing.Fish;
 using Fishing.Handlers;
+using Units.Hitting;
 using Units.Spawning;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Fishing.Pool
 {
-    public class FishLake : MonoBehaviour
+    public class FishLake : Hittable
     {
+        public override event Action<HitType> HitEvent;
+        
         public event Action FishGeneratedEvent;
         public event Action StartCatchingEvent;
         public event Action<CatchHandler.CatchResult> EndCatchingEvent;
@@ -83,6 +86,11 @@ namespace Fishing.Pool
             IsCatching = false;
             
             Debug.Log("Stop catching.");
+        }
+        
+        public override void OnHit(float power)
+        {
+            HitEvent?.Invoke(HitType.Slap);
         }
         
         private void OnCatchFinished(CatchHandler.CatchResult result)

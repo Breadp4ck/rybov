@@ -1,5 +1,4 @@
-﻿using System;
-using SceneManagement.SceneManagement;
+﻿using SceneManagement.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

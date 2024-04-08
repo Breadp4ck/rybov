@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Units;
 using Units.Hitting;
 using UnityEngine;
@@ -19,6 +17,14 @@ namespace Animations
         [Range(0.01f, 0.3f)] [SerializeField] private float _exitStunDurationFraction;
 
         [SerializeField] private SpriteRenderer _sprite;
+        
+        [Header("Hat")]
+        [SerializeField] private SpriteRenderer _hatSprite;
+        
+        [SerializeField] private Sprite _rightHatSprite;
+        [SerializeField] private Sprite _leftHatSprite;
+        [SerializeField] private Sprite _upHatSprite;
+        [SerializeField] private Sprite _downHatSprite;
         
         private Vector2 _previousPosition;
 
@@ -70,27 +76,119 @@ namespace Animations
             _previousPosition = _cat.transform.position;
         }
 
-        // Animator Event
-        public void SetFishInFrontOfCat(AnimationEvent animationEvent)
+        #region AnimatorEvents
+        
+        private enum HatDirection : byte
         {
-            if (animationEvent.animatorClipInfo.weight <= 0.5f)
-            {
-                return;
-            }
-            
-            _cat.CarriedFish.Sprite.sortingOrder = _sprite.sortingOrder + 1;
+            Right,
+            Left,
+            Up,
+            Down
         }
 
-        // Animator Event
-        public void SetFishBehindCat(AnimationEvent animationEvent)
+        private void OnWalkRight(AnimationEvent animationEvent)
         {
-            if (animationEvent.animatorClipInfo.weight <= 0.5f)
+            if (animationEvent.animatorClipInfo.weight < 0.5f && animationEvent.animatorStateInfo.normalizedTime > 0.5f)
             {
                 return;
             }
             
+            SetHatDirection(HatDirection.Right);
+            
+            if (_cat.CarriedFish == null)
+            {
+                return;
+            }
+            
+            SetFishBehindCat();
+        }
+        
+        private void OnWalkLeft(AnimationEvent animationEvent)
+        {
+            if (animationEvent.animatorClipInfo.weight < 0.5f && animationEvent.animatorStateInfo.normalizedTime > 0.5f)
+            {
+                return;
+            }
+            
+            SetHatDirection(HatDirection.Left);
+            
+            if (_cat.CarriedFish == null)
+            {
+                return;
+            }
+            
+            SetFishBehindCat();
+        }
+        
+        private void OnWalkUp(AnimationEvent animationEvent)
+        {
+            if (animationEvent.animatorClipInfo.weight < 0.5f && animationEvent.animatorStateInfo.normalizedTime > 0.5f)
+            {
+                return;
+            }
+            
+            SetHatDirection(HatDirection.Up);
+            
+            if (_cat.CarriedFish == null)
+            {
+                return;
+            }
+            
+            SetFishBehindCat();
+        }
+        
+        private void OnWalkDown(AnimationEvent animationEvent)
+        {
+            if (animationEvent.animatorClipInfo.weight < 0.5f && animationEvent.animatorStateInfo.normalizedTime > 0.5f)
+            {
+                return;
+            }
+            
+            SetHatDirection(HatDirection.Down);
+            
+            if (_cat.CarriedFish == null)
+            {
+                return;
+            }
+            
+            SetFishInFrontOfCat();
+        }
+
+        private void SetHatDirection(HatDirection hatDirection)
+        {
+            if (_hatSprite == null)
+            {
+                return;
+            }
+            
+            switch (hatDirection)
+            {
+                case HatDirection.Right:
+                    _hatSprite.sprite = _rightHatSprite;
+                    break;
+                case HatDirection.Left:
+                    _hatSprite.sprite = _leftHatSprite;
+                    break;
+                case HatDirection.Up:
+                    _hatSprite.sprite = _upHatSprite;
+                    break;
+                case HatDirection.Down:
+                    _hatSprite.sprite = _downHatSprite;
+                    break;
+            }
+        }
+        
+        private void SetFishInFrontOfCat()
+        {
+            _cat.CarriedFish.Sprite.sortingOrder = _sprite.sortingOrder + 1;
+        }
+        
+        private void SetFishBehindCat()
+        {
             _cat.CarriedFish.Sprite.sortingOrder = _sprite.sortingOrder - 1;
         }
+
+        #endregion
         
         private void OnFishStolen()
         {

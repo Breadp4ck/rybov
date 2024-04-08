@@ -9,10 +9,10 @@ using UnityEngine;
 
 namespace Units
 {
-    public class Cat : MonoBehaviour, IFishThief, IHittable, IStunnable
+    public class Cat : Hittable, IFishThief, IStunnable
     {
-        public event Action<HitType> HitEvent;
-        
+        public override event Action<HitType> HitEvent;
+
         public event Action FishStoleEvent;
         public event Action FishDroppedEvent;
         
@@ -96,15 +96,15 @@ namespace Units
         
         #region IHittable
         
-        public void OnHit(float power)
+        public override void OnHit(float power)
         {
             _hitConfig.Handle(power, this);
         }
 
-        public virtual void GigaSnap()
+        public override void GigaSnap()
         {
             HitEvent?.Invoke(HitType.GigaSnap);
-            IHittable.StaticHitEvent?.Invoke(HitType.GigaSnap);
+            Hittable.StaticHitEvent?.Invoke(HitType.GigaSnap);
             _stateMachine.TryChangeState<KickedOutState>();
             
             if (_stunRoutine != null)
@@ -120,10 +120,10 @@ namespace Units
             FishPool.DropFish(CarriedFish, this);
         }
 
-        public virtual void Snap()
+        public override void Snap()
         {
             HitEvent?.Invoke(HitType.Snap);
-            IHittable.StaticHitEvent?.Invoke(HitType.Snap);
+            Hittable.StaticHitEvent?.Invoke(HitType.Snap);
             Stun(StunDuration);
 
             if (CarriedFish == null)
@@ -134,10 +134,10 @@ namespace Units
             FishPool.DropFish(CarriedFish, this);
         }
 
-        public virtual void Slap()
+        public override void Slap()
         {
             HitEvent?.Invoke(HitType.Slap);
-            IHittable.StaticHitEvent?.Invoke(HitType.Slap);
+            Hittable.StaticHitEvent?.Invoke(HitType.Slap);
             Stun(StaggerDuration);
             
             if (CarriedFish == null)

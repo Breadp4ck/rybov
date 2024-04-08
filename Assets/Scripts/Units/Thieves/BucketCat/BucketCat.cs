@@ -1,6 +1,4 @@
 using System;
-using Units;
-using UnityEngine;
 
 namespace Units
 {
@@ -16,16 +14,16 @@ namespace Units
 
         public event Action<BucketHitResult> BucketHitEvent;
 
-        private bool _hasBucket;
+        public bool HasBucket { get; private set; }
 
         private void Start()
         {
-            _hasBucket = true;
+            HasBucket = true;
         }
 
         public override void Slap()
         {
-            if (_hasBucket == true)
+            if (HasBucket == true)
             {
                 BucketHitEvent?.Invoke(BucketHitResult.Stagger);
                 return;
@@ -36,7 +34,7 @@ namespace Units
 
         public override void Snap()
         {
-            if (_hasBucket == true)
+            if (HasBucket == true)
             {
                 BucketHitEvent?.Invoke(BucketHitResult.Stun);
                 return;
@@ -47,10 +45,10 @@ namespace Units
 
         public override void GigaSnap()
         {
-            if (_hasBucket == true)
+            if (HasBucket == true)
             {
                 BucketHitEvent?.Invoke(BucketHitResult.Breached);
-                _hasBucket = false;
+                HasBucket = false;
                 return;
             }
             

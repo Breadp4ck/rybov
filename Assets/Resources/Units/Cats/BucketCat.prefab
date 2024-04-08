@@ -513,9 +513,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cat: {fileID: 2381421172198491923}
-  _pilferSpeed: 0.8
+  _pilferSpeed: 0.9
   _takeFishRange: 0.4
-  _runawaySpeed: 0.8
+  _runawaySpeed: 1.2
   _kickOutSpeed: 15
 --- !u!114 &6656350551401897462
 MonoBehaviour:

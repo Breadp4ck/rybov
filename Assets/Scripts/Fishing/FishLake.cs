@@ -123,19 +123,6 @@ namespace Fishing.Pool
                 AvailableFishInfo = GetRelativelyRandomFishInfo();
                 FishGeneratedEvent?.Invoke();
 
-                float currentCatchExtent = AvailableFishInfo.InitialCatchExtent;
-                while (IsCatching == false)
-                {
-                    currentCatchExtent -= AvailableFishInfo.MaxLoseSpeed / 10 * Time.deltaTime;
-                    if (currentCatchExtent <= 0f)
-                    {
-                        StopCatching(CatchHandler.CatchResult.Fail);
-                        break;
-                    }
-                
-                    yield return null;
-                }
-
                 yield return new WaitWhile(() => AvailableFishInfo != null);
             }
         }

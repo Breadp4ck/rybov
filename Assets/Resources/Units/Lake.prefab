@@ -1117,7 +1117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fishLake: {fileID: 3392682853004590979}
   _reelSounds:
-  - {fileID: 8300000, guid: 36e61f0f1f2069ba0badc4bbfba1bf5f, type: 3}
+  - {fileID: 8300000, guid: 04ce57858e4a6aa0bad80397e577cf95, type: 3}
   _successSounds:
   - {fileID: 8300000, guid: 17fd3a91829ea171b885f03ac921689c, type: 3}
   _failSounds:

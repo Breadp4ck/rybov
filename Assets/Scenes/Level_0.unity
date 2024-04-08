@@ -14731,7 +14731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7421346855065582247, guid: 73a53c1594253d54181507329a309bea, type: 3}
       propertyPath: _assaultDurationSeconds
-      value: 240
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 7421346855065582247, guid: 73a53c1594253d54181507329a309bea, type: 3}
       propertyPath: _fishLakes.Array.data[0]

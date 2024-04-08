@@ -1,5 +1,6 @@
 using System;
 using GlobalStates.Game;
+using SceneManagement.SceneManagement;
 using UnityEngine;
 
 public class PauseUI : MonoBehaviour
@@ -22,6 +23,16 @@ public class PauseUI : MonoBehaviour
     public void OnResumeButtonClicked()
     {
         Game.ResumeGame();
+    }
+
+    public async void OnRestartButtonClicked()
+    {
+        await SceneChanger.ChangeSceneAsync(Constants.SceneType.Level0);
+    }
+
+    public async void OnMainMenuButtonClicked()
+    {
+        await SceneChanger.ChangeSceneAsync(Constants.SceneType.MainMenu);
     }
 
     private void BecomeEnabled()

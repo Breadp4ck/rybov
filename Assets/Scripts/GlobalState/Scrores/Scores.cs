@@ -9,7 +9,7 @@ namespace GlobalState.Scores
 {
     public class Scores : MonoBehaviour
     {
-        public Scores Instance { get; private set; }
+        public static Scores Instance { get; private set; }
 
         public List<FishScoreInfo> CatchedFishScore { get; private set; } = new();
         public List<FishScoreInfo> SavedFishScore => GetSavedFishScoreInfo();
@@ -93,6 +93,24 @@ namespace GlobalState.Scores
 
             return savedFishScore;
         }
+
+        public (int, long) GetSavedFishTypeScoreInfo(StealableFish.Type type)
+        {
+            List<FishScoreInfo> savedFishScore = new();
+            foreach (StealableFish freeFish in FishPool.FreeFishes)
+            {
+                if (freeFish.FishType == type)
+                {
+                    FishScoreInfo fishScoreInfo = new(freeFish.FishType,
+                        _savedFishScoresDistribution.GetScore(freeFish.FishType));
+                    savedFishScore.Add(fishScoreInfo);
+                }
+            }
+
+            return (savedFishScore.Count, savedFishScore.Sum(x => x.Value));
+        }
+
+        public uint GetFishScore(StealableFish.Type type) => _savedFishScoresDistribution.GetScore(type);
         
         private void OnHit(HitType hitType)
         {

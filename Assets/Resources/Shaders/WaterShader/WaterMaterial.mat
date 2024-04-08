@@ -32,6 +32,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 8b85a5cdaa42dc643a831ad5124bebf3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 2800000, guid: 80ed120351a84304ea56f8e77aca2c89, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MaskTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -44,8 +48,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _WaterGlare:
+        m_Texture: {fileID: 2800000, guid: 8d4f52a8f5112fd4296825aee2d4b620, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _WaterTexture:
-        m_Texture: {fileID: 2800000, guid: 8b85a5cdaa42dc643a831ad5124bebf3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 74cde8a079c5fe1428dc1c8a9d5d7094, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _kek:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:

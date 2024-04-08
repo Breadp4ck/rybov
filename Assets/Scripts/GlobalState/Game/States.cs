@@ -17,8 +17,9 @@ namespace GlobalStates.Game
     {
         public override StateType Type => StateType.Start;
 
-        public override void Start()
+        public override async void Start()
         {
+            await Task.Yield();
             Game.Instance.ChangeState(StateType.Assault);
         }
     }
@@ -69,6 +70,8 @@ namespace GlobalStates.Game
         {
             SpawnersHandler.Instance.StopSpawning();
 
+            await Task.Yield();
+            
             const int pollingDelayMs = 200;
             while (SpawnersHandler.Instance.SpawnedThieves.Any(x => x != null))
             {

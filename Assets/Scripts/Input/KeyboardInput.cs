@@ -13,7 +13,8 @@ namespace Inputs
         private readonly Dictionary<InputAction, KeyCode> _keyCodes = new()
         {
             { InputAction.LeftClick, KeyCode.Mouse0 },
-            { InputAction.RightClick, KeyCode.Mouse1 }
+            { InputAction.RightClick, KeyCode.Mouse1 },
+            { InputAction.PauseToggle, KeyCode.Escape }
         };
 
         public bool IsActionDown(InputAction action)

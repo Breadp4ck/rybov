@@ -4,5 +4,7 @@
     {
         LeftClick,
         RightClick,
+        
+        PauseToggle,
     }
 }

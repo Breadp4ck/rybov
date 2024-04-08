@@ -16,21 +16,16 @@ namespace Units.Movement.Shared
     public class KickedOutState : MovementState
     {
         private readonly float _speed;
-        
-        private readonly IMovementHandler _previousMovementHandler;
-        private SimpleTranslate _simpleTranslateMovementHandler;
-        
+
         public KickedOutState(StateMachine stateMachine, float speed) : base(stateMachine)
         {
             _speed = speed;
-            _previousMovementHandler = stateMachine.MovementHandler;
         }
 
         public override void Start()
         {
             SimpleTranslate movementHandler = StateMachine.gameObject.AddComponent<SimpleTranslate>();
-            _simpleTranslateMovementHandler = movementHandler;
-            
+
             movementHandler.ManagedTransform = StateMachine.transform;
             
             movementHandler.Init();
@@ -43,9 +38,7 @@ namespace Units.Movement.Shared
 
         public override void Stop()
         {
-            Object.Destroy(_simpleTranslateMovementHandler);
-            
-            StateMachine.MovementHandler = _previousMovementHandler;
+            StateMachine.TryChangeState<KickedOutState>();
         }
     }
 }

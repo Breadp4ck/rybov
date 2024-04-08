@@ -6,6 +6,9 @@ namespace GlobalState.Level
     {
         public static Level Instance { get; private set; }
 
+        public Constants.SceneType NextSceneType => _nextNextSceneType;
+        [SerializeField] private Constants.SceneType _nextNextSceneType;
+        
         public uint NextLevelIndex => _nextLevelIndex;
         [SerializeField] private uint _nextLevelIndex;
         

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using GlobalState.Level;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,7 @@ namespace SceneManagement
     {
         public static class SceneChanger
         {
-            public static async Task ChangeSceneAsync(Constants.SceneType sceneType, LoadSceneMode loadMode = LoadSceneMode.Single)
+            public static async Task ChangeSceneAsync(Constants.SceneType sceneType)
             {
                 string sceneName = Constants.GetNextSceneString(sceneType);
 
@@ -20,22 +21,16 @@ namespace SceneManagement
 
                 Scene previousScene = SceneManager.GetActiveScene();
 
-                AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(sceneName, loadMode);
+                AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(sceneName);
                 while (loadSceneOperation.isDone == false)
                 {
                     await Task.Yield();
                 }
+            }
 
-                if (loadMode == LoadSceneMode.Single)
-                {
-                    return;
-                }
-                
-                AsyncOperation unloadSceneOperation = SceneManager.UnloadSceneAsync(previousScene);
-                while (unloadSceneOperation.isDone == false)
-                {
-                    await Task.Yield();
-                }
+            public static async Task ReloadCurrentScene()
+            { 
+                await ChangeSceneAsync(Level.Instance.CurrentSceneType);
             }
         }
     }

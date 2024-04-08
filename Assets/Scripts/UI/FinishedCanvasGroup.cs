@@ -7,11 +7,10 @@ namespace UI
     public class FinishedCanvasGroup : MonoBehaviour
     {
         private Game Game => Game.Instance;
-        private CanvasGroup _canvasGroup;
+        [SerializeField] private CanvasGroup _canvasGroup;
 
         private void Start()
         {
-            _canvasGroup = GetComponent<CanvasGroup>();
             _canvasGroup.alpha = 0f;
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;

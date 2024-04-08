@@ -30,6 +30,9 @@ namespace Animations
 
         private Animator _animator;
 
+        private int _initialFishSortingOrder;
+        private StealableFish _lastCarriedFish;
+        
         private static readonly int MoveX = Animator.StringToHash("MoveX");
         private static readonly int MoveY = Animator.StringToHash("MoveY");
         private static readonly int SqrMagnitude = Animator.StringToHash("SqrMagnitude");
@@ -194,12 +197,19 @@ namespace Animations
         
         private void OnFishStolen()
         {
+            _lastCarriedFish = _cat.CarriedFish;
+            _initialFishSortingOrder = _lastCarriedFish.Sprite.sortingOrder;
             _animator.SetBool(IsCarryingFish, true);
         }
         
         private void OnFishDropped()
         {
             _animator.SetBool(IsCarryingFish, false);
+
+            if (_lastCarriedFish != null)
+            {
+                _lastCarriedFish.Sprite.sortingOrder = _initialFishSortingOrder;
+            }
         }
         
         private void OnHit(HitType hitType)

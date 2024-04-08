@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using Fishing;
@@ -11,6 +12,9 @@ namespace MouseControls
     [RequireComponent(typeof(MouseFollower))]
     public class MouseFishing : MonoBehaviour
     {
+        public event Action StartPullFishingRodEvent;
+        public event Action StopPullFishingRodEvent;
+        
         [Header("Range")] [Range(0.1f, 2f)] [SerializeField]
         private float _radius;
         
@@ -90,6 +94,8 @@ namespace MouseControls
 
             _followDragTransformRoutine = _fishingRod.FollowDragTransform(followTransform);
             StartCoroutine(_followDragTransformRoutine);
+            
+            StartPullFishingRodEvent?.Invoke();
         }
 
         public void StopDrag()
@@ -98,6 +104,8 @@ namespace MouseControls
             {
                 StopCoroutine(_followDragTransformRoutine);
             }
+            
+            StopPullFishingRodEvent?.Invoke();
         }
         
     }   

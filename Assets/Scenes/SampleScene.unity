@@ -1579,6 +1579,86 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[0]._spawnChance
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[1]._spawnChance
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[2]._spawnChance
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[3]._spawnChance
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[1]._maxLoseSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[2]._maxLoseSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[3]._maxLoseSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[1]._maxCatchSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[1]._stealableFish
+      value: 
+      objectReference: {fileID: -2112710202022056065, guid: 42285dc60729b1d4e9a6eed829a965ba, type: 3}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[2]._maxCatchSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[2]._stealableFish
+      value: 
+      objectReference: {fileID: -2112710202022056065, guid: fc3040ae6e4121c48a4eede2290dc97d, type: 3}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[3]._maxCatchSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[3]._stealableFish
+      value: 
+      objectReference: {fileID: -2112710202022056065, guid: b4caf0de4cfb52f42a15e9c76b79384a, type: 3}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[1]._initialCatchExtent
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[2]._initialCatchExtent
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[3]._initialCatchExtent
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[1]._fishAggressivityInSeconds
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[2]._fishAggressivityInSeconds
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392682853004590979, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
+      propertyPath: _fishInfo.Array.data[3]._fishAggressivityInSeconds
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7445297314943185132, guid: e87e3fd30fa074643918683dfb8da4e9, type: 3}
       propertyPath: m_Enabled
       value: 1

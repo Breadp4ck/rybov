@@ -99,7 +99,8 @@ namespace Animations
             {
                 return;
             }
-            
+
+            _cat.CarriedFish.Sprite.flipX = true;
             SetFishBehindCat();
         }
         
@@ -117,6 +118,7 @@ namespace Animations
                 return;
             }
             
+            _cat.CarriedFish.Sprite.flipX = false;
             SetFishBehindCat();
         }
         

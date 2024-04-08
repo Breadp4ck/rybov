@@ -8,7 +8,7 @@ public static class Constants
     public enum SceneType : byte
     {
         MainMenu,
-        Level,
+        Level0,
     }
     
     [CanBeNull]
@@ -17,13 +17,8 @@ public static class Constants
         return sceneType switch
         {
             SceneType.MainMenu => "MainMenu",
-            SceneType.Level => $"Level_{GetNextLevelIndex()}",
+            SceneType.Level0 => $"Level_0",
             _ => null
         };
-    }
-
-    private static uint GetNextLevelIndex()
-    {
-        return Level.Instance.NextLevelIndex;
     }
 }

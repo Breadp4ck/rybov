@@ -1414,9 +1414,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fishLake: {fileID: 3392682853004590979}
   _reelSounds:
-  - {fileID: 8300000, guid: 36e61f0f1f2069ba0badc4bbfba1bf5f, type: 3}
+  - {fileID: 8300000, guid: 04ce57858e4a6aa0bad80397e577cf95, type: 3}
   _successSounds:
   - {fileID: 8300000, guid: 17fd3a91829ea171b885f03ac921689c, type: 3}
+  _failSounds:
+  - {fileID: 8300000, guid: 70a26ccfba2695ea695e3f71d29a34d9, type: 3}
+  - {fileID: 8300000, guid: 09e38105202413537a8c06db7e41aed3, type: 3}
+  - {fileID: 8300000, guid: 471479ca6b729031080f798a95487b5c, type: 3}
+  - {fileID: 8300000, guid: a71ed33dc38535986aaa75e99b06bb7e, type: 3}
 --- !u!82 &3869836861837892066
 AudioSource:
   m_ObjectHideFlags: 0

@@ -9,8 +9,8 @@ namespace GlobalState.Level
         public Constants.SceneType NextSceneType => _nextNextSceneType;
         [SerializeField] private Constants.SceneType _nextNextSceneType;
         
-        public uint NextLevelIndex => _nextLevelIndex;
-        [SerializeField] private uint _nextLevelIndex;
+        public Constants.SceneType CurrentSceneType => _currentSceneType;
+        [SerializeField] private Constants.SceneType _currentSceneType;
         
         private void Awake()
         {

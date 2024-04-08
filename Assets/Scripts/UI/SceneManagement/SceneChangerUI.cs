@@ -14,7 +14,7 @@ namespace UI.SceneManagement
             {
                 if (Input.GetKeyDown(KeyCode.C))
                 {
-                    await SceneChanger.ChangeSceneAsync(GlobalState.Level.Level.Instance.NextSceneType, LoadSceneMode.Additive);
+                    await SceneChanger.ChangeSceneAsync(Level.Instance.NextSceneType);
                 }
             }
         }

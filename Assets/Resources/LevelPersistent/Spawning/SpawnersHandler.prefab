@@ -47,14 +47,10 @@ MonoBehaviour:
   _spawnInfo:
   - _fishThiefPrefab: {fileID: 8083936104518327601, guid: 420479287fb5f3b4c96a114e281b85e1, type: 3}
     _spawnCost: 1
-    _spawnChance: 1
-  _spawners:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+    _spawnChance: 0.66
+  - _fishThiefPrefab: {fileID: 8083936104518327601, guid: f428d5b98ceddae419177d8e46b87fbd, type: 3}
+    _spawnCost: 2
+    _spawnChance: 0.34
   _wavesCount: 2
   _wavesIntervalSeconds: 10
   _spawnsIntervalSeconds: 1

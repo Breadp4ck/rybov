@@ -18,9 +18,9 @@ namespace Units.Spawning
         
         [SerializeField] private List<SpawnInfo> _spawnInfo;
 
-        private List<FishThiefSpawner> _spawners;
+        [SerializeField] private List<FishThiefSpawner> _spawners;
 
-        private List<FishLake> _fishLakes;
+        [SerializeField] private List<FishLake> _fishLakes;
 
         [SerializeField] private uint _wavesCount;
 

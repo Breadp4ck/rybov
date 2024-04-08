@@ -11,9 +11,15 @@ namespace UI
 
         private void Start()
         {
+            DontDestroyOnLoad(_canvasGroup);
             _canvasGroup.alpha = 0f;
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;
+        }
+        
+        private void Awake()
+        {
+            DontDestroyOnLoad(_canvasGroup);
         }
         
         private void OnEnable()

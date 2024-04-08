@@ -1,4 +1,5 @@
-﻿using GlobalStates.Game;
+﻿using System;
+using GlobalStates.Game;
 using UnityEngine;
 
 namespace UI
@@ -13,7 +14,12 @@ namespace UI
             _canvasGroup = GetComponent<CanvasGroup>();
             BecomeDisabled();
         }
-        
+
+        private void Awake()
+        {
+            DontDestroyOnLoad(_canvasGroup);
+        }
+
         private void OnEnable()
         {
             Game.PausedEvent += BecomeEnabled;

@@ -49,6 +49,14 @@ namespace Fishing.Pool
         {
             StartCoroutine(GenerateFish());
         }
+        
+        private void OnValidate()
+        {
+            if (Math.Abs(_fishInfo.Select(x => x .SpawnChance).Sum() - 1) > 0.01f)
+            {
+                Debug.LogWarning($"Spawn chances in {gameObject} sum are not equal to 1");
+            }
+        }
 
         public void StartCatching()
         {

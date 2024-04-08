@@ -17,6 +17,8 @@ namespace GlobalStates.Game
     
     public class StartState : State
     {
+        private Game Game = Game.Instance;
+        
         public override StateType Type => StateType.Start;
 
         private readonly List<FishLake> _fishLakes;

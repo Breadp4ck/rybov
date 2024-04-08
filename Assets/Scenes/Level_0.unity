@@ -14726,9 +14726,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7421346855065582247, guid: 73a53c1594253d54181507329a309bea, type: 3}
+      propertyPath: _fishLakes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7421346855065582247, guid: 73a53c1594253d54181507329a309bea, type: 3}
       propertyPath: _assaultDurationSeconds
       value: 240
       objectReference: {fileID: 0}
+    - target: {fileID: 7421346855065582247, guid: 73a53c1594253d54181507329a309bea, type: 3}
+      propertyPath: _fishLakes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1934526957}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73a53c1594253d54181507329a309bea, type: 3}
 --- !u!1001 &7618741720032990999

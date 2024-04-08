@@ -27,11 +27,13 @@ public class PauseUI : MonoBehaviour
 
     public async void OnRestartButtonClicked()
     {
+        Game.ResumeGame();
         await SceneChanger.ChangeSceneAsync(Constants.SceneType.Level0);
     }
 
     public async void OnMainMenuButtonClicked()
     {
+        Game.ResumeGame();
         await SceneChanger.ChangeSceneAsync(Constants.SceneType.MainMenu);
     }
 

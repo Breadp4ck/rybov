@@ -8,6 +8,14 @@ namespace UI
     {
         private Game Game => Game.Instance;
         private CanvasGroup _canvasGroup;
+
+        private void Start()
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+            _canvasGroup.alpha = 0f;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
+        }
         
         private void OnEnable()
         {
@@ -16,8 +24,6 @@ namespace UI
 
         private void OnStateChanged(StateType stateType)
         {
-            print(stateType);
-            _canvasGroup = GetComponent<CanvasGroup>();
             if (stateType == StateType.Finish)
             { 
                 _canvasGroup.alpha = 1f;

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7650c7086cb09b409bab02185daf448, type: 3}
   m_Name: CatHitConfig
   m_EditorClassIdentifier: 
-  _slapThreshold: 0.2
-  _snapThreshold: 0.6
-  _gigaSnapThreshold: 0.9
+  _slapThreshold: 0
+  _snapThreshold: 0.4
+  _gigaSnapThreshold: 0.9999

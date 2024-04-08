@@ -460,8 +460,8 @@ Transform:
   m_GameObject: {fileID: 8083936104518327601}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3718202482341074984}
   - {fileID: 7065927786316722734}
@@ -513,9 +513,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cat: {fileID: 2381421172198491923}
-  _pilferSpeed: 2
+  _pilferSpeed: 0.8
   _takeFishRange: 0.4
-  _runawaySpeed: 3
+  _runawaySpeed: 0.8
   _kickOutSpeed: 15
 --- !u!114 &6656350551401897462
 MonoBehaviour:

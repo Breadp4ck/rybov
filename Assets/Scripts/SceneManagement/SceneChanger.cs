@@ -10,9 +10,11 @@ namespace SceneManagement
         {
             public static async Task ChangeSceneAsync(Constants.SceneType sceneType, LoadSceneMode loadMode = LoadSceneMode.Single)
             {
-                if (Constants.Scenes.TryGetValue(sceneType, out string sceneName) == false)
+                string sceneName = Constants.GetNextSceneString(sceneType);
+
+                if (sceneName == null)
                 {
-                    Debug.LogError($"Scene {sceneType} not found. Check Constants.cs");
+                    Debug.LogError("Scene can`t be found.");
                     return;
                 }
 

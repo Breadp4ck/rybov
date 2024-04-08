@@ -110,7 +110,7 @@ namespace MouseControls
             
             foreach (Collider2D overlapped in overlappedColliders)
             {
-                if (overlapped.TryGetComponent(out IHittable hittable) == false)
+                if (overlapped.TryGetComponent(out Hittable hittable) == false)
                 {
                     continue;
                 }

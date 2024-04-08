@@ -12,6 +12,7 @@ namespace Fishing
         
         public static FishingRod CurrentCatcher { get; private set; }
         
+        public FishLake FishLake => _fishLake;
         [SerializeField] private FishLake _fishLake;
 
         private Vector3 _initialPosition;

@@ -21,7 +21,7 @@ namespace Units.Hitting
         /// </summary>
         [SerializeField] private float _gigaSnapThreshold;
         
-        public void Handle(float power, IHittable hittable)
+        public void Handle(float power, Hittable hittable)
         {
             switch (GetHitType(power))
             {

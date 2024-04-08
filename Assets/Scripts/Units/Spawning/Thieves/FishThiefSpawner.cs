@@ -6,7 +6,6 @@ namespace Units.Spawning
     {
         public GameObject Spawn(GameObject prefab)
         {
-            Debug.Log($"Spawned: {prefab.name}");
             return Instantiate(prefab, transform.position, Quaternion.identity);
         }
     }

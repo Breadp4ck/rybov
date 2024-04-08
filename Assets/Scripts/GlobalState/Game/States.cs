@@ -44,8 +44,12 @@ namespace GlobalStates.Game
             while (timePassedSeconds < _assaultDurationSeconds)
             {
                 timePassedSeconds += delayMs / 1000f;
+                Game.Instance.SetRemainingAssaultTime(_assaultDurationSeconds - timePassedSeconds);
+                
                 await Task.Delay(delayMs, _cancellationToken);
             }
+
+            await Task.Yield();
             
             Game.Instance.ChangeState(StateType.Fleeing);
         }

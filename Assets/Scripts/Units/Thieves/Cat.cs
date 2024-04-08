@@ -11,6 +11,11 @@ namespace Units
 {
     public class Cat : MonoBehaviour, IFishThief, IHittable, IStunnable
     {
+        public event Action<HitType> HitEvent;
+        
+        public event Action FishStoleEvent;
+        public event Action FishDroppedEvent;
+        
         public StealableFish CarriedFish { get; private set; }
         
         [Header("IFishThief")]
@@ -22,8 +27,8 @@ namespace Units
 
         public TimeSpan StunDuration => TimeSpan.FromSeconds(_stunDurationSeconds);
         [SerializeField] private float _stunDurationSeconds;
-
-
+        
+        public HitConfig HitConfig => _hitConfig;
         [Header("ISnappable")]
         [SerializeField] private HitConfig _hitConfig;
 
@@ -31,6 +36,7 @@ namespace Units
         [SerializeField] private StateMachine _stateMachine;
         
         private IEnumerator _keepCarriedFishCloseRoutine;
+        private IEnumerator _stunRoutine;
 
         #region IFishThief
 
@@ -45,6 +51,8 @@ namespace Units
 
             _keepCarriedFishCloseRoutine = KeepCarriedFishClose();
             StartCoroutine(_keepCarriedFishCloseRoutine);
+            
+            FishStoleEvent?.Invoke();
         }
 
         public void OnFishDrop()
@@ -55,6 +63,8 @@ namespace Units
             {
                 StopCoroutine(_keepCarriedFishCloseRoutine);
             }
+            
+            FishDroppedEvent?.Invoke();
         }
         
         private IEnumerator KeepCarriedFishClose()
@@ -91,10 +101,16 @@ namespace Units
             _hitConfig.Handle(power, this);
         }
 
-        public void GigaSnap()
+        public virtual void GigaSnap()
         {
-            IHittable.HitEvent?.Invoke(HitType.GigaSnap);
+            HitEvent?.Invoke(HitType.GigaSnap);
+            IHittable.StaticHitEvent?.Invoke(HitType.GigaSnap);
             _stateMachine.TryChangeState<KickedOutState>();
+            
+            if (_stunRoutine != null)
+            {
+                StopCoroutine(_stunRoutine);
+            }
             
             if (CarriedFish == null)
             {
@@ -104,9 +120,10 @@ namespace Units
             FishPool.DropFish(CarriedFish, this);
         }
 
-        public void Snap()
+        public virtual void Snap()
         {
-            IHittable.HitEvent?.Invoke(HitType.Snap);
+            HitEvent?.Invoke(HitType.Snap);
+            IHittable.StaticHitEvent?.Invoke(HitType.Snap);
             Stun(StunDuration);
 
             if (CarriedFish == null)
@@ -117,9 +134,10 @@ namespace Units
             FishPool.DropFish(CarriedFish, this);
         }
 
-        public void Slap()
+        public virtual void Slap()
         {
-            IHittable.HitEvent?.Invoke(HitType.Slap);
+            HitEvent?.Invoke(HitType.Slap);
+            IHittable.StaticHitEvent?.Invoke(HitType.Slap);
             Stun(StaggerDuration);
             
             if (CarriedFish == null)
@@ -136,7 +154,13 @@ namespace Units
         
         public void Stun(TimeSpan duration)
         {
-            StartCoroutine(StunRoutine(duration));
+            if (_stunRoutine != null)
+            {
+                StopCoroutine(_stunRoutine);
+            }
+            
+            _stunRoutine = StunRoutine(duration);
+            StartCoroutine(_stunRoutine);
         }
         
         private IEnumerator StunRoutine(TimeSpan duration)

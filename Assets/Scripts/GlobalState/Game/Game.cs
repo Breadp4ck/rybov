@@ -19,6 +19,8 @@ namespace GlobalStates.Game
         
         public bool IsGamePaused { get; private set; }
         
+        public float RemainingAssaultTimeSeconds { get; private set; }
+        
         [SerializeField] private float _assaultDurationSeconds;
         public float AssaultDurationSeconds => _assaultDurationSeconds;
         
@@ -73,6 +75,11 @@ namespace GlobalStates.Game
             }
         }
 
+        public void SetRemainingAssaultTime(float remainingAssaultTimeSeconds)
+        {
+            RemainingAssaultTimeSeconds = remainingAssaultTimeSeconds;
+        }
+        
         public void ChangeState(StateType stateType)
         {
             State state = _states.FirstOrDefault(x => x.Type == stateType);

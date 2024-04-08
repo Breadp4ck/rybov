@@ -16,8 +16,8 @@ MonoBehaviour:
   - _type: 0
     _score: 0
   - _type: 1
-    _score: 10
+    _score: 1
   - _type: 2
-    _score: 20
+    _score: 2
   - _type: 3
-    _score: 30
+    _score: 5

@@ -114,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 5988630562370087052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 0.95, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5885565525101764960}
@@ -139,8 +139,8 @@ MonoBehaviour:
   _minDistanceForRotation: 0.01
   _rotationSpeed: 5
   _sprite: {fileID: 291279332569202644}
-  _minScaleOnDrag: {x: 1, y: 1}
-  _maxScaleOnDrag: {x: 1.5, y: 1.5}
+  _minScaleOnDrag: {x: 0.4, y: 0.4}
+  _maxScaleOnDrag: {x: 0.6, y: 0.6}
 --- !u!114 &5988630562370087054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,9 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c08c9edc36454f5478c8c7e53c407a76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cooldownSeconds: 2
-  _minFidgetRange: 0.4
-  _maxFidgetRange: 1.2
+  _cooldownSeconds: 4
+  _minFidgetRange: 2.4
+  _maxFidgetRange: 3.6
   _minFidgetSpeed: 6
   _maxFidgetSpeed: 6
 --- !u!114 &9047647533284469390

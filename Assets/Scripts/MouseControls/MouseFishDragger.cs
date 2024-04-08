@@ -10,6 +10,9 @@ namespace MouseControls
     [RequireComponent(typeof(MouseFollower))]
     public class MouseFishDragger : MonoBehaviour
     {
+        public event Action StartDragEvent; 
+        public event Action StopDragEvent;
+        
         [Header("Range")] [Range(0.1f, 2f)] [SerializeField]
         private float _radius;
         
@@ -42,6 +45,8 @@ namespace MouseControls
                 
                 draggable.StartDrag(transform);
                 _draggable = draggable;
+                
+                StartDragEvent?.Invoke();
             }
 
             if (_inputSystem.IsActionUp(InputAction.RightClick) == true)
@@ -56,6 +61,8 @@ namespace MouseControls
                 }
                 
                 _draggable = null;
+                
+                StopDragEvent?.Invoke();
             }
         }
         

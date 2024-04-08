@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4645485192422998885}
   - component: {fileID: 4645485192422998884}
   - component: {fileID: 4645485192422998883}
+  - component: {fileID: 5884491774767871657}
   m_Layer: 0
   m_Name: MouseControls
   m_TagString: Untagged
@@ -89,3 +90,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 0.35
+--- !u!114 &5884491774767871657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4645485192422998887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4792d546f28c67d4687129698d9fde32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitter: {fileID: 4645485192422998885}
+  _fishDragger: {fileID: 4645485192422998884}
+  _fishing: {fileID: 4645485192422998883}
+  _defaultSprite: {fileID: 2800000, guid: 2565251a81c5ededd8e59f9ec4aa31c1, type: 3}
+  _hitSprite: {fileID: 2800000, guid: ba0aca5403c1d7eb49d3584be8930250, type: 3}
+  _fishDragSprite: {fileID: 2800000, guid: 26c76fbfc4738384b99924652eaa3cba, type: 3}
+  _fishingSprite: {fileID: 2800000, guid: 26c76fbfc4738384b99924652eaa3cba, type: 3}

@@ -13869,7 +13869,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1131903497402803341, guid: 3b05c89a02cc6e84aad8c059e0499283, type: 3}
       propertyPath: _wavesCount
-      value: 30
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 1131903497402803341, guid: 3b05c89a02cc6e84aad8c059e0499283, type: 3}
       propertyPath: _spawners.Array.size
@@ -13881,7 +13881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1131903497402803341, guid: 3b05c89a02cc6e84aad8c059e0499283, type: 3}
       propertyPath: _wavesIntervalSeconds
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1131903497402803341, guid: 3b05c89a02cc6e84aad8c059e0499283, type: 3}
       propertyPath: _spawnsIntervalSeconds
@@ -13890,35 +13890,35 @@ PrefabInstance:
     - target: {fileID: 1131903497402803341, guid: 3b05c89a02cc6e84aad8c059e0499283, type: 3}
       propertyPath: _spawners.Array.data[0]
       value: 
-      objectReference: {fileID: 138503105}
+      objectReference: {fileID: 63399541}
     - target: {fileID: 1131903497402803341, guid: 3b05c89a02cc6e84aad8c059e0499283, type: 3}
       propertyPath: _spawners.Array.data[1]
       value: 
-      objectReference: {fileID: 1325536598}
+      objectReference: {fileID: 128031770}
     - target: {fileID: 1131903497402803341, guid: 3b05c89a02cc6e84aad8c059e0499283, type: 3}
       propertyPath: _spawners.Array.data[2]
       value: 
-      objectReference: {fileID: 1125548852}
+      objectReference: {fileID: 138503105}
     - target: {fileID: 1131903497402803341, guid: 3b05c89a02cc6e84aad8c059e0499283, type: 3}
       propertyPath: _spawners.Array.data[3]
       value: 
-      objectReference: {fileID: 996887284}
+      objectReference: {fileID: 685413133}
     - target: {fileID: 1131903497402803341, guid: 3b05c89a02cc6e84aad8c059e0499283, type: 3}
       propertyPath: _spawners.Array.data[4]
       value: 
-      objectReference: {fileID: 63399541}
+      objectReference: {fileID: 903587470}
     - target: {fileID: 1131903497402803341, guid: 3b05c89a02cc6e84aad8c059e0499283, type: 3}
       propertyPath: _spawners.Array.data[5]
       value: 
-      objectReference: {fileID: 128031770}
+      objectReference: {fileID: 996887284}
     - target: {fileID: 1131903497402803341, guid: 3b05c89a02cc6e84aad8c059e0499283, type: 3}
       propertyPath: _spawners.Array.data[6]
       value: 
-      objectReference: {fileID: 685413133}
+      objectReference: {fileID: 1125548852}
     - target: {fileID: 1131903497402803341, guid: 3b05c89a02cc6e84aad8c059e0499283, type: 3}
       propertyPath: _spawners.Array.data[7]
       value: 
-      objectReference: {fileID: 903587470}
+      objectReference: {fileID: 1325536598}
     - target: {fileID: 1131903497402803341, guid: 3b05c89a02cc6e84aad8c059e0499283, type: 3}
       propertyPath: _spawners.Array.data[8]
       value: 
@@ -14287,7 +14287,7 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 4645485192422998883, guid: 17469ab3a990a074bacd8ec5907ef279, type: 3}
       propertyPath: _radius
-      value: 0.25
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4645485192422998884, guid: 17469ab3a990a074bacd8ec5907ef279, type: 3}
       propertyPath: _camera
@@ -14295,7 +14295,7 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 4645485192422998884, guid: 17469ab3a990a074bacd8ec5907ef279, type: 3}
       propertyPath: _radius
-      value: 0.25
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4645485192422998885, guid: 17469ab3a990a074bacd8ec5907ef279, type: 3}
       propertyPath: _camera
@@ -14303,7 +14303,7 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 4645485192422998885, guid: 17469ab3a990a074bacd8ec5907ef279, type: 3}
       propertyPath: _radius
-      value: 0.5
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 4645485192422998885, guid: 17469ab3a990a074bacd8ec5907ef279, type: 3}
       propertyPath: _maxPowerTimeSeconds

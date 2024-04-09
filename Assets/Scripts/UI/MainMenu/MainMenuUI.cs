@@ -1,4 +1,5 @@
-﻿using SceneManagement.SceneManagement;
+﻿using System;
+using SceneManagement.SceneManagement;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -10,6 +11,12 @@ namespace UI.MainMenu
         [SerializeField] private AudioMixer _audioMixer;
         [SerializeField] private Slider _musicSlider;
         [SerializeField] private Slider _sfxSlider;
+
+        private void Start()
+        {
+            SetMusicMixer();
+            SetSfxMixer();
+        }
 
         public async void OnPlayButtonClicked()
         {

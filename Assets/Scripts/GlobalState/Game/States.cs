@@ -86,6 +86,13 @@ namespace GlobalStates.Game
 
         private CancellationToken _cancellationToken;
         
+        private float _maxFleeDurationSeconds;
+
+        public FleeingState(float maxFleeDurationSeconds)
+        {
+            _maxFleeDurationSeconds = maxFleeDurationSeconds;
+        }
+
         public override async void Start()
         {
             SpawnersHandler.Instance.StopSpawning();
@@ -93,8 +100,10 @@ namespace GlobalStates.Game
             await Task.Yield();
             
             const int pollingDelayMs = 200;
-            while (SpawnersHandler.Instance.SpawnedThieves.Any(x => x != null))
+            float timePassedSeconds = 0;
+            while (SpawnersHandler.Instance.SpawnedThieves.Any(x => x != null) || timePassedSeconds < _maxFleeDurationSeconds)
             {
+                timePassedSeconds += pollingDelayMs / 1000f;
                 await Task.Delay(pollingDelayMs, _cancellationToken);
             }
             

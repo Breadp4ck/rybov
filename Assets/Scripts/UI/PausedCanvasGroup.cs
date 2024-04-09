@@ -9,15 +9,10 @@ namespace UI
         private Game Game => Game.Instance;
         private CanvasGroup _canvasGroup;
         
-        private void Start()
+        private void Awake()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
             BecomeDisabled();
-        }
-
-        private void Awake()
-        {
-            DontDestroyOnLoad(_canvasGroup);
         }
 
         private void OnEnable()

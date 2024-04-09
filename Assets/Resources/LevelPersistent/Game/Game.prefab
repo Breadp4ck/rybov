@@ -45,3 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _assaultDurationSeconds: 10
+  _fleeingDurationSeconds: 10
+  _fishLakes:
+  - {fileID: 0}

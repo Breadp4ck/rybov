@@ -25,6 +25,8 @@ namespace GlobalStates.Game
         [SerializeField] private float _assaultDurationSeconds;
         public float AssaultDurationSeconds => _assaultDurationSeconds;
         
+        [SerializeField] private float _fleeingDurationSeconds;
+        
         [SerializeField] private List<FishLake> _fishLakes;
         
         private IEnumerable<State> _states = Enumerable.Empty<State>();
@@ -59,7 +61,7 @@ namespace GlobalStates.Game
             {
                 new StartState(_fishLakes),
                 new AssaultState(_assaultDurationSeconds),
-                new FleeingState(),
+                new FleeingState(_fleeingDurationSeconds),
                 new FinishState()
             };
             

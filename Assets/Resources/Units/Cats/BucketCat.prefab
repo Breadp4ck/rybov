@@ -80,7 +80,7 @@ AudioSource:
   m_GameObject: {fileID: 3591705557686140529}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3742157179831243423, guid: 4bd56804347dadb409be165573327fda, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -628,6 +628,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThiefSoundPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 8330982648130994786, guid: e9021cb79ecfd4e499673227be1ee230, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 3742157179831243423, guid: 4bd56804347dadb409be165573327fda, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9021cb79ecfd4e499673227be1ee230, type: 3}
 --- !u!4 &3442500599337166640 stripped

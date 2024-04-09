@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UI.Level
 {
-    public class SumOfCaughtFishUI : MonoBehaviour
+    public class SumOfScoresUI : MonoBehaviour
     {
         private Scores Scores => Scores.Instance;
 
